@@ -4,53 +4,46 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
 
 const faqs = [
   {
-    question: "Qu'est-ce que le Dispositif Jeanbrun / Statut du Bailleur Privé ?",
-    answer: "Le Dispositif Jeanbrun, officiellement appelé Statut du Bailleur Privé, est un nouveau dispositif fiscal mis en place par le ministre du Logement Vincent Jeanbrun. Il vise à encourager l'investissement locatif dans le neuf en offrant des avantages fiscaux aux particuliers qui s'engagent à louer leur bien sur une durée déterminée."
+    question: "Le dispositif Jeanbrun est-il déjà en vigueur ?",
+    answer: "Non. Au 26 janvier 2026, le gouvernement a utilisé l'article 49.3 le 20 janvier 2026, mais la loi n'est pas encore définitivement promulguée. Le dispositif a été officiellement nommé \"Relance Logement\" lors de sa présentation gouvernementale le 23 janvier 2026. Aucun décret d'application n'a été publié."
   },
   {
-    question: "Quels sont les avantages fiscaux du dispositif ?",
-    answer: "Le dispositif offre une réduction d'impôt sur le revenu calculée sur le prix d'acquisition du bien. Le taux de réduction varie selon la durée d'engagement locatif choisie : plus vous vous engagez longtemps, plus le taux est avantageux. Des avantages complémentaires peuvent s'appliquer selon votre situation."
+    question: "Puis-je louer à ma famille ?",
+    answer: "Non. L'amendement I-3970 exclut explicitement la location aux ascendants, descendants et beaux-parents jusqu'au 2e degré. Cette interdiction vise à prévenir les schémas d'optimisation fiscale familiale."
   },
   {
-    question: "Quelles sont les conditions pour bénéficier du dispositif ?",
-    answer: "Pour bénéficier du Statut du Bailleur Privé, vous devez investir dans un logement neuf ou en VEFA, respecter des plafonds de loyers et de ressources des locataires définis par zone géographique, et vous engager à louer le bien nu à usage de résidence principale sur une durée minimale."
+    question: "Comment sont calculés les plafonds de loyer ?",
+    answer: "Les plafonds de loyer sont basés sur les plafonds Pinel par zone ABC, ajustés par un coefficient de structure (0,7 + 19/Surface, plafonné à 1,2). Plafonds 2025 : A bis : 19,51 €/m², A : 14,49 €/m², B1 : 11,68 €/m², B2 : 10,15 €/m², C : 10,15 €/m². Niveau intermédiaire = plafond Pinel, social = Pinel × 0,85 (-15%), très social = Pinel × 0,70 (-30%)."
   },
   {
-    question: "Quelles zones géographiques sont éligibles ?",
-    answer: "Le dispositif s'applique dans les zones où la demande locative est forte. Nos programmes à Chartres (Eure-et-Loir) et Metz (Moselle) sont situés dans des zones éligibles. Nous proposons également des programmes dans d'autres villes de France répondant aux critères du dispositif."
+    question: "Quelle différence entre amortissement et crédit d'impôt ?",
+    answer: "Le crédit d'impôt (Pinel) réduisait directement l'impôt dû, avec un plafond lié au montant de l'impôt. L'amortissement (Jeanbrun) est une charge déductible qui réduit le revenu imposable. Il peut être imputé sur le revenu global, une première pour un dispositif immobilier. Concrètement, l'amortissement peut créer un déficit qui réduit l'impôt sur les salaires et autres revenus."
   },
   {
-    question: "Puis-je cumuler ce dispositif avec d'autres avantages ?",
-    answer: "Le cumul avec d'autres dispositifs fiscaux est encadré par la loi. Nos conseillers analysent votre situation personnelle pour optimiser votre stratégie patrimoniale et fiscale. Une étude personnalisée vous permettra de connaître les meilleures options pour votre projet."
+    question: "Quand le dispositif entre-t-il en application ?",
+    answer: "Le dispositif couvre les acquisitions réalisées entre le 1er janvier 2026 et le 31 décembre 2028. Cependant, son application effective dépend de la promulgation de la loi de finances et de la publication des décrets. Les professionnels recommandent d'attendre les textes officiels avant de s'engager."
   },
   {
-    question: "Comment se passe l'accompagnement avec Polyvalence Immobilier ?",
-    answer: "Nous vous accompagnons de A à Z : étude de faisabilité, sélection du programme adapté à vos objectifs, montage du financement, suivi de la construction, mise en location et gestion locative si vous le souhaitez. Nos agences à Chartres et Metz sont à votre disposition."
+    question: "Combien de biens puis-je acquérir ?",
+    answer: "Le dispositif est limité à maximum 2 biens par foyer fiscal. Cette limite vise à concentrer l'avantage fiscal sur les petits et moyens investisseurs plutôt que sur les grands portefeuilles."
   }
 ];
 
 export const FAQSection = () => {
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section id="faq" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           {/* Section header */}
           <div className="text-center mb-12">
-            <p className="text-primary font-semibold mb-2">Questions fréquentes</p>
             <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-              Tout savoir sur le Dispositif Jeanbrun
+              Questions fréquentes
             </h2>
             <p className="text-muted-foreground text-lg">
-              Retrouvez les réponses aux questions les plus courantes sur le Statut du Bailleur Privé.
+              Réponses aux questions les plus courantes
             </p>
           </div>
 
@@ -71,20 +64,6 @@ export const FAQSection = () => {
               </AccordionItem>
             ))}
           </Accordion>
-
-          {/* CTA */}
-          <div className="mt-12 text-center bg-trust-light rounded-2xl p-8 border border-primary/20">
-            <MessageCircle className="w-10 h-10 text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              Vous avez d'autres questions ?
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Nos conseillers experts sont disponibles pour répondre à toutes vos interrogations.
-            </p>
-            <Button size="lg" onClick={scrollToContact}>
-              Poser ma question
-            </Button>
-          </div>
         </div>
       </div>
     </section>
