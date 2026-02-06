@@ -60,6 +60,7 @@ export default {
         trust: {
           DEFAULT: "hsl(var(--trust))",
           light: "hsl(var(--trust-light))",
+          dark: "hsl(var(--trust-dark))",
         },
         gold: {
           DEFAULT: "hsl(var(--gold))",
@@ -68,6 +69,10 @@ export default {
         success: {
           DEFAULT: "hsl(var(--success))",
           light: "hsl(var(--success-light))",
+        },
+        hero: {
+          start: "hsl(var(--hero-start))",
+          end: "hsl(var(--hero-end))",
         },
       },
       borderRadius: {
