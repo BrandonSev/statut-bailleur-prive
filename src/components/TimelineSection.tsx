@@ -10,44 +10,44 @@ interface TimelineStep {
 
 const timelineSteps: TimelineStep[] = [
   {
-    date: "15 septembre 2025",
-    title: "Présentation du projet de loi",
-    description: "Dépôt du projet de loi de finances 2026 incluant le dispositif Jeanbrun",
+    date: "Septembre 2025",
+    title: "Dépôt du PLF 2026",
+    description: "Le gouvernement intègre l'article 12 octies dans le projet de loi de finances",
     status: "completed",
     icon: <FileText className="w-5 h-5" />,
   },
   {
-    date: "12 novembre 2025",
-    title: "Adoption en Commission",
-    description: "Vote favorable en commission des finances de l'Assemblée nationale",
+    date: "Novembre 2025",
+    title: "Débats parlementaires",
+    description: "Amendements et discussions en commission des finances",
     status: "completed",
     icon: <Gavel className="w-5 h-5" />,
   },
   {
     date: "20 janvier 2026",
-    title: "Adoption via 49.3",
-    description: "Le gouvernement engage sa responsabilité - Officiellement nommé \"Relance Logement\"",
+    title: "Validation gouvernementale",
+    description: "Adoption du texte - Nom officiel : Statut du Bailleur Privé",
     status: "completed",
     icon: <Gavel className="w-5 h-5" />,
   },
   {
-    date: "En attente",
-    title: "Décrets d'application",
-    description: "Publication des décrets précisant les modalités d'application du dispositif",
+    date: "Février-Mars 2026",
+    title: "Rédaction des décrets",
+    description: "Précisions sur les modalités d'application attendues",
     status: "current",
     icon: <Clock className="w-5 h-5" />,
   },
   {
-    date: "Prévision Q2 2026",
-    title: "Entrée en vigueur",
-    description: "Application effective du dispositif pour les nouveaux investissements",
+    date: "Q2 2026",
+    title: "Opérationnel",
+    description: "Premiers investissements éligibles au nouveau cadre fiscal",
     status: "upcoming",
     icon: <Building className="w-5 h-5" />,
   },
   {
-    date: "31 décembre 2034",
-    title: "Fin du dispositif",
-    description: "Date limite pour bénéficier du Statut du Bailleur Privé",
+    date: "Fin 2034",
+    title: "Échéance du dispositif",
+    description: "Clôture prévue du Statut du Bailleur Privé",
     status: "upcoming",
     icon: <Calendar className="w-5 h-5" />,
   },
@@ -59,13 +59,13 @@ export const TimelineSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 md:mb-16">
           <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            Suivi législatif
+            Parcours législatif
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Calendrier du dispositif
+            Où en sommes-nous ?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Suivez en temps réel l'avancement du Statut du Bailleur Privé, de sa conception à son entrée en vigueur
+            De l'idée initiale à la mise en œuvre : suivez chaque étape clé du nouveau cadre fiscal pour les bailleurs
           </p>
         </div>
 
@@ -199,15 +199,15 @@ export const TimelineSection = () => {
         <div className="flex flex-wrap justify-center gap-6 mt-12 pt-8 border-t border-border">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-primary" />
-            <span className="text-sm text-muted-foreground">Étape validée</span>
+            <span className="text-sm text-muted-foreground">Accompli</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-gold animate-pulse" />
-            <span className="text-sm text-muted-foreground">En cours</span>
+            <span className="text-sm text-muted-foreground">Phase actuelle</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-muted border border-border" />
-            <span className="text-sm text-muted-foreground">À venir</span>
+            <span className="text-sm text-muted-foreground">Prochaines étapes</span>
           </div>
         </div>
       </div>

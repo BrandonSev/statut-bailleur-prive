@@ -11,33 +11,33 @@ import {
 const keyPoints = [
   {
     icon: TrendingUp,
-    title: "Amortissement fiscal",
-    description: "Contrairement au Pinel (crédit d'impôt), le dispositif Jeanbrun propose un amortissement annuel de 3,5% à 5,5% déductible du revenu global."
+    title: "Déduction sur le revenu global",
+    description: "L'amortissement génère une charge déductible impactant l'ensemble de vos revenus, pas seulement les revenus fonciers."
   },
   {
     icon: MapPin,
-    title: "Sans zonage",
-    description: "Fini les zones A, A bis, B1 du Pinel. Le dispositif s'applique sur tout le territoire français, métropole et outre-mer."
+    title: "Liberté géographique",
+    description: "Plus de restrictions de zones. Investissez là où le marché locatif a du sens, partout en France métropolitaine et outre-mer."
   },
   {
     icon: Building2,
-    title: "Logements collectifs uniquement",
-    description: "Le dispositif est réservé aux immeubles collectifs. Les maisons individuelles sont exclues, qu'elles soient neuves ou rénovées."
+    title: "Habitat collectif requis",
+    description: "Seuls les appartements en immeuble collectif sont concernés. Les pavillons individuels restent exclus du périmètre."
   },
   {
     icon: Wallet,
-    title: "Déficit foncier",
-    description: "L'amortissement peut créer un déficit déductible du revenu global, plafonné à 10 700 €/an, réduisant l'impôt sur les autres revenus."
+    title: "Création de déficit possible",
+    description: "Si l'amortissement dépasse vos revenus fonciers, le surplus s'impute sur votre revenu global (limite 10 700 €/an)."
   },
   {
     icon: Clock,
-    title: "Engagement 9 ans",
-    description: "Durée de location fixe en résidence principale du locataire. Le bien doit être loué nu (non meublé)."
+    title: "Bail de 9 ans",
+    description: "Une durée unique et fixe. Le logement doit être loué non-meublé comme habitation principale du locataire."
   },
   {
     icon: Home,
-    title: "Plafonds Pinel par zone",
-    description: "Loyers plafonnés selon les barèmes Pinel par zone ABC : A bis (19,51 €/m²), A (14,49 €/m²), B1 (11,68 €/m²), B2/C (10,15 €/m²)."
+    title: "Loyers encadrés",
+    description: "Les plafonds varient selon la zone et le niveau de conventionnement choisi : standard, modéré ou très modéré."
   }
 ];
 
@@ -48,10 +48,10 @@ export const AdvantagesSection = () => {
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-            Points clés du dispositif
+            Ce qui change pour les investisseurs
           </h2>
           <p className="text-muted-foreground text-lg">
-            Un changement de paradigme pour l'investissement locatif en France
+            Un nouveau modèle fiscal pensé pour relancer l'offre de logements abordables
           </p>
         </div>
 

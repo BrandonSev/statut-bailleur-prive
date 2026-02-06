@@ -25,17 +25,15 @@ export const HeroSection = () => {
 
           {/* Title */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Le Dispositif{" "}
-            <span className="text-gold">Jeanbrun</span>
-            <br />
-            Expliqué Simplement
+            Comprendre le{" "}
+            <span className="text-gold">Statut du Bailleur Privé</span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-            Le successeur du Pinel transforme la fiscalité des bailleurs privés : 
-            amortissement jusqu'à 5,5%, déficit foncier de 10 700 euros, sans zonage. 
-            Réservé aux logements collectifs uniquement.
+            Un nouveau mécanisme d'amortissement pour les propriétaires bailleurs. 
+            Déductible du revenu global, applicable partout en France, 
+            ouvert aux logements collectifs neufs ou rénovés.
           </p>
 
           {/* CTA */}
