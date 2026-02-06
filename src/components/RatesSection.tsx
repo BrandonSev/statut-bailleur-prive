@@ -11,15 +11,15 @@ import {
 } from "@/components/ui/table";
 
 const tauxNeuf = [
-  { type: "Intermédiaire (plafond Pinel)", taux: "3,5%", plafond: "8 000 €" },
-  { type: "Social (-15% sur Pinel)", taux: "4,5%", plafond: "10 000 €" },
-  { type: "Très social (-30% sur Pinel)", taux: "5,5%", plafond: "12 000 €" },
+  { type: "Loyer standard", taux: "3,5%", plafond: "8 000 €" },
+  { type: "Loyer modéré", taux: "4,5%", plafond: "10 000 €" },
+  { type: "Loyer très modéré", taux: "5,5%", plafond: "12 000 €" },
 ];
 
 const tauxRenove = [
-  { type: "Intermédiaire (plafond Pinel)", taux: "3%", plafond: "10 700 €" },
-  { type: "Social (-15% sur Pinel)", taux: "3,5%", plafond: "10 700 €" },
-  { type: "Très social (-30% sur Pinel)", taux: "4%", plafond: "10 700 €" },
+  { type: "Loyer standard", taux: "3%", plafond: "10 700 €" },
+  { type: "Loyer modéré", taux: "3,5%", plafond: "10 700 €" },
+  { type: "Loyer très modéré", taux: "4%", plafond: "10 700 €" },
 ];
 
 export const RatesSection = () => {
@@ -29,35 +29,35 @@ export const RatesSection = () => {
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-            Taux d'amortissement
+            Barème d'amortissement annuel
           </h2>
           <p className="text-muted-foreground text-lg">
-            Les taux varient selon le type de bien et le niveau de loyer pratiqué
+            Plus le loyer pratiqué est modéré, plus l'avantage fiscal augmente
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="neuf" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="neuf">Logement neuf</TabsTrigger>
-              <TabsTrigger value="renove">Logement rénové</TabsTrigger>
+              <TabsTrigger value="neuf">Construction neuve</TabsTrigger>
+              <TabsTrigger value="renove">Réhabilitation</TabsTrigger>
             </TabsList>
             
             <TabsContent value="neuf">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Logement neuf</CardTitle>
+                  <CardTitle className="text-lg">Immeubles neufs</CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    RE2020, DPE classe A ou B, achevé après le 01/01/2026
+                    Conformes RE2020, étiquette énergie A ou B, livrés à partir de 2026
                   </p>
                 </CardHeader>
                 <CardContent>
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Type de location</TableHead>
-                        <TableHead className="text-center">Taux / an</TableHead>
-                        <TableHead className="text-right">Plafond</TableHead>
+                        <TableHead>Niveau de loyer</TableHead>
+                        <TableHead className="text-center">Taux annuel</TableHead>
+                        <TableHead className="text-right">Plafond déductible</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -81,18 +81,18 @@ export const RatesSection = () => {
             <TabsContent value="renove">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Logement rénové</CardTitle>
+                  <CardTitle className="text-lg">Logements réhabilités</CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    Minimum 30% de rénovation du prix d'achat, DPE A ou B après travaux
+                    Travaux représentant au moins 30% du coût d'acquisition, DPE A ou B après rénovation
                   </p>
                 </CardHeader>
                 <CardContent>
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Type de location</TableHead>
-                        <TableHead className="text-center">Taux / an</TableHead>
-                        <TableHead className="text-right">Plafond</TableHead>
+                        <TableHead>Niveau de loyer</TableHead>
+                        <TableHead className="text-center">Taux annuel</TableHead>
+                        <TableHead className="text-right">Plafond déductible</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -115,8 +115,8 @@ export const RatesSection = () => {
           </Tabs>
 
           <p className="mt-6 text-sm text-muted-foreground text-center">
-            <strong>Assiette amortissable :</strong> 80% du prix d'acquisition du bien (hors foncier). 
-            Maximum 2 biens par foyer fiscal.
+            <strong>Base de calcul :</strong> 80% du prix d'acquisition (la quote-part terrain est exclue). 
+            Limité à 2 logements par contribuable.
           </p>
         </div>
       </div>

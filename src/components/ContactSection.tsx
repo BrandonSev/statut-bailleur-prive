@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { 
   FileText, 
-  CheckCircle,
   Shield
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -26,8 +25,8 @@ export const ContactSection = () => {
     
     if (!formData.acceptConditions) {
       toast({
-        title: "Erreur",
-        description: "Veuillez accepter les conditions pour continuer.",
+        title: "Action requise",
+        description: "Merci de valider les conditions pour poursuivre.",
         variant: "destructive"
       });
       return;
@@ -39,8 +38,8 @@ export const ContactSection = () => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     toast({
-      title: "Demande envoyée !",
-      description: "Vous recevrez votre guide par email dans quelques instants."
+      title: "C'est parti !",
+      description: "Consultez votre boîte mail dans quelques instants."
     });
     
     setFormData({
@@ -59,10 +58,10 @@ export const ContactSection = () => {
           {/* Section header */}
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-              Recevez notre guide Jeanbrun
+              Documentation complète
             </h2>
             <p className="text-muted-foreground text-lg">
-              Documentation gratuite sur le dispositif d'amortissement Jeanbrun, envoyée par email.
+              Recevez par email notre synthèse détaillée sur le nouveau cadre fiscal bailleur.
             </p>
           </div>
 
@@ -70,21 +69,21 @@ export const ContactSection = () => {
             <CardContent className="p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="nom">Nom (optionnel)</Label>
+                  <Label htmlFor="nom">Nom (facultatif)</Label>
                   <Input
                     id="nom"
-                    placeholder="Votre nom"
+                    placeholder="Comment vous appeler ?"
                     value={formData.nom}
                     onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email">Adresse email *</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="votre@email.com"
+                    placeholder="vous@exemple.fr"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -96,7 +95,7 @@ export const ContactSection = () => {
                   <Input
                     id="telephone"
                     type="tel"
-                    placeholder="06 00 00 00 00"
+                    placeholder="Pour un rappel éventuel"
                     value={formData.telephone}
                     onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
                   />
@@ -111,7 +110,7 @@ export const ContactSection = () => {
                     }
                   />
                   <Label htmlFor="conditions" className="text-sm text-muted-foreground leading-relaxed">
-                    J'autorise un conseiller à me contacter pour m'envoyer de la documentation ou me conseiller gratuitement.
+                    J'accepte d'être recontacté(e) pour recevoir des informations complémentaires sur ce dispositif.
                   </Label>
                 </div>
 
@@ -121,14 +120,14 @@ export const ContactSection = () => {
                   ) : (
                     <>
                       <FileText className="w-5 h-5 mr-2" />
-                      Recevoir
+                      Obtenir le document
                     </>
                   )}
                 </Button>
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                   <Shield className="w-4 h-4" />
-                  <span>Vos données sont sécurisées et confidentielles</span>
+                  <span>Données protégées, aucune revente</span>
                 </div>
               </form>
             </CardContent>

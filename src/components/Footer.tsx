@@ -11,11 +11,11 @@ export const Footer = () => {
           </div>
           
           <p className="text-white/60 text-sm text-center">
-            © 2026 – Information sur le dispositif Jeanbrun / Relance Logement
+            © 2026 – Ressources sur le Statut du Bailleur Privé
           </p>
 
           <div className="text-white/60 text-sm">
-            PLF 2026 – Article 12 octies
+            Loi de finances 2026
           </div>
         </div>
       </div>

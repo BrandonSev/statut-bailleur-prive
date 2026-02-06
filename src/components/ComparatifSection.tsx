@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -8,55 +8,50 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Check, X, Minus } from "lucide-react";
+import { Check, X } from "lucide-react";
 
 const comparatif = [
   {
-    critere: "Mécanisme fiscal",
-    pinel: "Crédit d'impôt direct",
-    jeanbrun: "Amortissement annuel",
+    critere: "Nature de l'avantage",
+    pinel: "Réduction d'impôt directe",
+    jeanbrun: "Charge déductible du revenu",
   },
   {
-    critere: "Application",
-    pinel: "Impôt sur le revenu uniquement",
-    jeanbrun: "Revenu global",
+    critere: "Assiette d'imputation",
+    pinel: "Impôt sur le revenu",
+    jeanbrun: "Revenu global (tous revenus)",
   },
   {
-    critere: "Taux",
-    pinel: "9% à 14% du prix (21% Pinel+)",
-    jeanbrun: "3,5% à 5,5% par an",
+    critere: "Taux ou montant",
+    pinel: "Jusqu'à 21% du prix sur 12 ans",
+    jeanbrun: "3% à 5,5% par an pendant 9 ans",
   },
   {
-    critere: "Durée d'engagement",
-    pinel: "6, 9 ou 12 ans (au choix)",
-    jeanbrun: "9 ans fixe",
+    critere: "Durée de location",
+    pinel: "Modulable : 6, 9 ou 12 ans",
+    jeanbrun: "Fixe : 9 ans",
   },
   {
-    critere: "Zonage",
-    pinel: "Zones A bis, A, B1 obligatoires",
-    jeanbrun: "Aucun (tout le territoire)",
+    critere: "Contrainte géographique",
+    pinel: "Zones tendues uniquement",
+    jeanbrun: "Tout le territoire",
   },
   {
-    critere: "Rénové éligible",
-    pinel: "Non",
-    jeanbrun: "Oui (min 30% travaux, collectif)",
+    critere: "Ancien avec travaux",
+    pinel: "Exclu",
+    jeanbrun: "Éligible si rénovation ≥ 30%",
     pinelBad: true,
     jeanbrunGood: true,
   },
   {
-    critere: "Déficit foncier",
-    pinel: "Plafonné à 10 700 €",
-    jeanbrun: "Plafonné à 10 700 €",
+    critere: "Report de déficit",
+    pinel: "Max 10 700 €/an",
+    jeanbrun: "Max 10 700 €/an",
   },
   {
-    critere: "Biens éligibles",
-    pinel: "Neuf uniquement",
-    jeanbrun: "Immeubles collectifs (neuf/rénové)",
-  },
-  {
-    critere: "Coût budgétaire estimé",
-    pinel: "7,3 Mds € (2014-2024)",
-    jeanbrun: "1,2 Md € prévu",
+    critere: "Type de logement",
+    pinel: "Neuf en zone éligible",
+    jeanbrun: "Collectif neuf ou réhabilité",
   },
 ];
 
@@ -67,10 +62,10 @@ export const ComparatifSection = () => {
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-            Pinel vs Jeanbrun
+            Ancien vs nouveau régime
           </h2>
           <p className="text-muted-foreground text-lg">
-            Les différences fondamentales entre les deux dispositifs
+            Comprendre la transition entre le dispositif historique et son successeur
           </p>
         </div>
 
@@ -83,14 +78,14 @@ export const ComparatifSection = () => {
                     <TableHead className="w-[200px]">Critère</TableHead>
                     <TableHead className="text-center bg-muted/50">
                       <div className="flex flex-col items-center gap-1">
-                        <Badge variant="secondary" className="bg-muted">Terminé</Badge>
-                        <span className="font-semibold">Pinel (fin 2024)</span>
+                        <Badge variant="secondary" className="bg-muted">Clôturé</Badge>
+                        <span className="font-semibold">Dispositif Pinel</span>
                       </div>
                     </TableHead>
                     <TableHead className="text-center bg-primary/5">
                       <div className="flex flex-col items-center gap-1">
-                        <Badge className="bg-primary">Nouveau</Badge>
-                        <span className="font-semibold text-primary">Jeanbrun (2026)</span>
+                        <Badge className="bg-primary">2026</Badge>
+                        <span className="font-semibold text-primary">Nouveau cadre</span>
                       </div>
                     </TableHead>
                   </TableRow>
@@ -119,8 +114,8 @@ export const ComparatifSection = () => {
           </Card>
 
           <p className="mt-6 text-sm text-muted-foreground text-center">
-            <strong>Note :</strong> Le Pinel a pris fin le 31 décembre 2024. Les investissements Pinel antérieurs 
-            conservent leurs avantages jusqu'à la fin de leur engagement.
+            <strong>Rappel :</strong> Les engagements Pinel contractés avant fin 2024 
+            restent valides jusqu'à leur terme prévu.
           </p>
         </div>
       </div>

@@ -7,28 +7,28 @@ import {
 
 const faqs = [
   {
-    question: "Le dispositif Jeanbrun est-il déjà en vigueur ?",
-    answer: "Non. Au 26 janvier 2026, le gouvernement a utilisé l'article 49.3 le 20 janvier 2026, mais la loi n'est pas encore définitivement promulguée. Le dispositif a été officiellement nommé \"Relance Logement\" lors de sa présentation gouvernementale le 23 janvier 2026. Aucun décret d'application n'a été publié."
+    question: "Peut-on investir dès maintenant ?",
+    answer: "Pas encore. Le texte a été adopté en janvier 2026, mais les décrets d'application n'ont pas été publiés. Il est prudent d'attendre leur parution avant de concrétiser un projet pour éviter toute mauvaise surprise sur les critères d'éligibilité."
   },
   {
-    question: "Puis-je louer à ma famille ?",
-    answer: "Non. L'amendement I-3970 exclut explicitement la location aux ascendants, descendants et beaux-parents jusqu'au 2e degré. Cette interdiction vise à prévenir les schémas d'optimisation fiscale familiale."
+    question: "Puis-je louer le bien à un proche ?",
+    answer: "Non, la loi interdit expressément de louer aux membres du foyer fiscal ainsi qu'aux ascendants et descendants (parents, enfants, petits-enfants). Cette mesure vise à éviter les montages d'optimisation intrafamiliaux."
   },
   {
-    question: "Comment sont calculés les plafonds de loyer ?",
-    answer: "Les plafonds de loyer sont basés sur les plafonds Pinel par zone ABC, ajustés par un coefficient de structure (0,7 + 19/Surface, plafonné à 1,2). Plafonds 2025 : A bis : 19,51 €/m², A : 14,49 €/m², B1 : 11,68 €/m², B2 : 10,15 €/m², C : 10,15 €/m². Niveau intermédiaire = plafond Pinel, social = Pinel × 0,85 (-15%), très social = Pinel × 0,70 (-30%)."
+    question: "Comment déterminer le loyer maximum ?",
+    answer: "Le plafond dépend de la zone géographique du bien et du niveau de conventionnement choisi. Les barèmes s'appuient sur les anciens plafonds Pinel, avec un coefficient correcteur basé sur la surface. Trois niveaux existent : standard, modéré (-15%) et très modéré (-30%)."
   },
   {
-    question: "Quelle différence entre amortissement et crédit d'impôt ?",
-    answer: "Le crédit d'impôt (Pinel) réduisait directement l'impôt dû, avec un plafond lié au montant de l'impôt. L'amortissement (Jeanbrun) est une charge déductible qui réduit le revenu imposable. Il peut être imputé sur le revenu global, une première pour un dispositif immobilier. Concrètement, l'amortissement peut créer un déficit qui réduit l'impôt sur les salaires et autres revenus."
+    question: "Quelle est la différence concrète avec le Pinel ?",
+    answer: "Le Pinel offrait une réduction d'impôt plafonnée. Le nouveau mécanisme crée une charge déductible du revenu global. Concrètement, cela peut générer un déficit imputable sur vos autres revenus (salaires, etc.), ce qui n'était pas possible avant."
   },
   {
-    question: "Quand le dispositif entre-t-il en application ?",
-    answer: "Le dispositif couvre les acquisitions réalisées entre le 1er janvier 2026 et le 31 décembre 2028. Cependant, son application effective dépend de la promulgation de la loi de finances et de la publication des décrets. Les professionnels recommandent d'attendre les textes officiels avant de s'engager."
+    question: "Sur quelle période le dispositif est-il ouvert ?",
+    answer: "Les acquisitions réalisées entre le 1er janvier 2026 et le 31 décembre 2028 sont visées par le texte actuel. L'amortissement s'étale ensuite sur 9 années pleines de location effective."
   },
   {
-    question: "Combien de biens puis-je acquérir ?",
-    answer: "Le dispositif est limité à maximum 2 biens par foyer fiscal. Cette limite vise à concentrer l'avantage fiscal sur les petits et moyens investisseurs plutôt que sur les grands portefeuilles."
+    question: "Y a-t-il une limite au nombre de logements ?",
+    answer: "Oui, le bénéfice est plafonné à deux biens par foyer fiscal. Au-delà, l'amortissement supplémentaire n'est plus admis en déduction."
   }
 ];
 
@@ -40,10 +40,10 @@ export const FAQSection = () => {
           {/* Section header */}
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-              Questions fréquentes
+              Vos interrogations
             </h2>
             <p className="text-muted-foreground text-lg">
-              Réponses aux questions les plus courantes
+              Les points essentiels à connaître avant de vous lancer
             </p>
           </div>
 
