@@ -29,9 +29,9 @@ const PLAFONDS: Record<NiveauLoyer, number> = {
 };
 
 const LABELS_LOYER: Record<NiveauLoyer, string> = {
-  intermediaire: "Intermédiaire (plafond Pinel)",
-  social: "Social (-15% sur Pinel)",
-  tres_social: "Très social (-30% sur Pinel)",
+  intermediaire: "Intermédiaire",
+  social: "Social (≈ -15%)",
+  tres_social: "Très social (≈ -30%)",
 };
 
 export const SimulateurSection = () => {
@@ -124,6 +124,9 @@ export const SimulateurSection = () => {
                           <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
                         </SelectContent>
                       </Select>
+                      <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
+                        Recevez une sélection de lots neufs éligibles selon votre budget et votre ville.
+                      </p>
                       <button
                         type="button"
                         onClick={() => setModalOpen(true)}
@@ -137,21 +140,36 @@ export const SimulateurSection = () => {
                     {/* Niveau de loyer */}
                     <div className="space-y-2">
                       <Label className="font-semibold" style={{ color: "#0B1220" }}>Niveau de loyer</Label>
-                      <Select value={niveauLoyer} onValueChange={(v) => setNiveauLoyer(v as NiveauLoyer)}>
-                        <SelectTrigger className="focus:ring-[#046C91] border-[#9AC0D0]/50">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="intermediaire">{LABELS_LOYER.intermediaire}</SelectItem>
-                          <SelectItem value="social">{LABELS_LOYER.social}</SelectItem>
-                          <SelectItem value="tres_social">{LABELS_LOYER.tres_social}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="flex flex-wrap gap-2">
+                        {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
+                          <button
+                            key={niveau}
+                            onClick={() => setNiveauLoyer(niveau)}
+                            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
+                            style={
+                              niveauLoyer === niveau
+                                ? { backgroundColor: "#123768", color: "#FFFFFF" }
+                                : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
+                            }
+                            onMouseEnter={(e) => {
+                              if (niveauLoyer !== niveau) (e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)");
+                            }}
+                            onMouseLeave={(e) => {
+                              if (niveauLoyer !== niveau) (e.currentTarget.style.backgroundColor = "transparent");
+                            }}
+                          >
+                            {LABELS_LOYER[niveau]}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs" style={{ color: "#0B1220", opacity: 0.45 }}>
+                        Références indicatives, susceptibles d'évoluer avec les textes d'application.
+                      </p>
                     </div>
 
                     {/* Prix d'achat */}
                     <div className="space-y-2">
-                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>Prix d'achat</Label>
+                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>Prix d'achat (€)</Label>
                       <div className="relative">
                         <Input
                           id="prix"
@@ -336,6 +354,9 @@ export const SimulateurSection = () => {
                     <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
                       <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026.
                       Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
+                    </p>
+                    <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.4 }}>
+                      N'inclut pas : intérêts d'emprunt et situation fiscale complète (affinés en étude).
                     </p>
                   </div>
                 </div>
