@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calculator, TrendingDown, TrendingUp, Wallet } from "lucide-react";
+import { Calculator, TrendingDown, TrendingUp, Wallet, Mail } from "lucide-react";
 
 type TypeBien = "neuf" | "renove";
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
@@ -64,39 +64,22 @@ export const SimulateurSection = () => {
     const loyer = parseFloat(loyerAnnuel) || 0;
     const charges = parseFloat(chargesAnnuelles) || 0;
 
-    // Base amortissable = 80% du prix (hors foncier)
     const baseAmortissable = (prix + renovation) * 0.8;
-    
-    // Taux d'amortissement
     const taux = TAUX_AMORTISSEMENT[typeBien][niveauLoyer];
     const plafond = PLAFONDS[typeBien][niveauLoyer];
-
-    // Amortissement annuel (plafonné)
     const amortissementBrut = baseAmortissable * taux;
     const amortissementAnnuel = Math.min(amortissementBrut, plafond);
-
-    // Revenu foncier sans Jeanbrun
     const revenuFoncierSansJeanbrun = loyer - charges;
-    
-    // Impôt sans Jeanbrun (sur le revenu foncier positif uniquement)
     const impotSansJeanbrun = revenuFoncierSansJeanbrun > 0 
       ? revenuFoncierSansJeanbrun * (tmi / 100)
       : 0;
-
-    // Revenu foncier avec Jeanbrun (amortissement déduit)
     const revenuFoncierAvecJeanbrun = loyer - charges - amortissementAnnuel;
-    
-    // Déficit foncier imputable sur revenu global (max 10 700€)
     const deficitFoncier = revenuFoncierAvecJeanbrun < 0 
       ? Math.min(Math.abs(revenuFoncierAvecJeanbrun), 10700)
       : 0;
-
-    // Impôt avec Jeanbrun
     const impotAvecJeanbrun = revenuFoncierAvecJeanbrun > 0 
       ? revenuFoncierAvecJeanbrun * (tmi / 100)
-      : -deficitFoncier * (tmi / 100); // Économie grâce au déficit
-
-    // Économie annuelle
+      : -deficitFoncier * (tmi / 100);
     const economieAnnuelle = impotSansJeanbrun - impotAvecJeanbrun;
 
     return {
@@ -113,30 +96,47 @@ export const SimulateurSection = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const fmt = (n: number) => n.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+
   return (
-    <section id="simulateur" className="py-16 md:py-24 bg-muted">
+    <section id="simulateur" className="py-16 md:py-24" style={{ backgroundColor: "#F6FAFC" }}>
       <div className="container mx-auto px-4">
-        {/* Section header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-            Simulateur Jeanbrun
+        {/* Header avec gradient */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-br from-[#123768] to-[#046C91] text-white px-6 py-3 rounded-2xl mb-6">
+            <img 
+              src="/picto-jeanbrun.png" 
+              alt="Pictogramme Jeanbrun" 
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
+            <span className="text-lg md:text-xl font-bold tracking-tight">Simulateur Jeanbrun</span>
+          </div>
+          <h2 className="text-2xl md:text-4xl font-bold mb-3" style={{ color: "#0B1220" }}>
+            Estimez vos économies d'impôts
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Estimez vos économies d'impôts annuelles avec le nouveau dispositif
+          <p className="text-base md:text-lg" style={{ color: "#0B1220", opacity: 0.6 }}>
+            Simulation indicative basée sur les taux annoncés dans le PLF 2026
           </p>
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <Card className="border-border">
-            <CardContent className="p-6 md:p-8">
-              <div className="grid lg:grid-cols-2 gap-8">
+          <Card 
+            className="shadow-lg" 
+            style={{ 
+              backgroundColor: "#FFFFFF", 
+              border: "1px solid rgba(154, 192, 208, 0.3)", 
+              borderRadius: "20px" 
+            }}
+          >
+            <CardContent className="p-6 md:p-10">
+              <div className="grid lg:grid-cols-2 gap-10">
                 {/* Inputs */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {/* Type de bien */}
                   <div className="space-y-2">
-                    <Label>Type de bien</Label>
+                    <Label className="font-semibold" style={{ color: "#0B1220" }}>Type de bien</Label>
                     <Select value={typeBien} onValueChange={(v) => setTypeBien(v as TypeBien)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="focus:ring-[#046C91] border-[#9AC0D0]/50">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -148,9 +148,9 @@ export const SimulateurSection = () => {
 
                   {/* Niveau de loyer */}
                   <div className="space-y-2">
-                    <Label>Niveau de loyer</Label>
+                    <Label className="font-semibold" style={{ color: "#0B1220" }}>Niveau de loyer</Label>
                     <Select value={niveauLoyer} onValueChange={(v) => setNiveauLoyer(v as NiveauLoyer)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="focus:ring-[#046C91] border-[#9AC0D0]/50">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -163,7 +163,7 @@ export const SimulateurSection = () => {
 
                   {/* Prix d'achat */}
                   <div className="space-y-2">
-                    <Label htmlFor="prix">Prix d'achat</Label>
+                    <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>Prix d'achat</Label>
                     <div className="relative">
                       <Input
                         id="prix"
@@ -171,16 +171,16 @@ export const SimulateurSection = () => {
                         value={prixAchat}
                         onChange={(e) => setPrixAchat(e.target.value)}
                         placeholder="Prix du bien en euros"
-                        className="pr-8"
+                        className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
                     </div>
                   </div>
 
-                  {/* Montant rénovation (si rénové) */}
+                  {/* Montant rénovation */}
                   {typeBien === "renove" && (
                     <div className="space-y-2">
-                      <Label htmlFor="renovation">Montant travaux</Label>
+                      <Label htmlFor="renovation" className="font-semibold" style={{ color: "#0B1220" }}>Montant travaux</Label>
                       <div className="relative">
                         <Input
                           id="renovation"
@@ -188,11 +188,11 @@ export const SimulateurSection = () => {
                           value={montantRenovation}
                           onChange={(e) => setMontantRenovation(e.target.value)}
                           placeholder="Minimum 30% du prix pour éligibilité"
-                          className="pr-8"
+                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs" style={{ color: "#046C91" }}>
                         Minimum 30% du prix d'achat pour être éligible
                       </p>
                     </div>
@@ -200,22 +200,22 @@ export const SimulateurSection = () => {
 
                   {/* Loyer annuel */}
                   <div className="space-y-2">
-                    <Label htmlFor="loyer">Loyer annuel brut</Label>
+                    <Label htmlFor="loyer" className="font-semibold" style={{ color: "#0B1220" }}>Loyer annuel brut</Label>
                     <div className="relative">
                       <Input
                         id="loyer"
                         type="number"
                         value={loyerAnnuel}
                         onChange={(e) => setLoyerAnnuel(e.target.value)}
-                        className="pr-8"
+                        className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
                     </div>
                   </div>
 
                   {/* Charges annuelles */}
                   <div className="space-y-2">
-                    <Label htmlFor="charges">Charges annuelles</Label>
+                    <Label htmlFor="charges" className="font-semibold" style={{ color: "#0B1220" }}>Charges annuelles</Label>
                     <div className="relative">
                       <Input
                         id="charges"
@@ -223,106 +223,125 @@ export const SimulateurSection = () => {
                         value={chargesAnnuelles}
                         onChange={(e) => setChargesAnnuelles(e.target.value)}
                         placeholder="Taxe foncière, assurance, etc."
-                        className="pr-8"
+                        className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
                     </div>
                   </div>
 
                   {/* TMI */}
                   <div className="space-y-2">
-                    <Label>Votre TMI (Taux Marginal d'Imposition)</Label>
+                    <Label className="font-semibold" style={{ color: "#0B1220" }}>Votre TMI (Taux Marginal d'Imposition)</Label>
                     <div className="flex flex-wrap gap-2">
                       {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
-                        <Button
+                        <button
                           key={rate}
-                          variant={tmi === rate ? "default" : "outline"}
-                          size="sm"
                           onClick={() => setTmi(rate)}
-                          className="min-w-[60px]"
+                          className="min-w-[60px] px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
+                          style={tmi === rate 
+                            ? { backgroundColor: "#123768", color: "#FFFFFF" } 
+                            : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
+                          }
                         >
                           {rate}%
-                        </Button>
+                        </button>
                       ))}
                     </div>
                   </div>
                 </div>
 
                 {/* Results */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                   <div className="grid grid-cols-2 gap-4">
                     {/* Sans Jeanbrun */}
-                    <Card className="bg-muted border-border">
+                    <Card className="border-gray-200 bg-gray-50" style={{ borderRadius: "16px" }}>
                       <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
                           <TrendingUp className="w-4 h-4" />
-                          Sans Jeanbrun
+                          Sans dispositif
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-muted-foreground">Impôt annuel</p>
-                        <p className="text-2xl font-bold text-foreground">
-                          {resultats.impotSansJeanbrun.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €
+                        <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
+                        <p className="text-2xl font-bold text-gray-700">
+                          {fmt(resultats.impotSansJeanbrun)} €
                         </p>
                       </CardContent>
                     </Card>
 
                     {/* Avec Jeanbrun */}
-                    <Card className="bg-primary/5 border-primary/20">
+                    <Card style={{ borderRadius: "16px", backgroundColor: "rgba(4, 108, 145, 0.06)", border: "1px solid rgba(4, 108, 145, 0.25)" }}>
                       <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-primary flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium flex items-center gap-2" style={{ color: "#046C91" }}>
                           <TrendingDown className="w-4 h-4" />
                           Avec Jeanbrun
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-muted-foreground">Impôt annuel</p>
-                        <p className="text-2xl font-bold text-primary">
-                          {resultats.impotAvecJeanbrun.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €
+                        <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
+                        <p className="text-2xl font-bold" style={{ color: "#046C91" }}>
+                          {fmt(resultats.impotAvecJeanbrun)} €
                         </p>
                       </CardContent>
                     </Card>
                   </div>
 
                   {/* Économie */}
-                  <Card className="bg-success/10 border-success/30">
+                  <Card style={{ 
+                    borderRadius: "16px", 
+                    backgroundColor: "rgba(154, 192, 208, 0.15)", 
+                    border: "1px solid rgba(154, 192, 208, 0.4)" 
+                  }}>
                     <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Wallet className="w-6 h-6 text-success" />
-                        <span className="text-muted-foreground">Économie annuelle estimée</span>
+                      <div className="flex items-center gap-3 mb-3">
+                        <Wallet className="w-6 h-6" style={{ color: "#046C91" }} />
+                        <span className="text-gray-600 font-medium">Économie annuelle estimée</span>
                       </div>
-                      <p className="text-3xl md:text-4xl font-bold text-success">
-                        {resultats.economieAnnuelle.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €
+                      <p className="text-3xl md:text-4xl font-bold" style={{ color: "#123768" }}>
+                        {fmt(resultats.economieAnnuelle)} €
                       </p>
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        <Badge className="bg-success-light text-success border-success/30">
+                      <div className="mt-2 space-y-1">
+                        <p className="text-sm" style={{ color: "#046C91" }}>
+                          Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
+                        </p>
+                        <p className="text-sm" style={{ color: "#046C91" }}>
+                          Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
                           Taux : {resultats.taux.toFixed(1)}% / an
                         </Badge>
-                        <Badge className="bg-success-light text-success border-success/30">
-                          Amortissement : {resultats.amortissementAnnuel.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €
+                        <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
+                          Amortissement : {fmt(resultats.amortissementAnnuel)} €
                         </Badge>
                       </div>
                     </CardContent>
                   </Card>
 
                   {/* Détails */}
-                  <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm font-medium text-foreground mb-2">Détails :</p>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Amortissement annuel : {resultats.amortissementAnnuel.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €</li>
+                  <div className="rounded-2xl p-4" style={{ backgroundColor: "#F6FAFC" }}>
+                    <p className="text-sm font-semibold mb-2" style={{ color: "#0B1220" }}>Détails :</p>
+                    <ul className="text-sm space-y-1" style={{ color: "#0B1220", opacity: 0.65 }}>
+                      <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
                       {resultats.deficitFoncier > 0 && (
-                        <li>• Déficit foncier imputable : {resultats.deficitFoncier.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €</li>
+                        <li>• Déficit foncier imputable : {fmt(resultats.deficitFoncier)} €</li>
                       )}
-                      <li>• Économie sur 9 ans : {(resultats.economieAnnuelle * 9).toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €</li>
+                      <li>• Économie sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €</li>
                     </ul>
                   </div>
 
-                  <Button onClick={scrollToContact} className="w-full" size="lg">
-                    <Calculator className="w-5 h-5 mr-2" />
+                  <Button 
+                    onClick={scrollToContact} 
+                    className="w-full text-white hover:opacity-90 transition-opacity" 
+                    size="lg"
+                    style={{ backgroundColor: "#046C91", borderRadius: "14px" }}
+                  >
+                    <Mail className="w-5 h-5 mr-2" />
                     Recevoir une étude personnalisée
                   </Button>
 
-                  <p className="text-xs text-muted-foreground text-center">
+                  <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
                     <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026. 
                     Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
                   </p>
