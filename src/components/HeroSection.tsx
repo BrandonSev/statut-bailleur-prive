@@ -1,55 +1,53 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
+import { SimulateurSection } from "@/components/SimulateurSection";
 
 export const HeroSection = () => {
-  const scrollToRates = () => {
-    document.getElementById("taux")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToTimeline = () => {
+    document.getElementById("timeline")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden">
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden">
       {/* Background subtle pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 right-20 w-96 h-96 bg-gold rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl" />
       </div>
-      
+
       <div className="container mx-auto px-4 relative">
-        <div className="max-w-4xl">
-          {/* Badge */}
-          <Badge className="mb-6 bg-foreground/10 text-white border-white/20 hover:bg-foreground/20 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-gold rounded-full mr-2 animate-pulse" />
-            PLF 2026 – Article 12 octies
-          </Badge>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Colonne gauche – Texte */}
+          <div>
+            <Badge className="mb-6 bg-foreground/10 text-white border-white/20 hover:bg-foreground/20 backdrop-blur-sm">
+              <span className="w-2 h-2 bg-gold rounded-full mr-2 animate-pulse" />
+              Plan de relance logement 2026
+            </Badge>
 
-          {/* Title */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Comprendre le{" "}
-            <span className="text-gold">Statut du Bailleur Privé</span>
-          </h1>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+              Statut du bailleur privé
+            </h2>
 
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-            Un nouveau mécanisme d'amortissement pour les propriétaires bailleurs. 
-            Déductible du revenu global, applicable partout en France, 
-            ouvert aux logements collectifs neufs ou rénovés.
-          </p>
+            <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl leading-relaxed">
+              Estimez votre avantage fiscal et découvrez les opportunités
+              d'investissement immobilier adaptées à votre situation.
+            </p>
 
-          {/* CTA */}
-          <Button 
-            size="lg" 
-            onClick={scrollToRates} 
-            className="text-lg px-8 bg-white text-primary hover:bg-white/90"
-          >
-            Découvrir les taux
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+            <Button
+              size="lg"
+              onClick={scrollToTimeline}
+              className="text-lg px-8 bg-white text-primary hover:bg-white/90"
+            >
+              Comprendre le dispositif
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
 
-          {/* Date indicator */}
-          <p className="mt-10 text-white/50 text-sm">
-            Données à jour — 30 janvier 2026
-          </p>
+          {/* Colonne droite – Simulateur existant */}
+          <div className="w-full">
+            <SimulateurSection />
+          </div>
         </div>
       </div>
     </section>
