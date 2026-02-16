@@ -17,15 +17,20 @@ const Index = () => {
       <Header />
       <main>
         {/* Simulateur en premier, visible immédiatement */}
-        <section className="pt-28 pb-6 bg-muted">
-          <div className="container mx-auto px-4 text-center mb-6">
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-              Simulateur du statut du bailleur privé
+        {/* Hero */}
+        <section className="pt-28 pb-10 bg-muted">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Statut du bailleur privé
             </h1>
-            <p className="text-muted-foreground mt-2 text-sm md:text-base">
-              Estimez votre avantage fiscal en quelques secondes selon votre situation.
+            <p className="text-muted-foreground mt-3 text-base md:text-lg max-w-2xl mx-auto">
+              Simulateur officiel et estimation personnalisée de votre avantage fiscal immobilier
             </p>
           </div>
+        </section>
+
+        {/* Simulateur */}
+        <section className="pb-6 bg-muted">
           <SimulateurSection />
           <p className="text-center text-xs text-muted-foreground mt-4">
             Simulation gratuite • Résultat immédiat • Étude personnalisée possible
