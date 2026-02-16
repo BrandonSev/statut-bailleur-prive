@@ -9,27 +9,27 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden">
-      {/* Background subtle pattern */}
+    <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden pt-28 pb-12 md:pt-32 md:pb-16">
+      {/* Background effects */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gold rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl" />
+        <div className="absolute top-20 right-40 w-[500px] h-[500px] bg-gold rounded-full blur-[120px]" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-white rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* Colonne gauche – Texte */}
-          <div>
-            <Badge className="mb-6 bg-foreground/10 text-white border-white/20 hover:bg-foreground/20 backdrop-blur-sm">
+          <div className="max-w-[560px]">
+            <Badge className="mb-8 bg-foreground/10 text-white border-white/20 hover:bg-foreground/20 backdrop-blur-sm">
               <span className="w-2 h-2 bg-gold rounded-full mr-2 animate-pulse" />
               Plan de relance logement 2026
             </Badge>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight">
               Statut du bailleur privé
             </h2>
 
-            <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl leading-relaxed">
+            <p className="text-lg md:text-xl text-white/80 mb-12 leading-relaxed">
               Estimez votre avantage fiscal et découvrez les opportunités
               d'investissement immobilier adaptées à votre situation.
             </p>
@@ -44,9 +44,11 @@ export const HeroSection = () => {
             </Button>
           </div>
 
-          {/* Colonne droite – Simulateur existant */}
-          <div className="w-full">
-            <SimulateurSection />
+          {/* Colonne droite – Simulateur dans card premium */}
+          <div className="w-full flex justify-center lg:justify-end">
+            <div className="w-full max-w-[580px] bg-white rounded-2xl shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] p-6 md:p-8">
+              <SimulateurSection />
+            </div>
           </div>
         </div>
       </div>
