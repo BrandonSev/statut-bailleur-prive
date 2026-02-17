@@ -18,6 +18,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <TimelineSection />
+        <SimulateurSection />
         <AdvantagesSection />
         <RatesSection />
         <ComparatifSection />
