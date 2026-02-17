@@ -73,7 +73,7 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
-        <div className="flex flex-col justify-center px-6 py-6 md:px-10 md:py-8 backdrop-blur-[2px] lg:col-span-4">
+        <div className="flex flex-col justify-center px-6 py-6 md:p-0 backdrop-blur-[2px] lg:col-span-4">
           {/* Badge */}
           <div className="mb-4">
             <span className="inline-block bg-white/15 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
@@ -123,7 +123,7 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE DROITE — simulateur ORIGINAL inchangé
         ══════════════════════════════════ */}
-        <div className="p-4 md:p-6 lg:p-8 lg:col-span-8">
+        <div className="p-4 md:p-0 lg:col-span-8">
           <div className="max-w-5xl mx-auto">
             <Card
               className="shadow-lg"
