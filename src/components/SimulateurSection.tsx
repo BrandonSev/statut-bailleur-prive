@@ -73,32 +73,32 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
-        <div className="flex flex-col justify-center px-8 py-10 md:px-12 md:py-16 bg-black/10 backdrop-blur-[2px] lg:col-span-4">
+        <div className="flex flex-col justify-center px-6 py-6 md:px-10 md:py-8 bg-black/10 backdrop-blur-[2px] lg:col-span-4">
           {/* Badge */}
-          <div className="mb-6">
-            <span className="inline-block bg-white/15 text-white text-xs md:text-sm font-medium px-4 py-2 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
+          <div className="mb-4">
+            <span className="inline-block bg-white/15 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
               PLF 2026 • Plan de relance logement
             </span>
           </div>
 
           {/* Titre */}
-          <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight mb-5">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-3">
             Simulateur du statut
             <br />
             du bailleur privé
           </h2>
 
           {/* Accroche */}
-          <p className="text-lg md:text-xl font-semibold text-white mb-9">
+          <p className="text-base md:text-lg font-semibold text-white mb-5">
             Estimez votre avantage fiscal en quelques secondes.
           </p>
 
           {/* Checkmarks */}
-          <ul className="space-y-5 mb-10">
+          <ul className="space-y-3 mb-6">
             {["Simulation gratuite", "Résultat immédiat", "Étude personnalisée"].map((text, i) => (
-              <li key={i} className="flex items-center gap-3 text-base md:text-lg">
+              <li key={i} className="flex items-center gap-2 text-sm md:text-base">
                 <svg
-                  className="w-5 h-5 flex-shrink-0 text-white"
+                  className="w-4 h-4 flex-shrink-0 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -114,7 +114,7 @@ export const SimulateurSection = () => {
           {/* Lien */}
           <a
             href="#comprendre"
-            className="text-white text-base underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit"
+            className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit"
           >
             Comprendre le dispositif
           </a>
@@ -123,7 +123,7 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE DROITE — simulateur ORIGINAL inchangé
         ══════════════════════════════════ */}
-        <div className="p-6 md:p-10 lg:p-12 lg:col-span-8">
+        <div className="p-4 md:p-6 lg:p-8 lg:col-span-8">
           <div className="max-w-5xl mx-auto">
             <Card
               className="shadow-lg"
@@ -133,10 +133,10 @@ export const SimulateurSection = () => {
                 borderRadius: "20px",
               }}
             >
-              <CardContent className="p-6 md:p-10">
-                <div className="grid lg:grid-cols-2 gap-10">
+              <CardContent className="p-4 md:p-6">
+                <div className="grid lg:grid-cols-2 gap-6">
                   {/* ── INPUTS ── */}
-                  <div className="space-y-5">
+                  <div className="space-y-3">
                     {/* Type de bien – VEFA uniquement */}
                     <div className="space-y-2">
                       <Label className="font-semibold" style={{ color: "#0B1220" }}>
@@ -286,8 +286,8 @@ export const SimulateurSection = () => {
                   </div>
 
                   {/* ── RESULTS ── */}
-                  <div className="space-y-5">
-                    <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
                       {/* Sans dispositif */}
                       <Card className="border-gray-200 bg-gray-50" style={{ borderRadius: "16px" }}>
                         <CardHeader className="pb-2">
@@ -336,15 +336,15 @@ export const SimulateurSection = () => {
                         border: "1px solid rgba(154, 192, 208, 0.4)",
                       }}
                     >
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-3 mb-3">
-                          <Wallet className="w-6 h-6" style={{ color: "#046C91" }} />
-                          <span className="text-gray-600 font-medium">Économie annuelle estimée</span>
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Wallet className="w-5 h-5" style={{ color: "#046C91" }} />
+                          <span className="text-gray-600 font-medium text-sm">Économie annuelle estimée</span>
                         </div>
-                        <p className="text-3xl md:text-4xl font-bold" style={{ color: "#123768" }}>
+                        <p className="text-2xl md:text-3xl font-bold" style={{ color: "#123768" }}>
                           {fmt(resultats.economieAnnuelle)} €
                         </p>
-                        <div className="mt-2 space-y-1">
+                        <div className="mt-1 space-y-0.5">
                           <p className="text-sm" style={{ color: "#046C91" }}>
                             Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
                           </p>
@@ -352,7 +352,7 @@ export const SimulateurSection = () => {
                             Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
                           </p>
                         </div>
-                        <div className="flex flex-wrap gap-2 mt-4">
+                        <div className="flex flex-wrap gap-2 mt-2">
                           <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
                             Taux : {resultats.taux.toFixed(1)}% / an
                           </Badge>
@@ -364,11 +364,11 @@ export const SimulateurSection = () => {
                     </Card>
 
                     {/* Détails */}
-                    <div className="rounded-2xl p-4" style={{ backgroundColor: "#F6FAFC" }}>
-                      <p className="text-sm font-semibold mb-2" style={{ color: "#0B1220" }}>
+                    <div className="rounded-xl p-3" style={{ backgroundColor: "#F6FAFC" }}>
+                      <p className="text-xs font-semibold mb-1" style={{ color: "#0B1220" }}>
                         Détails :
                       </p>
-                      <ul className="text-sm space-y-1" style={{ color: "#0B1220", opacity: 0.65 }}>
+                      <ul className="text-xs space-y-0.5" style={{ color: "#0B1220", opacity: 0.65 }}>
                         <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
                         {resultats.deficitFoncier > 0 && (
                           <li>• Déficit foncier imputable : {fmt(resultats.deficitFoncier)} €</li>
@@ -380,7 +380,7 @@ export const SimulateurSection = () => {
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 text-white font-semibold text-sm transition-colors"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 text-white font-semibold text-sm transition-colors"
                       style={{ backgroundColor: "#046C91", borderRadius: "14px" }}
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
