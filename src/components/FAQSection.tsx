@@ -36,7 +36,7 @@ export const FAQSection = () => {
   return (
     <section id="faq" className="w-full bg-background py-16 md:py-20">
       <div className="max-w-[900px] mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2" style={{ color: "#123768" }}>
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
           Questions fréquentes
         </h2>
         <p className="text-center text-muted-foreground text-sm md:text-base mb-10">
@@ -50,7 +50,7 @@ export const FAQSection = () => {
               value={`faq-${i}`}
               className="border border-border rounded-2xl px-5 data-[state=open]:shadow-sm transition-shadow"
             >
-              <AccordionTrigger className="text-sm font-semibold text-left py-4 hover:no-underline" style={{ color: "#123768" }}>
+              <AccordionTrigger className="text-sm font-semibold text-left py-4 hover:no-underline text-primary-dark">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-4">

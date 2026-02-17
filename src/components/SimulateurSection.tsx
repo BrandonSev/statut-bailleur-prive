@@ -68,42 +68,32 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white overflow-hidden pt-20">
+    <div className="w-full bg-gradient-to-br from-primary-dark via-primary-light to-primary text-white overflow-hidden pt-20">
       <div className="container mx-auto grid lg:grid-cols-12 py-10 gap-4">
         {/* ══════════════════════════════════
-            COLONNE GAUCHE — calquée sur l'image
+            COLONNE GAUCHE
         ══════════════════════════════════ */}
         <div className="flex flex-col justify-center px-6 py-6 md:p-0 backdrop-blur-[2px] lg:col-span-4">
-          {/* Badge */}
           <div className="mb-4">
             <span className="inline-block bg-white/15 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
               PLF 2026 • Plan de relance logement
             </span>
           </div>
 
-          {/* Titre */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-3">
             Simulateur du statut
             <br />
             du bailleur privé
           </h2>
 
-          {/* Accroche */}
           <p className="text-base md:text-lg font-semibold text-white mb-5">
             Estimez votre avantage fiscal en quelques secondes.
           </p>
 
-          {/* Checkmarks */}
           <ul className="space-y-3 mb-6">
             {["Simulation gratuite", "Résultat immédiat", "Étude personnalisée"].map((text, i) => (
               <li key={i} className="flex items-center gap-2 text-sm md:text-base">
-                <svg
-                  className="w-4 h-4 flex-shrink-0 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
+                <svg className="w-4 h-4 flex-shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <span>{text}</span>
@@ -111,53 +101,36 @@ export const SimulateurSection = () => {
             ))}
           </ul>
 
-          {/* Lien */}
-          <a
-            href="#comprendre"
-            className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit"
-          >
+          <a href="#comprendre" className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit">
             Comprendre le dispositif
           </a>
         </div>
 
         {/* ══════════════════════════════════
-            COLONNE DROITE — simulateur ORIGINAL inchangé
+            COLONNE DROITE — simulateur
         ══════════════════════════════════ */}
         <div className="p-4 md:p-0 lg:col-span-8">
           <div className="max-w-5xl mx-auto">
-            <Card
-              className="shadow-lg"
-              style={{
-                backgroundColor: "#FFFFFF",
-                border: "1px solid rgba(154, 192, 208, 0.3)",
-                borderRadius: "20px",
-              }}
-            >
+            <Card className="shadow-lg bg-card border border-border/30 rounded-[20px]">
               <CardContent className="p-4 md:p-6">
                 <div className="grid lg:grid-cols-2 gap-6">
                   {/* ── INPUTS ── */}
                   <div className="space-y-3">
-                    {/* Type de bien – VEFA uniquement */}
+                    {/* Type de bien */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
-                        Type de bien
-                      </Label>
+                      <Label className="font-semibold text-foreground">Type de bien</Label>
                       <Select value="neuf" disabled>
-                        <SelectTrigger className="border-[#9AC0D0]/50">
+                        <SelectTrigger className="border-border">
                           <SelectValue placeholder="Neuf / VEFA (recommandé)" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
                         </SelectContent>
                       </Select>
-                      {/* <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
-                        Recevez une sélection de lots neufs éligibles selon votre budget et votre ville.
-                      </p> */}
                       <button
                         type="button"
                         onClick={() => setModalOpen(true)}
-                        className="text-xs underline cursor-pointer"
-                        style={{ color: "#046C91", opacity: 0.75 }}
+                        className="text-xs underline cursor-pointer text-primary opacity-75"
                       >
                         Ancien rénové : cas particulier (conditions strictes) – vérifier en appel
                       </button>
@@ -165,42 +138,30 @@ export const SimulateurSection = () => {
 
                     {/* Niveau de loyer */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
-                        Niveau de loyer
-                      </Label>
+                      <Label className="font-semibold text-foreground">Niveau de loyer</Label>
                       <div className="flex flex-wrap gap-2">
                         {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
                           <button
                             key={niveau}
                             onClick={() => setNiveauLoyer(niveau)}
-                            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
-                            style={
+                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
                               niveauLoyer === niveau
-                                ? { backgroundColor: "#123768", color: "#FFFFFF" }
-                                : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
-                            }
-                            onMouseEnter={(e) => {
-                              if (niveauLoyer !== niveau)
-                                e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
-                            }}
-                            onMouseLeave={(e) => {
-                              if (niveauLoyer !== niveau) e.currentTarget.style.backgroundColor = "transparent";
-                            }}
+                                ? "bg-primary-dark text-primary-foreground"
+                                : "bg-transparent border-[1.5px] border-border text-foreground hover:bg-border/30"
+                            }`}
                           >
                             {LABELS_LOYER[niveau]}
                           </button>
                         ))}
                       </div>
-                      <p className="text-xs" style={{ color: "#0B1220", opacity: 0.45 }}>
+                      <p className="text-xs text-foreground/45">
                         Références indicatives, susceptibles d'évoluer avec les textes d'application.
                       </p>
                     </div>
 
                     {/* Prix d'achat */}
                     <div className="space-y-2">
-                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>
-                        Prix d'achat (€)
-                      </Label>
+                      <Label htmlFor="prix" className="font-semibold text-foreground">Prix d'achat (€)</Label>
                       <div className="relative">
                         <Input
                           id="prix"
@@ -208,37 +169,31 @@ export const SimulateurSection = () => {
                           value={prixAchat}
                           onChange={(e) => setPrixAchat(e.target.value)}
                           placeholder="Prix du bien en euros"
-                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                          className="pr-8 focus-visible:ring-ring border-border"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
                       </div>
                     </div>
 
-                    {/* Loyer annuel + micro-aide */}
+                    {/* Loyer annuel */}
                     <div className="space-y-2">
-                      <Label htmlFor="loyer" className="font-semibold" style={{ color: "#0B1220" }}>
-                        Loyer annuel brut (€/an)
-                      </Label>
+                      <Label htmlFor="loyer" className="font-semibold text-foreground">Loyer annuel brut (€/an)</Label>
                       <div className="relative">
                         <Input
                           id="loyer"
                           type="number"
                           value={loyerAnnuel}
                           onChange={(e) => setLoyerAnnuel(e.target.value)}
-                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                          className="pr-8 focus-visible:ring-ring border-border"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
                       </div>
-                      <p className="text-xs" style={{ color: "#046C91" }}>
-                        ≈ {fmt(loyerMensuel)} €/mois
-                      </p>
+                      <p className="text-xs text-primary">≈ {fmt(loyerMensuel)} €/mois</p>
                     </div>
 
-                    {/* Charges annuelles + micro-aide */}
+                    {/* Charges annuelles */}
                     <div className="space-y-2">
-                      <Label htmlFor="charges" className="font-semibold" style={{ color: "#0B1220" }}>
-                        Charges annuelles (€/an)
-                      </Label>
+                      <Label htmlFor="charges" className="font-semibold text-foreground">Charges annuelles (€/an)</Label>
                       <div className="relative">
                         <Input
                           id="charges"
@@ -246,37 +201,26 @@ export const SimulateurSection = () => {
                           value={chargesAnnuelles}
                           onChange={(e) => setChargesAnnuelles(e.target.value)}
                           placeholder="Taxe foncière, assurance, etc."
-                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                          className="pr-8 focus-visible:ring-ring border-border"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
                       </div>
-                      <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
-                        TF + copro + assurance + gestion (hors crédit)
-                      </p>
+                      <p className="text-xs text-primary/70">TF + copro + assurance + gestion (hors crédit)</p>
                     </div>
 
                     {/* TMI */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
-                        Votre TMI (Taux Marginal d'Imposition)
-                      </Label>
+                      <Label className="font-semibold text-foreground">Votre TMI (Taux Marginal d'Imposition)</Label>
                       <div className="flex flex-wrap gap-2">
                         {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
                           <button
                             key={rate}
                             onClick={() => setTmi(rate)}
-                            className="min-w-[60px] px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
-                            style={
+                            className={`min-w-[60px] px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
                               tmi === rate
-                                ? { backgroundColor: "#123768", color: "#FFFFFF" }
-                                : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
-                            }
-                            onMouseEnter={(e) => {
-                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
-                            }}
-                            onMouseLeave={(e) => {
-                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "transparent";
-                            }}
+                                ? "bg-primary-dark text-primary-foreground"
+                                : "bg-transparent border-[1.5px] border-border text-foreground hover:bg-border/30"
+                            }`}
                           >
                             {rate}%
                           </button>
@@ -289,39 +233,30 @@ export const SimulateurSection = () => {
                   <div className="space-y-2 sm:space-y-3">
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       {/* Sans dispositif */}
-                      <Card className="border-gray-200 bg-gray-50" style={{ borderRadius: "16px" }}>
+                      <Card className="border-border bg-secondary rounded-2xl">
                         <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
-                          <CardTitle className="text-xs sm:text-sm font-medium text-gray-500 flex items-center gap-1.5 sm:gap-2">
+                          <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground flex items-center gap-1.5 sm:gap-2">
                             <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="truncate">Sans dispositif</span>
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
-                          <p className="text-[10px] sm:text-xs text-gray-400 mb-0.5 sm:mb-1">Impôt annuel</p>
-                          <p className="text-lg sm:text-2xl font-bold text-gray-700">{fmt(resultats.impotSansJeanbrun)} €</p>
+                          <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Impôt annuel</p>
+                          <p className="text-lg sm:text-2xl font-bold text-foreground/70">{fmt(resultats.impotSansJeanbrun)} €</p>
                         </CardContent>
                       </Card>
 
                       {/* Avec Jeanbrun */}
-                      <Card
-                        style={{
-                          borderRadius: "16px",
-                          backgroundColor: "rgba(4, 108, 145, 0.06)",
-                          border: "1px solid rgba(4, 108, 145, 0.25)",
-                        }}
-                      >
+                      <Card className="rounded-2xl bg-primary/5 border border-primary/25">
                         <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
-                          <CardTitle
-                            className="text-xs sm:text-sm font-medium flex items-center gap-1.5 sm:gap-2"
-                            style={{ color: "#046C91" }}
-                          >
+                          <CardTitle className="text-xs sm:text-sm font-medium text-primary flex items-center gap-1.5 sm:gap-2">
                             <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="truncate">Avec Jeanbrun</span>
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
-                          <p className="text-[10px] sm:text-xs text-gray-400 mb-0.5 sm:mb-1">Impôt annuel</p>
-                          <p className="text-lg sm:text-2xl font-bold" style={{ color: "#046C91" }}>
+                          <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Impôt annuel</p>
+                          <p className="text-lg sm:text-2xl font-bold text-primary">
                             {fmt(resultats.impotAvecJeanbrun)} €
                           </p>
                         </CardContent>
@@ -329,34 +264,28 @@ export const SimulateurSection = () => {
                     </div>
 
                     {/* Économie */}
-                    <Card
-                      style={{
-                        borderRadius: "16px",
-                        backgroundColor: "rgba(154, 192, 208, 0.2)",
-                        border: "1px solid rgba(154, 192, 208, 0.4)",
-                      }}
-                    >
+                    <Card className="rounded-2xl bg-trust-light border border-border">
                       <CardContent className="p-3 sm:p-4">
                         <div className="flex items-center gap-2 mb-1 sm:mb-2">
-                          <Wallet className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: "#046C91" }} />
-                          <span className="text-gray-600 font-medium text-xs sm:text-sm">Économie annuelle estimée</span>
+                          <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                          <span className="text-muted-foreground font-medium text-xs sm:text-sm">Économie annuelle estimée</span>
                         </div>
-                        <p className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: "#123768" }}>
+                        <p className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-dark">
                           {fmt(resultats.economieAnnuelle)} €
                         </p>
                         <div className="mt-1 space-y-0.5">
-                          <p className="text-xs sm:text-sm" style={{ color: "#046C91" }}>
+                          <p className="text-xs sm:text-sm text-primary">
                             Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
                           </p>
-                          <p className="text-xs sm:text-sm" style={{ color: "#046C91" }}>
+                          <p className="text-xs sm:text-sm text-primary">
                             Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
                           </p>
                         </div>
                         <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
-                          <Badge className="bg-white/70 border border-[#9AC0D0]/40 text-[10px] sm:text-xs" style={{ color: "#123768" }}>
+                          <Badge className="bg-white/70 border border-border text-[10px] sm:text-xs text-primary-dark">
                             Taux : {resultats.taux.toFixed(1)}% / an
                           </Badge>
-                          <Badge className="bg-white/70 border border-[#9AC0D0]/40 text-[10px] sm:text-xs" style={{ color: "#123768" }}>
+                          <Badge className="bg-white/70 border border-border text-[10px] sm:text-xs text-primary-dark">
                             Amortissement : {fmt(resultats.amortissementAnnuel)} €
                           </Badge>
                         </div>
@@ -364,11 +293,9 @@ export const SimulateurSection = () => {
                     </Card>
 
                     {/* Détails */}
-                    <div className="rounded-xl p-3" style={{ backgroundColor: "#F6FAFC" }}>
-                      <p className="text-xs font-semibold mb-1" style={{ color: "#0B1220" }}>
-                        Détails :
-                      </p>
-                      <ul className="text-xs space-y-0.5" style={{ color: "#0B1220", opacity: 0.65 }}>
+                    <div className="rounded-xl p-3 bg-secondary">
+                      <p className="text-xs font-semibold mb-1 text-foreground">Détails :</p>
+                      <ul className="text-xs space-y-0.5 text-foreground/65">
                         <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
                         {resultats.deficitFoncier > 0 && (
                           <li>• Déficit foncier imputable : {fmt(resultats.deficitFoncier)} €</li>
@@ -380,21 +307,19 @@ export const SimulateurSection = () => {
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 text-white font-semibold text-xs sm:text-sm transition-colors text-center"
-                      style={{ backgroundColor: "#046C91", borderRadius: "14px", textWrap: "balance" } as React.CSSProperties}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
+                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 text-primary-foreground font-semibold text-xs sm:text-sm transition-colors text-center rounded-[14px] bg-primary hover:bg-primary/85"
+                      style={{ textWrap: "balance" } as React.CSSProperties}
                     >
                       <Mail className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                       <span className="hidden sm:inline">Recevoir une étude personnalisée (lots neufs éligibles)</span>
                       <span className="sm:hidden">Recevoir mon étude personnalisée</span>
                     </button>
 
-                    <p className="text-[10px] sm:text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
+                    <p className="text-[10px] sm:text-xs text-center text-foreground/45">
                       <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026.
                       Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
                     </p>
-                    <p className="text-[10px] sm:text-xs text-center" style={{ color: "#0B1220", opacity: 0.4 }}>
+                    <p className="text-[10px] sm:text-xs text-center text-foreground/40">
                       N'inclut pas : intérêts d'emprunt et situation fiscale complète (affinés en étude).
                     </p>
                   </div>
@@ -410,7 +335,7 @@ export const SimulateurSection = () => {
       ══════════════════════════════════ */}
       <div className="w-full bg-trust-light">
         <div className="max-w-[900px] mx-auto px-6 py-12 md:py-16">
-          <h3 className="text-xl md:text-2xl font-bold text-center mb-8" style={{ color: "#123768" }}>
+          <h3 className="text-xl md:text-2xl font-bold text-center mb-8 text-primary-dark">
             Allez plus loin avec votre étude personnalisée
           </h3>
 
@@ -418,54 +343,24 @@ export const SimulateurSection = () => {
             {[
               {
                 icon: (
-                  <svg
-                    className="w-7 h-7 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
                 text: "Effort d'épargne mensuel réel",
               },
               {
                 icon: (
-                  <svg
-                    className="w-7 h-7 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                 ),
                 text: "Cash-flow estimé sur 9 ans",
               },
               {
                 icon: (
-                  <svg
-                    className="w-7 h-7 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 ),
                 text: "Sélection de biens compatibles avec votre profil",
@@ -483,8 +378,7 @@ export const SimulateurSection = () => {
           <div className="flex flex-col items-center gap-3">
             <button
               onClick={() => setModalOpen(true)}
-              className="px-8 py-3.5 rounded-xl text-white font-semibold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-              style={{ backgroundColor: "#046C91" }}
+              className="px-8 py-3.5 rounded-xl text-primary-foreground font-semibold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] bg-primary hover:bg-primary/85"
             >
               Recevoir mon étude personnalisée
             </button>

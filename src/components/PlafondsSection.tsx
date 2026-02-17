@@ -17,18 +17,15 @@ export const PlafondsSection = () => {
   return (
     <section className="w-full bg-secondary py-16 md:py-20">
       <div className="max-w-[1100px] mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: "#123768" }}>
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">
           Plafonds &amp; taux applicables
         </h2>
         <p className="text-sm md:text-base text-muted-foreground mb-10 max-w-2xl">
           Les avantages fiscaux sont encadrés par des plafonds de loyers et des limites annuelles d'amortissement.
         </p>
 
-        {/* ── Plafonds de loyers ── */}
         <div className="mb-12">
-          <h3 className="text-base font-semibold mb-4" style={{ color: "#123768" }}>
-            Plafonds de loyers par zone
-          </h3>
+          <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds de loyers par zone</h3>
           <div className="overflow-x-auto">
             <table className="w-full max-w-lg text-sm border-collapse">
               <thead>
@@ -52,17 +49,11 @@ export const PlafondsSection = () => {
           </p>
         </div>
 
-        {/* ── Plafonds d'amortissement ── */}
         <div className="mb-8">
-          <h3 className="text-base font-semibold mb-4" style={{ color: "#123768" }}>
-            Plafonds annuels d'amortissement
-          </h3>
+          <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds annuels d'amortissement</h3>
           <div className="grid sm:grid-cols-3 gap-4">
             {AMORTISSEMENTS.map((item) => (
-              <div
-                key={item.niveau}
-                className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm"
-              >
+              <div key={item.niveau} className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm">
                 <div className="w-10 h-10 rounded-xl bg-trust-light flex items-center justify-center shrink-0">
                   <Wallet className="w-5 h-5 text-primary" />
                 </div>

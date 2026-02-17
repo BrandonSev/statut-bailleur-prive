@@ -27,13 +27,13 @@ export const ContactSection = () => {
         {submitted ? (
           <div className="flex flex-col items-center py-8 gap-4 text-center">
             <CheckCircle className="w-14 h-14 text-primary" />
-            <h3 className="text-xl font-bold" style={{ color: "#123768" }}>Demande envoyée !</h3>
+            <h3 className="text-xl font-bold text-primary-dark">Demande envoyée !</h3>
             <p className="text-sm text-muted-foreground">
               Un conseiller vous recontactera sous 24h pour une étude personnalisée.
             </p>
             <button
               onClick={handleReset}
-              className="mt-2 px-6 py-2 rounded-xl text-white text-sm font-semibold bg-primary hover:bg-primary/90 transition-colors"
+              className="mt-2 px-6 py-2 rounded-xl text-primary-foreground text-sm font-semibold bg-primary hover:bg-primary/90 transition-colors"
             >
               Nouvelle demande
             </button>
@@ -41,7 +41,7 @@ export const ContactSection = () => {
         ) : (
           <>
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: "#123768" }}>
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">
                 Recevez votre étude personnalisée
               </h2>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -51,34 +51,34 @@ export const ContactSection = () => {
 
             <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
               <div className="space-y-1.5">
-                <Label style={{ color: "#0B1220" }}>Prénom</Label>
+                <Label className="text-foreground">Prénom</Label>
                 <Input
                   required
                   value={form.prenom}
                   onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                  className="border-border focus-visible:ring-primary"
+                  className="border-border focus-visible:ring-ring"
                   placeholder="Votre prénom"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label style={{ color: "#0B1220" }}>Email</Label>
+                <Label className="text-foreground">Email</Label>
                 <Input
                   required
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="border-border focus-visible:ring-primary"
+                  className="border-border focus-visible:ring-ring"
                   placeholder="votre@email.com"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label style={{ color: "#0B1220" }}>Téléphone</Label>
+                <Label className="text-foreground">Téléphone</Label>
                 <Input
                   required
                   type="tel"
                   value={form.telephone}
                   onChange={(e) => setForm({ ...form, telephone: e.target.value })}
-                  className="border-border focus-visible:ring-primary"
+                  className="border-border focus-visible:ring-ring"
                   placeholder="06 12 34 56 78"
                 />
               </div>
@@ -98,7 +98,7 @@ export const ContactSection = () => {
               <button
                 type="submit"
                 disabled={!consent}
-                className="w-full py-3.5 rounded-xl text-white font-semibold text-sm transition-all disabled:opacity-40 bg-primary hover:bg-primary/90"
+                className="w-full py-3.5 rounded-xl text-primary-foreground font-semibold text-sm transition-all disabled:opacity-40 bg-primary hover:bg-primary/90"
               >
                 Recevoir mon étude
               </button>
