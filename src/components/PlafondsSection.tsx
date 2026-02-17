@@ -15,7 +15,7 @@ const AMORTISSEMENTS = [
 
 export const PlafondsSection = () => {
   return (
-    <section className="w-full bg-secondary py-16 md:py-20">
+    <section id="plafonds" className="w-full bg-secondary py-16 md:py-20">
       <div className="max-w-[1100px] mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">
           Plafonds &amp; taux applicables
