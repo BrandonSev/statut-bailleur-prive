@@ -68,7 +68,7 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <div className="w-full bg-gradient-to-br from-primary-dark via-primary-light to-primary text-white overflow-hidden pt-20">
+    <div id="simulateur" className="w-full bg-gradient-to-br from-primary-dark via-primary-light to-primary text-white overflow-hidden pt-20">
       <div className="container mx-auto grid lg:grid-cols-12 py-10 gap-4">
         {/* ══════════════════════════════════
             COLONNE GAUCHE
@@ -101,7 +101,7 @@ export const SimulateurSection = () => {
             ))}
           </ul>
 
-          <a href="#comprendre" className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit">
+          <a href="#mecanisme" className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit">
             Comprendre le dispositif
           </a>
         </div>

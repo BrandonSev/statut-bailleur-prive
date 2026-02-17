@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const NAV_ITEMS = [
   { label: "Simulateur", id: "simulateur" },
-  { label: "Plafonds & taux", id: "taux" },
+  { label: "Plafonds & taux", id: "plafonds" },
   { label: "Comparatif Pinel", id: "comparatif" },
   { label: "FAQ", id: "faq" },
 ];
