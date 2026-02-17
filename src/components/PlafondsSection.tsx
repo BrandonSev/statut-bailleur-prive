@@ -17,9 +17,7 @@ export const PlafondsSection = () => {
   return (
     <section id="plafonds" className="w-full bg-secondary py-16 md:py-20">
       <div className="max-w-[1100px] mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">
-          Plafonds &amp; taux applicables
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">Plafonds &amp; taux applicables</h2>
         <p className="text-sm md:text-base text-muted-foreground mb-10 max-w-2xl">
           Les avantages fiscaux sont encadrés par des plafonds de loyers et des limites annuelles d'amortissement.
         </p>
@@ -56,24 +54,28 @@ export const PlafondsSection = () => {
             <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds annuels d'amortissement</h3>
             <div className="grid sm:grid-cols-3 lg:grid-cols-1 gap-4">
               {AMORTISSEMENTS.map((item) => (
-                <div key={item.niveau} className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm">
+                <div
+                  key={item.niveau}
+                  className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm"
+                >
                   <div className="w-10 h-10 rounded-xl bg-trust-light flex items-center justify-center shrink-0">
                     <Wallet className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-xs font-medium text-muted-foreground mb-0.5">{item.niveau}</p>
-                    <p className="text-xl font-bold text-primary">{item.montant}&nbsp;€<span className="text-sm font-medium text-muted-foreground"> / an</span></p>
+                    <p className="text-xl font-bold text-primary">
+                      {item.montant}&nbsp;€<span className="text-sm font-medium text-muted-foreground"> / an</span>
+                    </p>
                     <p className="text-xs text-muted-foreground mt-1">{item.texte}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+          <p className="text-xs text-muted-foreground text-center pt-2">
+            Barèmes indicatifs – susceptibles d'évolution selon publication des textes officiels.
+          </p>
         </div>
-
-        <p className="text-xs text-muted-foreground text-center pt-2">
-          Barèmes indicatifs – susceptibles d'évolution selon publication des textes officiels.
-        </p>
       </div>
     </section>
   );
