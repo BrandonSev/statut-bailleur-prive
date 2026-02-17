@@ -1,214 +1,95 @@
-import { Check, Clock, FileText, Gavel, Building, Calendar } from "lucide-react";
+import { FileText, Gavel, Check, Clock } from "lucide-react";
 
-interface TimelineStep {
-  date: string;
-  title: string;
-  description: string;
-  status: "completed" | "current" | "upcoming";
-  icon: React.ReactNode;
-}
-
-const timelineSteps: TimelineStep[] = [
+const steps = [
   {
-    date: "Septembre 2025",
-    title: "Dépôt du PLF 2026",
-    description: "Le gouvernement intègre l'article 12 octies dans le projet de loi de finances",
-    status: "completed",
     icon: <FileText className="w-5 h-5" />,
+    title: "Présentation du dispositif",
+    text: "Le dispositif Jeanbrun a été présenté dans le cadre du projet de réforme du logement et de l'investissement locatif.",
+    done: true,
   },
   {
-    date: "Novembre 2025",
-    title: "Débats parlementaires",
-    description: "Amendements et discussions en commission des finances",
-    status: "completed",
     icon: <Gavel className="w-5 h-5" />,
+    title: "Examen parlementaire",
+    text: "Le texte a été étudié et débattu dans le cadre du processus législatif.",
+    done: true,
   },
   {
-    date: "20 janvier 2026",
-    title: "Validation gouvernementale",
-    description: "Adoption du texte - Nom officiel : Statut du Bailleur Privé",
-    status: "completed",
-    icon: <Gavel className="w-5 h-5" />,
+    icon: <Check className="w-5 h-5" />,
+    title: "Vote",
+    text: "Le dispositif a fait l'objet d'un vote dans le cadre de l'adoption du texte.",
+    done: true,
   },
   {
-    date: "Février-Mars 2026",
-    title: "Rédaction des décrets",
-    description: "Précisions sur les modalités d'application attendues",
-    status: "current",
     icon: <Clock className="w-5 h-5" />,
-  },
-  {
-    date: "Q2 2026",
-    title: "Opérationnel",
-    description: "Premiers investissements éligibles au nouveau cadre fiscal",
-    status: "upcoming",
-    icon: <Building className="w-5 h-5" />,
-  },
-  {
-    date: "Fin 2034",
-    title: "Échéance du dispositif",
-    description: "Clôture prévue du Statut du Bailleur Privé",
-    status: "upcoming",
-    icon: <Calendar className="w-5 h-5" />,
+    title: "Promulgation & décrets d'application",
+    text: "L'entrée en vigueur définitive est conditionnée à la publication des décrets d'application.",
+    done: false,
   },
 ];
 
 export const TimelineSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-secondary/30 to-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12 md:mb-16">
-          <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            Parcours législatif
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Où en sommes-nous ?
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            De l'idée initiale à la mise en œuvre : suivez chaque étape clé du nouveau cadre fiscal pour les bailleurs
-          </p>
-        </div>
+    <section className="py-12 md:py-16 bg-secondary/40">
+      <div className="max-w-[1000px] mx-auto px-6">
+        <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center mb-10">
+          Avancement législatif du dispositif Jeanbrun
+        </h2>
 
-        {/* Timeline Desktop */}
-        <div className="hidden lg:block relative max-w-5xl mx-auto">
-          {/* Ligne centrale */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-primary/60 to-muted" />
-          
-          {timelineSteps.map((step, index) => (
-            <div 
-              key={index}
-              className={`relative flex items-center mb-12 last:mb-0 ${
-                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-              }`}
-            >
-              {/* Contenu */}
-              <div className={`w-5/12 ${index % 2 === 0 ? "pr-12 text-right" : "pl-12 text-left"}`}>
-                <div 
-                  className={`p-6 rounded-xl transition-all duration-300 ${
-                    step.status === "completed" 
-                      ? "bg-card border border-primary/20 shadow-lg shadow-primary/5" 
-                      : step.status === "current"
-                      ? "bg-gold/10 border-2 border-gold shadow-lg shadow-gold/10"
-                      : "bg-muted/50 border border-border"
-                  }`}
-                >
-                  <span 
-                    className={`text-sm font-semibold ${
-                      step.status === "completed" 
-                        ? "text-primary" 
-                        : step.status === "current"
-                        ? "text-gold"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {step.date}
-                  </span>
-                  <h3 className="text-lg font-bold text-foreground mt-1 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
+        {/* Desktop horizontal */}
+        <div className="hidden md:grid grid-cols-4 gap-0 relative mb-8">
+          {/* Connecting line */}
+          <div className="absolute top-5 left-[12.5%] right-[12.5%] h-px bg-border" />
 
-              {/* Point central */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-                <div 
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    step.status === "completed" 
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30" 
-                      : step.status === "current"
-                      ? "bg-gold text-foreground shadow-lg shadow-gold/30 animate-pulse"
-                      : "bg-muted text-muted-foreground border-2 border-border"
-                  }`}
-                >
-                  {step.status === "completed" ? (
-                    <Check className="w-6 h-6" />
-                  ) : (
-                    step.icon
-                  )}
-                </div>
-              </div>
-
-              {/* Espace de l'autre côté */}
-              <div className="w-5/12" />
-            </div>
-          ))}
-        </div>
-
-        {/* Timeline Mobile */}
-        <div className="lg:hidden relative max-w-lg mx-auto">
-          {/* Ligne verticale */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/60 to-muted" />
-          
-          {timelineSteps.map((step, index) => (
-            <div key={index} className="relative flex items-start mb-8 last:mb-0 pl-16">
-              {/* Point */}
-              <div className="absolute left-0 z-10">
-                <div 
-                  className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                    step.status === "completed" 
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30" 
-                      : step.status === "current"
-                      ? "bg-gold text-foreground shadow-lg shadow-gold/30 animate-pulse"
-                      : "bg-muted text-muted-foreground border-2 border-border"
-                  }`}
-                >
-                  {step.status === "completed" ? (
-                    <Check className="w-5 h-5" />
-                  ) : (
-                    step.icon
-                  )}
-                </div>
-              </div>
-
-              {/* Contenu */}
-              <div 
-                className={`flex-1 p-4 rounded-xl ${
-                  step.status === "completed" 
-                    ? "bg-card border border-primary/20 shadow-md" 
-                    : step.status === "current"
-                    ? "bg-gold/10 border-2 border-gold shadow-md"
-                    : "bg-muted/50 border border-border"
+          {steps.map((step, i) => (
+            <div key={i} className="flex flex-col items-center text-center relative z-10">
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center mb-3 ${
+                  step.done
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground border border-border"
                 }`}
               >
-                <span 
-                  className={`text-xs font-semibold ${
-                    step.status === "completed" 
-                      ? "text-primary" 
-                      : step.status === "current"
-                      ? "text-gold"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {step.date}
-                </span>
-                <h3 className="text-base font-bold text-foreground mt-1 mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {step.description}
-                </p>
+                {step.icon}
               </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1.5 leading-tight max-w-[180px]">
+                {step.title}
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
+                {step.text}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Légende */}
-        <div className="flex flex-wrap justify-center gap-6 mt-12 pt-8 border-t border-border">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-primary" />
-            <span className="text-sm text-muted-foreground">Accompli</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-gold animate-pulse" />
-            <span className="text-sm text-muted-foreground">Phase actuelle</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-muted border border-border" />
-            <span className="text-sm text-muted-foreground">Prochaines étapes</span>
-          </div>
+        {/* Mobile vertical */}
+        <div className="md:hidden relative pl-12 space-y-6 mb-8">
+          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-border" />
+          {steps.map((step, i) => (
+            <div key={i} className="relative">
+              <div
+                className={`absolute left-[-30px] w-9 h-9 rounded-full flex items-center justify-center ${
+                  step.done
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground border border-border"
+                }`}
+              >
+                {step.icon}
+              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1">
+                {step.title}
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {step.text}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Disclaimer */}
+        <div className="border border-border rounded-lg px-5 py-4 bg-background">
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            Les informations présentées sont fournies à titre indicatif. L'application définitive du dispositif dépendra des textes officiels publiés au Journal Officiel.
+          </p>
         </div>
       </div>
     </section>
