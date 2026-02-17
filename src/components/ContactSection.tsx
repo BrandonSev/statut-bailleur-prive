@@ -1,138 +1,116 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { 
-  FileText, 
-  Shield
-} from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { CheckCircle, Shield, Clock, Lock } from "lucide-react";
 
 export const ContactSection = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    nom: "",
-    email: "",
-    telephone: "",
-    acceptConditions: false
-  });
+  const [submitted, setSubmitted] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [form, setForm] = useState({ prenom: "", email: "", telephone: "" });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.acceptConditions) {
-      toast({
-        title: "Action requise",
-        description: "Merci de valider les conditions pour poursuivre.",
-        variant: "destructive"
-      });
-      return;
-    }
+    if (!consent) return;
+    setSubmitted(true);
+  };
 
-    setIsSubmitting(true);
-    
-    // Simulation d'envoi
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "C'est parti !",
-      description: "Consultez votre boîte mail dans quelques instants."
-    });
-    
-    setFormData({
-      nom: "",
-      email: "",
-      telephone: "",
-      acceptConditions: false
-    });
-    setIsSubmitting(false);
+  const handleReset = () => {
+    setSubmitted(false);
+    setConsent(false);
+    setForm({ prenom: "", email: "", telephone: "" });
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-muted">
-      <div className="container mx-auto px-4">
-        <div className="max-w-xl mx-auto">
-          {/* Section header */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-              Documentation complète
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Recevez par email notre synthèse détaillée sur le nouveau cadre fiscal bailleur.
+    <section id="contact" className="w-full bg-trust-light py-16 md:py-20">
+      <div className="max-w-[900px] mx-auto px-6">
+        {submitted ? (
+          <div className="flex flex-col items-center py-8 gap-4 text-center">
+            <CheckCircle className="w-14 h-14 text-primary" />
+            <h3 className="text-xl font-bold" style={{ color: "#123768" }}>Demande envoyée !</h3>
+            <p className="text-sm text-muted-foreground">
+              Un conseiller vous recontactera sous 24h pour une étude personnalisée.
             </p>
+            <button
+              onClick={handleReset}
+              className="mt-2 px-6 py-2 rounded-xl text-white text-sm font-semibold bg-primary hover:bg-primary/90 transition-colors"
+            >
+              Nouvelle demande
+            </button>
           </div>
+        ) : (
+          <>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: "#123768" }}>
+                Recevez votre étude personnalisée
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Analyse gratuite et sans engagement de votre situation patrimoniale.
+              </p>
+            </div>
 
-          <Card className="border-primary/20 shadow-lg">
-            <CardContent className="p-6 md:p-8">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="nom">Nom (facultatif)</Label>
-                  <Input
-                    id="nom"
-                    placeholder="Comment vous appeler ?"
-                    value={formData.nom}
-                    onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+              <div className="space-y-1.5">
+                <Label style={{ color: "#0B1220" }}>Prénom</Label>
+                <Input
+                  required
+                  value={form.prenom}
+                  onChange={(e) => setForm({ ...form, prenom: e.target.value })}
+                  className="border-border focus-visible:ring-primary"
+                  placeholder="Votre prénom"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label style={{ color: "#0B1220" }}>Email</Label>
+                <Input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="border-border focus-visible:ring-primary"
+                  placeholder="votre@email.com"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label style={{ color: "#0B1220" }}>Téléphone</Label>
+                <Input
+                  required
+                  type="tel"
+                  value={form.telephone}
+                  onChange={(e) => setForm({ ...form, telephone: e.target.value })}
+                  className="border-border focus-visible:ring-primary"
+                  placeholder="06 12 34 56 78"
+                />
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Adresse email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="vous@exemple.fr"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
+              <div className="flex items-start gap-2 pt-1">
+                <Checkbox
+                  id="consent-footer"
+                  checked={consent}
+                  onCheckedChange={(v) => setConsent(v === true)}
+                  className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                />
+                <label htmlFor="consent-footer" className="text-xs text-muted-foreground leading-tight cursor-pointer">
+                  J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
+                </label>
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="telephone">Téléphone</Label>
-                  <Input
-                    id="telephone"
-                    type="tel"
-                    placeholder="Pour un rappel éventuel"
-                    value={formData.telephone}
-                    onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-                  />
-                </div>
+              <button
+                type="submit"
+                disabled={!consent}
+                className="w-full py-3.5 rounded-xl text-white font-semibold text-sm transition-all disabled:opacity-40 bg-primary hover:bg-primary/90"
+              >
+                Recevoir mon étude
+              </button>
 
-                <div className="flex items-start space-x-3">
-                  <Checkbox 
-                    id="conditions"
-                    checked={formData.acceptConditions}
-                    onCheckedChange={(checked) => 
-                      setFormData({ ...formData, acceptConditions: checked as boolean })
-                    }
-                  />
-                  <Label htmlFor="conditions" className="text-sm text-muted-foreground leading-relaxed">
-                    J'accepte d'être recontacté(e) pour recevoir des informations complémentaires sur ce dispositif.
-                  </Label>
-                </div>
-
-                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    "Envoi en cours..."
-                  ) : (
-                    <>
-                      <FileText className="w-5 h-5 mr-2" />
-                      Obtenir le document
-                    </>
-                  )}
-                </Button>
-
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4" />
-                  <span>Données protégées, aucune revente</span>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> Données strictement confidentielles</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> Aucune revente de données</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> Réponse sous 24h ouvrées</span>
+              </div>
+            </form>
+          </>
+        )}
       </div>
     </section>
   );
