@@ -18,7 +18,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-[32px] sm:top-[29px] left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+    <header className="fixed left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border" style={{ top: 'var(--banner-height, 32px)' }}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           {/* Logo / Brand */}
