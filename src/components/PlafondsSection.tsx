@@ -71,10 +71,10 @@ export const PlafondsSection = () => {
                 </div>
               ))}
             </div>
+            <p className="text-xs text-muted-foreground text-center pt-2">
+              Barèmes indicatifs – susceptibles d'évolution selon publication des textes officiels.
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground text-center pt-2">
-            Barèmes indicatifs – susceptibles d'évolution selon publication des textes officiels.
-          </p>
         </div>
       </div>
     </section>
