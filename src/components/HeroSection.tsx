@@ -9,7 +9,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden pt-28 pb-12 md:pt-32 md:pb-16">
+    <section className="relative h-[85vh] flex items-center bg-gradient-to-br from-trust-dark via-primary to-primary/90 overflow-hidden pt-20 pb-8 md:pt-24 md:pb-10">
       {/* Background effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 right-40 w-[500px] h-[500px] bg-gold rounded-full blur-[120px]" />
@@ -46,7 +46,7 @@ export const HeroSection = () => {
 
           {/* Colonne droite – Simulateur dans card premium */}
           <div className="w-full flex justify-center lg:justify-end">
-            <div className="w-full max-w-[580px] bg-white rounded-2xl shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] p-6 md:p-8">
+            <div className="w-full max-w-[560px] max-h-[72vh] overflow-y-auto bg-white rounded-[16px] shadow-[0_16px_48px_-8px_rgba(0,0,0,0.25)] p-5 md:p-6">
               <SimulateurSection />
             </div>
           </div>
