@@ -150,9 +150,9 @@ export const SimulateurSection = () => {
                           <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
                         </SelectContent>
                       </Select>
-                      <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
+                      {/* <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
                         Recevez une sélection de lots neufs éligibles selon votre budget et votre ville.
-                      </p>
+                      </p> */}
                       <button
                         type="button"
                         onClick={() => setModalOpen(true)}
