@@ -15,7 +15,7 @@ export const Footer = () => {
   return (
     <footer className="bg-[hsl(196,100%,10%)] text-white/80">
       <div className="max-w-[1200px] mx-auto px-6 py-12 md:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm items-center">
           {/* Col 1 — À propos */}
           <div>
             <h4 className="text-white font-bold text-sm mb-3 leading-snug">
@@ -59,13 +59,13 @@ export const Footer = () => {
               <li>• Décrets d'application en attente</li>
               <li>• Simulations indicatives et non contractuelles</li>
             </ul>
-            {/* <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5">
               {["Mentions légales", "Politique de confidentialité", "CGU", "Gestion des cookies"].map((t) => (
                 <a key={t} href="#" className="text-white/40 text-xs hover:text-white/70 transition-colors">
                   {t}
                 </a>
               ))}
-            </div> */}
+            </div>
           </div>
 
           {/* Col 4 — CTA */}
