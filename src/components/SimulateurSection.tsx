@@ -380,12 +380,12 @@ export const SimulateurSection = () => {
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 text-white font-semibold text-xs sm:text-sm transition-colors"
-                      style={{ backgroundColor: "#046C91", borderRadius: "14px" }}
+                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 text-white font-semibold text-xs sm:text-sm transition-colors text-center"
+                      style={{ backgroundColor: "#046C91", borderRadius: "14px", textWrap: "balance" } as React.CSSProperties}
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
                     >
-                      <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <Mail className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                       <span className="hidden sm:inline">Recevoir une étude personnalisée (lots neufs éligibles)</span>
                       <span className="sm:hidden">Recevoir mon étude personnalisée</span>
                     </button>
