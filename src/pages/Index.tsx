@@ -22,7 +22,7 @@ const Index = () => {
       <Header />
       <main>
         {/* <HeroSection /> */}
-        <TimelineSection />
+        {/* <TimelineSection /> */}
         <SimulateurSection />
         {/* <HowItWorksSection /> */}
         <MecanismeSection />
