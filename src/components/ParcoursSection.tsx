@@ -1,4 +1,9 @@
+import { useState } from "react";
+import { Mail } from "lucide-react";
+import { ContactModal } from "./ContactModal";
+
 export const ParcoursSection = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const steps = [
     { num: "01", title: "Étude patrimoniale", text: "Analyse de votre TMI, capacité d'emprunt et stratégie adaptée." },
     { num: "02", title: "Sélection du bien", text: "Choix d'un programme éligible et validation des plafonds." },
@@ -46,7 +51,20 @@ export const ParcoursSection = () => {
         </div>
 
         <p className="text-xs text-muted-foreground text-center">Durée d'engagement : 9 ans minimum.</p>
+
+        <div className="flex flex-col items-center gap-3 mt-8">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            <Mail className="w-4 h-4" />
+            Être accompagné pour investir
+          </button>
+          <p className="text-xs text-muted-foreground">Sans engagement • Réponse sous 24h</p>
+        </div>
       </div>
+
+      <ContactModal open={modalOpen} onOpenChange={setModalOpen} />
     </section>
   );
 };

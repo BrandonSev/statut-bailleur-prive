@@ -115,23 +115,6 @@ export const PlafondsSection = () => {
           </div>
         </div>
 
-        {/* CTA step indicator */}
-        <div className="mt-10 flex flex-col items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-success-light text-success text-sm font-bold">1</span>
-            <span className="text-sm font-medium text-muted-foreground">Comprendre les plafonds</span>
-            <span className="text-success text-sm">✓</span>
-          </div>
-          <a
-            href="#comparatif"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
-          >
-            Avancer : étape suivante pour investir
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
   );
