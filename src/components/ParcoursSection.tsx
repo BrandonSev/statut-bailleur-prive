@@ -17,9 +17,6 @@ export const ParcoursSection = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
           Les 4 étapes pour investir en Jeanbrun
         </h2>
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
-          Les 4 étapes pour investir en Jeanbrun
-        </h2>
         <p className="text-center text-muted-foreground text-sm md:text-base mb-10 max-w-xl mx-auto">
           Un parcours simple et encadré, de l'étude à la mise en location.
         </p>
@@ -29,7 +26,9 @@ export const ParcoursSection = () => {
           <div className="absolute top-6 left-[12.5%] right-[12.5%] h-px bg-border" />
           {steps.map((step, i) => (
             <div key={i} className="flex flex-col items-center text-center relative z-10">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold mb-4 shadow-sm ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}>
+              <div
+                className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold mb-4 shadow-sm ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}
+              >
                 {step.num}
               </div>
               <h3 className="text-sm font-bold mb-1 text-primary-dark">{step.title}</h3>
@@ -42,7 +41,9 @@ export const ParcoursSection = () => {
         <div className="md:hidden space-y-5 mb-6">
           {steps.map((step, i) => (
             <div key={i} className="flex items-start gap-3">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-sm shrink-0 ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}>
+              <div
+                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-sm shrink-0 ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}
+              >
                 {step.num}
               </div>
               <div className="pt-1">
