@@ -30,8 +30,8 @@ export const HeroSection = () => {
             </h2>
 
             <p className="text-lg md:text-xl text-white/80 mb-12 leading-relaxed">
-              Estimez votre avantage fiscal et découvrez les opportunités
-              d'investissement immobilier adaptées à votre situation.
+              Estimez votre avantage fiscal et découvrez les opportunités d'investissement immobilier adaptées à votre
+              situation.
             </p>
 
             <Button
@@ -45,11 +45,6 @@ export const HeroSection = () => {
           </div>
 
           {/* Colonne droite – Simulateur dans card premium */}
-          <div className="w-full flex justify-center lg:justify-end">
-            <div className="w-full max-w-[560px] max-h-[72vh] overflow-y-auto bg-white rounded-[16px] shadow-[0_16px_48px_-8px_rgba(0,0,0,0.25)] p-5 md:p-6">
-              <SimulateurSection />
-            </div>
-          </div>
         </div>
       </div>
     </section>
