@@ -69,7 +69,7 @@ export const SimulateurSection = () => {
 
   return (
     <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white overflow-hidden">
-      <div className="grid lg:grid-cols-12">
+      <div className="container mx-auto grid lg:grid-cols-12">
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
