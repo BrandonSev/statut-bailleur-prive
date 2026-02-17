@@ -17,17 +17,19 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    /* Bleu #00729D - couleur principale */
-    --primary: 196 100% 31%;
+    /* #005e8b - couleur principale */
+    --primary: 199 100% 27%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 196 70% 45%;
-    --primary-dark: 196 100% 22%;
+    /* #0a5183 */
+    --primary-light: 205 86% 28%;
+    /* #193672 */
+    --primary-dark: 220 63% 27%;
 
-    --secondary: 196 20% 94%;
-    --secondary-foreground: 196 100% 25%;
+    --secondary: 205 20% 94%;
+    --secondary-foreground: 220 63% 27%;
 
-    --muted: 196 10% 95%;
-    --muted-foreground: 196 15% 40%;
+    --muted: 205 10% 95%;
+    --muted-foreground: 205 15% 40%;
 
     /* Accent doré/jaune */
     --accent: 45 95% 50%;
@@ -36,55 +38,55 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 196 15% 88%;
-    --input: 196 15% 88%;
-    --ring: 196 100% 31%;
+    --border: 205 20% 85%;
+    --input: 205 20% 85%;
+    --ring: 199 100% 27%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 196 100% 31%;
+    --sidebar-primary: 199 100% 27%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 196 100% 31%;
+    --sidebar-ring: 199 100% 27%;
 
-    /* Custom tokens for immobilier */
-    --trust: 196 100% 31%;
-    --trust-light: 196 40% 95%;
-    --trust-dark: 196 100% 18%;
+    /* Custom tokens */
+    --trust: 199 100% 27%;
+    --trust-light: 205 40% 95%;
+    --trust-dark: 220 63% 18%;
     --gold: 45 95% 50%;
     --gold-light: 45 90% 92%;
     --success: 145 65% 40%;
     --success-light: 145 60% 95%;
     
-    /* Hero gradient colors */
-    --hero-start: 196 100% 18%;
-    --hero-end: 196 80% 35%;
+    /* Hero gradient */
+    --hero-start: 220 63% 18%;
+    --hero-end: 199 80% 30%;
   }
 
   .dark {
-    --background: 196 30% 8%;
+    --background: 220 30% 8%;
     --foreground: 0 0% 95%;
 
-    --card: 196 30% 10%;
+    --card: 220 30% 10%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 196 30% 10%;
+    --popover: 220 30% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 196 80% 50%;
+    --primary: 199 80% 50%;
     --primary-foreground: 0 0% 10%;
-    --primary-light: 196 60% 60%;
-    --primary-dark: 196 100% 35%;
+    --primary-light: 205 60% 60%;
+    --primary-dark: 220 50% 40%;
 
-    --secondary: 196 30% 18%;
+    --secondary: 220 30% 18%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 196 30% 15%;
-    --muted-foreground: 196 15% 60%;
+    --muted: 220 30% 15%;
+    --muted-foreground: 205 15% 60%;
 
     --accent: 45 90% 55%;
     --accent-foreground: 0 0% 10%;
@@ -92,29 +94,29 @@ All colors MUST be HSL.
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 196 25% 20%;
-    --input: 196 25% 20%;
-    --ring: 196 80% 50%;
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 199 80% 50%;
 
-    --sidebar-background: 196 30% 8%;
+    --sidebar-background: 220 30% 8%;
     --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 196 80% 50%;
+    --sidebar-primary: 199 80% 50%;
     --sidebar-primary-foreground: 0 0% 10%;
-    --sidebar-accent: 196 30% 15%;
+    --sidebar-accent: 220 30% 15%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 196 25% 20%;
-    --sidebar-ring: 196 80% 50%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 199 80% 50%;
 
-    --trust: 196 80% 50%;
-    --trust-light: 196 40% 15%;
-    --trust-dark: 196 100% 8%;
+    --trust: 199 80% 50%;
+    --trust-light: 205 40% 15%;
+    --trust-dark: 220 63% 8%;
     --gold: 45 90% 55%;
     --gold-light: 45 50% 15%;
     --success: 145 55% 50%;
     --success-light: 145 40% 15%;
 
-    --hero-start: 196 100% 12%;
-    --hero-end: 196 80% 25%;
+    --hero-start: 220 63% 12%;
+    --hero-end: 199 80% 25%;
   }
 }
 

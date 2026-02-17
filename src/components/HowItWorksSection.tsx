@@ -27,7 +27,7 @@ export const HowItWorksSection = () => {
   return (
     <section className="w-full bg-background py-16 md:py-20">
       <div className="max-w-[1100px] mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-3" style={{ color: "#123768" }}>
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 text-primary-dark">
           Comment fonctionne le dispositif ?
         </h2>
         <p className="text-center text-muted-foreground text-sm md:text-base mb-10">
@@ -36,20 +36,13 @@ export const HowItWorksSection = () => {
 
         <div className="grid sm:grid-cols-2 gap-5">
           {steps.map((step, i) => (
-            <div
-              key={i}
-              className="flex gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm"
-            >
+            <div key={i} className="flex gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm">
               <div className="w-11 h-11 rounded-xl bg-trust-light flex items-center justify-center shrink-0">
                 <step.icon className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="text-sm font-bold mb-1" style={{ color: "#123768" }}>
-                  {step.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {step.text}
-                </p>
+                <h3 className="text-sm font-bold mb-1 text-primary-dark">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
               </div>
             </div>
           ))}
