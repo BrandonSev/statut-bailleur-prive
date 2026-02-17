@@ -8,6 +8,7 @@ import { SimulateurSection } from "@/components/SimulateurSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { PlafondsSection } from "@/components/PlafondsSection";
 import { MecanismeSection } from "@/components/MecanismeSection";
+import { ParcoursSection } from "@/components/ParcoursSection";
 
 import { ComparatifSection } from "@/components/ComparatifSection";
 import { FAQSection } from "@/components/FAQSection";
@@ -29,6 +30,7 @@ const Index = () => {
         <AdvantagesSection />
         <RatesSection />
         <ComparatifSection />
+        <ParcoursSection />
         <FAQSection />
         <ContactSection />
       </main>
