@@ -4,8 +4,8 @@ import { HeroSection } from "@/components/HeroSection";
 import { TimelineSection } from "@/components/TimelineSection";
 import { AdvantagesSection } from "@/components/AdvantagesSection";
 import { RatesSection } from "@/components/RatesSection";
-
 import { SimulateurSection } from "@/components/SimulateurSection";
+
 import { ComparatifSection } from "@/components/ComparatifSection";
 import { FAQSection } from "@/components/FAQSection";
 import { ContactSection } from "@/components/ContactSection";
