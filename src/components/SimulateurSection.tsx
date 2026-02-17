@@ -404,6 +404,66 @@ export const SimulateurSection = () => {
         </div>
       </div>
 
+      {/* ══════════════════════════════════
+          BLOC CONVERSION PREMIUM
+      ══════════════════════════════════ */}
+      <div className="w-full bg-trust-light">
+        <div className="max-w-[900px] mx-auto px-6 py-12 md:py-16">
+          <h3 className="text-xl md:text-2xl font-bold text-center mb-8" style={{ color: "#123768" }}>
+            Allez plus loin avec votre étude personnalisée
+          </h3>
+
+          <div className="grid sm:grid-cols-3 gap-6 mb-10">
+            {[
+              {
+                icon: (
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ),
+                text: "Effort d'épargne mensuel réel",
+              },
+              {
+                icon: (
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                ),
+                text: "Cash-flow estimé sur 9 ans",
+              },
+              {
+                icon: (
+                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                ),
+                text: "Sélection de biens compatibles avec votre profil",
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center text-center gap-3 p-4">
+                <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center">
+                  {item.icon}
+                </div>
+                <p className="text-sm font-medium text-foreground/80">{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="px-8 py-3.5 rounded-xl text-white font-semibold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+              style={{ backgroundColor: "#046C91" }}
+            >
+              Recevoir mon étude personnalisée
+            </button>
+            <p className="text-xs text-muted-foreground">
+              Vos données restent confidentielles. Aucun spam.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <ContactModal open={modalOpen} onOpenChange={setModalOpen} />
     </div>
   );
