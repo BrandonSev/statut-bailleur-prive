@@ -1,10 +1,8 @@
 import { useState, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TrendingDown, TrendingUp, Wallet, Mail } from "lucide-react";
+import { Mail, TrendingDown, Sparkles } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
@@ -24,8 +22,8 @@ const PLAFONDS: Record<NiveauLoyer, number> = {
 
 const LABELS_LOYER: Record<NiveauLoyer, string> = {
   intermediaire: "Intermédiaire",
-  social: "Social (≈ -15%)",
-  tres_social: "Très social (≈ -30%)",
+  social: "Social (-15%)",
+  tres_social: "Très social (-30%)",
 };
 
 export const SimulateurSection = () => {
@@ -68,321 +66,307 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <div id="simulateur" className="w-full bg-gradient-to-br from-primary-dark via-primary-light to-primary text-white overflow-hidden pt-20">
-      <div className="container mx-auto grid lg:grid-cols-12 py-10 gap-4">
-        {/* ══════════════════════════════════
-            COLONNE GAUCHE
-        ══════════════════════════════════ */}
-        <div className="flex flex-col justify-center px-6 py-6 md:p-0 backdrop-blur-[2px] lg:col-span-4">
-          <div className="mb-4">
-            <span className="inline-block bg-white/15 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
-              PLF 2026 • Plan de relance logement
-            </span>
+    <div
+      id="simulateur"
+      className="w-full overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)",
+      }}
+    >
+      <div className="container mx-auto px-4 sm:px-6 py-12 md:py-16 lg:py-20">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.3fr] gap-8 lg:gap-12 items-center">
+          {/* ══════════════════════════════════
+              COLONNE GAUCHE — Accroche
+          ══════════════════════════════════ */}
+          <div className="text-white space-y-6">
+            <div className="inline-block">
+              <span
+                className="text-xs font-medium px-3 py-1.5 rounded-full"
+                style={{
+                  background: "rgba(255,255,255,0.15)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                }}
+              >
+                PLF 2026 • Plan de relance logement
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+              Simulateur du statut
+              <br />
+              du bailleur privé
+            </h2>
+
+            <p className="text-lg sm:text-xl font-medium text-white/90">Estimez votre avantage fiscal en 2 minutes.</p>
+
+            <ul className="space-y-3">
+              {["Simulation gratuite & immédiate", "Résultat personnalisé", "Sans engagement"].map((text, i) => (
+                <li key={i} className="flex items-center gap-2.5">
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm sm:text-base">{text}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="#mecanisme"
+              className="inline-block text-sm underline underline-offset-4 decoration-white/40 hover:decoration-white transition-all"
+            >
+              Comment fonctionne le dispositif ?
+            </a>
           </div>
 
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-3">
-            Simulateur du statut
-            <br />
-            du bailleur privé
-          </h2>
+          {/* ══════════════════════════════════
+              COLONNE DROITE — Formulaire épuré
+          ══════════════════════════════════ */}
+          <div className="rounded-2xl shadow-2xl overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
+            {/* Header simplifié */}
+            <div className="px-6 py-5 border-b border-gray-100">
+              <h3 className="text-lg font-bold text-gray-900">Calculez votre économie</h3>
+              <p className="text-sm text-gray-500 mt-0.5">Quelques informations suffisent</p>
+            </div>
 
-          <p className="text-base md:text-lg font-semibold text-white mb-5">
-            Estimez votre avantage fiscal en quelques secondes.
-          </p>
-
-          <ul className="space-y-3 mb-6">
-            {["Simulation gratuite", "Résultat immédiat", "Étude personnalisée"].map((text, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm md:text-base">
-                <svg className="w-4 h-4 flex-shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>{text}</span>
-              </li>
-            ))}
-          </ul>
-
-          <a href="#mecanisme" className="text-white text-sm underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit">
-            Comprendre le dispositif
-          </a>
-        </div>
-
-        {/* ══════════════════════════════════
-            COLONNE DROITE — simulateur
-        ══════════════════════════════════ */}
-        <div className="p-4 md:p-0 lg:col-span-8">
-          <div className="max-w-5xl mx-auto">
-            <Card className="shadow-lg bg-card border border-border/30 rounded-[20px]">
-              <CardContent className="p-4 md:p-6">
-                <div className="grid lg:grid-cols-2 gap-6">
-                  {/* ── INPUTS ── */}
-                  <div className="space-y-3">
-                    {/* Type de bien */}
-                    <div className="space-y-2">
-                      <Label className="font-semibold text-foreground">Type de bien</Label>
-                      <Select value="neuf" disabled>
-                        <SelectTrigger className="border-border">
-                          <SelectValue placeholder="Neuf / VEFA (recommandé)" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <button
-                        type="button"
-                        onClick={() => setModalOpen(true)}
-                        className="text-xs underline cursor-pointer text-primary opacity-75"
-                      >
-                        Ancien rénové : cas particulier (conditions strictes) – vérifier en appel
-                      </button>
-                    </div>
-
-                    {/* Niveau de loyer */}
-                    <div className="space-y-2">
-                      <Label className="font-semibold text-foreground">Niveau de loyer</Label>
-                      <div className="flex flex-wrap gap-2">
-                        {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
-                          <button
-                            key={niveau}
-                            onClick={() => setNiveauLoyer(niveau)}
-                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                              niveauLoyer === niveau
-                                ? "bg-primary-dark text-primary-foreground"
-                                : "bg-transparent border-[1.5px] border-border text-foreground hover:bg-border/30"
-                            }`}
-                          >
-                            {LABELS_LOYER[niveau]}
-                          </button>
-                        ))}
-                      </div>
-                      <p className="text-xs text-foreground/45">
-                        Références indicatives, susceptibles d'évoluer avec les textes d'application.
-                      </p>
-                    </div>
-
-                    {/* Prix d'achat */}
-                    <div className="space-y-2">
-                      <Label htmlFor="prix" className="font-semibold text-foreground">Prix d'achat (€)</Label>
-                      <div className="relative">
-                        <Input
-                          id="prix"
-                          type="number"
-                          value={prixAchat}
-                          onChange={(e) => setPrixAchat(e.target.value)}
-                          placeholder="Prix du bien en euros"
-                          className="pr-8 focus-visible:ring-ring border-border"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
-                      </div>
-                    </div>
-
-                    {/* Loyer annuel */}
-                    <div className="space-y-2">
-                      <Label htmlFor="loyer" className="font-semibold text-foreground">Loyer annuel brut (€/an)</Label>
-                      <div className="relative">
-                        <Input
-                          id="loyer"
-                          type="number"
-                          value={loyerAnnuel}
-                          onChange={(e) => setLoyerAnnuel(e.target.value)}
-                          className="pr-8 focus-visible:ring-ring border-border"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
-                      </div>
-                      <p className="text-xs text-primary">≈ {fmt(loyerMensuel)} €/mois</p>
-                    </div>
-
-                    {/* Charges annuelles */}
-                    <div className="space-y-2">
-                      <Label htmlFor="charges" className="font-semibold text-foreground">Charges annuelles (€/an)</Label>
-                      <div className="relative">
-                        <Input
-                          id="charges"
-                          type="number"
-                          value={chargesAnnuelles}
-                          onChange={(e) => setChargesAnnuelles(e.target.value)}
-                          placeholder="Taxe foncière, assurance, etc."
-                          className="pr-8 focus-visible:ring-ring border-border"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
-                      </div>
-                      <p className="text-xs text-primary/70">TF + copro + assurance + gestion (hors crédit)</p>
-                    </div>
-
-                    {/* TMI */}
-                    <div className="space-y-2">
-                      <Label className="font-semibold text-foreground">Votre TMI (Taux Marginal d'Imposition)</Label>
-                      <div className="flex flex-wrap gap-2">
-                        {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
-                          <button
-                            key={rate}
-                            onClick={() => setTmi(rate)}
-                            className={`min-w-[60px] px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                              tmi === rate
-                                ? "bg-primary-dark text-primary-foreground"
-                                : "bg-transparent border-[1.5px] border-border text-foreground hover:bg-border/30"
-                            }`}
-                          >
-                            {rate}%
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── RESULTS ── */}
-                  <div className="space-y-2 sm:space-y-3">
-                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      {/* Sans dispositif */}
-                      <Card className="border-border bg-secondary rounded-2xl">
-                        <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
-                          <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground flex items-center gap-1.5 sm:gap-2">
-                            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                            <span className="truncate">Sans dispositif</span>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
-                          <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Impôt annuel</p>
-                          <p className="text-lg sm:text-2xl font-bold text-foreground/70">{fmt(resultats.impotSansJeanbrun)} €</p>
-                        </CardContent>
-                      </Card>
-
-                      {/* Avec Jeanbrun */}
-                      <Card className="rounded-2xl bg-primary/5 border border-primary/25">
-                        <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
-                          <CardTitle className="text-xs sm:text-sm font-medium text-primary flex items-center gap-1.5 sm:gap-2">
-                            <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                            <span className="truncate">Avec Jeanbrun</span>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
-                          <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Impôt annuel</p>
-                          <p className="text-lg sm:text-2xl font-bold text-primary">
-                            {fmt(resultats.impotAvecJeanbrun)} €
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* Économie */}
-                    <Card className="rounded-2xl bg-trust-light border border-border">
-                      <CardContent className="p-3 sm:p-4">
-                        <div className="flex items-center gap-2 mb-1 sm:mb-2">
-                          <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                          <span className="text-muted-foreground font-medium text-xs sm:text-sm">Économie annuelle estimée</span>
-                        </div>
-                        <p className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-dark">
-                          {fmt(resultats.economieAnnuelle)} €
-                        </p>
-                        <div className="mt-1 space-y-0.5">
-                          <p className="text-xs sm:text-sm text-primary">
-                            Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
-                          </p>
-                          <p className="text-xs sm:text-sm text-primary">
-                            Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
-                          <Badge className="bg-white/70 border border-border text-[10px] sm:text-xs text-primary-dark">
-                            Taux : {resultats.taux.toFixed(1)}% / an
-                          </Badge>
-                          <Badge className="bg-white/70 border border-border text-[10px] sm:text-xs text-primary-dark">
-                            Amortissement : {fmt(resultats.amortissementAnnuel)} €
-                          </Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Détails */}
-                    <div className="rounded-xl p-3 bg-secondary">
-                      <p className="text-xs font-semibold mb-1 text-foreground">Détails :</p>
-                      <ul className="text-xs space-y-0.5 text-foreground/65">
-                        <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
-                        {resultats.deficitFoncier > 0 && (
-                          <li>• Déficit foncier imputable : {fmt(resultats.deficitFoncier)} €</li>
-                        )}
-                        <li>• Économie sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €</li>
-                      </ul>
-                    </div>
-
-                    {/* CTA */}
-                    <button
-                      onClick={() => setModalOpen(true)}
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 text-primary-foreground font-semibold text-xs sm:text-sm transition-colors text-center rounded-[14px] bg-primary hover:bg-primary/85"
-                      style={{ textWrap: "balance" } as React.CSSProperties}
-                    >
-                      <Mail className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                      <span className="hidden sm:inline">Recevoir une étude personnalisée (lots neufs éligibles)</span>
-                      <span className="sm:hidden">Recevoir mon étude personnalisée</span>
-                    </button>
-
-                    <p className="text-[10px] sm:text-xs text-center text-foreground/45">
-                      <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026.
-                      Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
-                    </p>
-                    <p className="text-[10px] sm:text-xs text-center text-foreground/40">
-                      N'inclut pas : intérêts d'emprunt et situation fiscale complète (affinés en étude).
-                    </p>
-                  </div>
+            {/* Formulaire */}
+            <div className="px-6 py-6 space-y-5">
+              {/* Prix d'achat */}
+              <div className="space-y-1.5">
+                <Label htmlFor="prix" className="text-sm font-medium text-gray-700">
+                  Prix d'achat du bien
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="prix"
+                    type="number"
+                    value={prixAchat}
+                    onChange={(e) => setPrixAchat(e.target.value)}
+                    placeholder="Ex : 250 000"
+                    className="h-11 pr-10 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">€</span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Loyer + Charges en ligne */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="loyer" className="text-sm font-medium text-gray-700">
+                    Loyer annuel
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="loyer"
+                      type="number"
+                      value={loyerAnnuel}
+                      onChange={(e) => setLoyerAnnuel(e.target.value)}
+                      placeholder="9 600"
+                      className="h-11 pr-10 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
+                      €
+                    </span>
+                  </div>
+                  <p className="text-xs text-blue-600">≈ {fmt(loyerMensuel)} €/mois</p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="charges" className="text-sm font-medium text-gray-700">
+                    Charges/an
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="charges"
+                      type="number"
+                      value={chargesAnnuelles}
+                      onChange={(e) => setChargesAnnuelles(e.target.value)}
+                      placeholder="2 000"
+                      className="h-11 pr-10 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
+                      €
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-400">TF, assurance, etc.</p>
+                </div>
+              </div>
+
+              {/* Niveau de loyer + TMI en ligne */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-gray-700">Niveau de loyer</Label>
+                  <Select value={niveauLoyer} onValueChange={(v) => setNiveauLoyer(v as NiveauLoyer)}>
+                    <SelectTrigger className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
+                        <SelectItem key={n} value={n}>
+                          {LABELS_LOYER[n]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-gray-700">Votre TMI</Label>
+                  <Select value={String(tmi)} onValueChange={(v) => setTmi(Number(v) as TMI)}>
+                    <SelectTrigger className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
+                        <SelectItem key={rate} value={String(rate)}>
+                          {rate} %
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Séparateur */}
+              <div className="relative py-2">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200"></div>
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="px-3 bg-white text-xs text-gray-400 font-medium">Votre économie</span>
+                </div>
+              </div>
+
+              {/* Résultat économie — mise en avant forte */}
+              <div className="text-center py-4">
+                <div className="inline-flex items-center gap-2 mb-2">
+                  <Sparkles className="w-5 h-5 text-yellow-500" />
+                  <p className="text-sm font-medium text-gray-600">Économie annuelle estimée</p>
+                </div>
+                <p
+                  className="text-5xl font-extrabold bg-gradient-to-br from-blue-600 to-cyan-500 bg-clip-text text-transparent"
+                  style={{ lineHeight: 1.1 }}
+                >
+                  {fmt(resultats.economieAnnuelle)} €
+                </p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Soit {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois • {fmt(resultats.economieAnnuelle * 9)}{" "}
+                  € sur 9 ans
+                </p>
+              </div>
+
+              {/* CTA principal */}
+              <button
+                onClick={() => setModalOpen(true)}
+                className="w-full h-12 rounded-xl font-semibold text-white text-base shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                style={{
+                  background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
+                }}
+              >
+                <Mail className="w-5 h-5" />
+                Recevoir mon étude personnalisée
+              </button>
+
+              <p className="text-xs text-center text-gray-400 leading-relaxed">
+                Obtenez une sélection de biens neufs éligibles + analyse détaillée de votre projet
+              </p>
+            </div>
+
+            {/* Footer info */}
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+              <div className="flex items-start gap-2">
+                <TrendingDown className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  <strong>Dispositif PLF 2026</strong> — Amortissement {resultats.taux.toFixed(1)}% par an, engagement 9
+                  ans location nue. Simulation indicative.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ══════════════════════════════════
-          BLOC CONVERSION PREMIUM
+          BLOC CONVERSION BAS DE PAGE
       ══════════════════════════════════ */}
-      <div className="w-full bg-trust-light">
-        <div className="max-w-[900px] mx-auto px-6 py-12 md:py-16">
-          <h3 className="text-xl md:text-2xl font-bold text-center mb-8 text-primary-dark">
-            Allez plus loin avec votre étude personnalisée
-          </h3>
+      <div className="bg-white border-t border-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Votre étude personnalisée comprend</h3>
+            <p className="text-gray-600 mb-10">
+              Allez au-delà de la simulation avec une analyse complète de votre projet
+            </p>
 
-          <div className="grid sm:grid-cols-3 gap-6 mb-10">
-            {[
-              {
-                icon: (
-                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
-                text: "Effort d'épargne mensuel réel",
-              },
-              {
-                icon: (
-                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                ),
-                text: "Cash-flow estimé sur 9 ans",
-              },
-              {
-                icon: (
-                  <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                ),
-                text: "Sélection de biens compatibles avec votre profil",
-              },
-            ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-3 p-4">
-                <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center">
-                  {item.icon}
+            <div className="grid sm:grid-cols-3 gap-8 mb-10">
+              {[
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ),
+                  title: "Cash-flow détaillé",
+                  desc: "Effort d'épargne mensuel réel incluant crédit + charges - loyers - avantage fiscal",
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  ),
+                  title: "Sélection de biens",
+                  desc: "Lots neufs éligibles correspondant à votre budget et votre localisation",
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                  ),
+                  title: "Accompagnement",
+                  desc: "Conseils personnalisés et réponses à vos questions par nos experts",
+                },
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center gap-3">
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-blue-600"
+                    style={{ background: "linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)" }}
+                  >
+                    {item.icon}
+                  </div>
+                  <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
-                <p className="text-sm font-medium text-foreground/80">{item.text}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="flex flex-col items-center gap-3">
             <button
               onClick={() => setModalOpen(true)}
-              className="px-8 py-3.5 rounded-xl text-primary-foreground font-semibold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] bg-primary hover:bg-primary/85"
+              className="px-8 py-3.5 rounded-xl font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
+              }}
             >
-              Recevoir mon étude personnalisée
+              Je demande mon étude gratuite
             </button>
-            <p className="text-xs text-muted-foreground">Vos données restent confidentielles. Aucun spam.</p>
+            <p className="text-xs text-gray-400 mt-3">Sans engagement • Vos données restent confidentielles</p>
           </div>
         </div>
       </div>
