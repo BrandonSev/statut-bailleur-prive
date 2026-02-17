@@ -24,46 +24,50 @@ export const PlafondsSection = () => {
           Les avantages fiscaux sont encadrés par des plafonds de loyers et des limites annuelles d'amortissement.
         </p>
 
-        <div className="mb-12">
-          <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds de loyers par zone</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full max-w-lg text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-2.5 pr-6 font-semibold text-foreground/70">Zone</th>
-                  <th className="text-right py-2.5 font-semibold text-foreground/70">Plafond mensuel</th>
-                </tr>
-              </thead>
-              <tbody>
-                {LOYERS.map((row) => (
-                  <tr key={row.zone} className="border-b border-border/50">
-                    <td className="py-2.5 pr-6 font-medium text-foreground">{row.zone}</td>
-                    <td className="py-2.5 text-right font-semibold text-primary">{row.plafond}</td>
+        <div className="lg:grid lg:grid-cols-2 lg:gap-10">
+          {/* Plafonds de loyers */}
+          <div className="mb-12 lg:mb-0">
+            <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds de loyers par zone</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2.5 pr-6 font-semibold text-foreground/70">Zone</th>
+                    <th className="text-right py-2.5 font-semibold text-foreground/70">Plafond mensuel</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {LOYERS.map((row) => (
+                    <tr key={row.zone} className="border-b border-border/50">
+                      <td className="py-2.5 pr-6 font-medium text-foreground">{row.zone}</td>
+                      <td className="py-2.5 text-right font-semibold text-primary">{row.plafond}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Le loyer final peut inclure un coefficient multiplicateur selon la surface.
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground mt-3">
-            Le loyer final peut inclure un coefficient multiplicateur selon la surface.
-          </p>
-        </div>
 
-        <div className="mb-8">
-          <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds annuels d'amortissement</h3>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {AMORTISSEMENTS.map((item) => (
-              <div key={item.niveau} className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm">
-                <div className="w-10 h-10 rounded-xl bg-trust-light flex items-center justify-center shrink-0">
-                  <Wallet className="w-5 h-5 text-primary" />
+          {/* Plafonds d'amortissement */}
+          <div className="mb-8 lg:mb-0">
+            <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds annuels d'amortissement</h3>
+            <div className="grid sm:grid-cols-3 lg:grid-cols-1 gap-4">
+              {AMORTISSEMENTS.map((item) => (
+                <div key={item.niveau} className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-trust-light flex items-center justify-center shrink-0">
+                    <Wallet className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-0.5">{item.niveau}</p>
+                    <p className="text-xl font-bold text-primary">{item.montant}&nbsp;€<span className="text-sm font-medium text-muted-foreground"> / an</span></p>
+                    <p className="text-xs text-muted-foreground mt-1">{item.texte}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground mb-0.5">{item.niveau}</p>
-                  <p className="text-xl font-bold text-primary">{item.montant}&nbsp;€<span className="text-sm font-medium text-muted-foreground"> / an</span></p>
-                  <p className="text-xs text-muted-foreground mt-1">{item.texte}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
