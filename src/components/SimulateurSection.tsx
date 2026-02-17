@@ -68,9 +68,9 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <>
+    <div className="w-full bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 text-white rounded-xl overflow-hidden shadow-2xl">
       <div className="container mx-auto px-4">
-        {/* Header avec gradient + pictogramme */}
+        {/* Header avec gradient + pictogramme
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-3 bg-gradient-to-br from-[#123768] to-[#046C91] text-white px-6 py-3 rounded-2xl mb-6">
             <img
@@ -86,6 +86,85 @@ export const SimulateurSection = () => {
           <p className="text-base md:text-lg" style={{ color: "#0B1220", opacity: 0.6 }}>
             Simulation indicative basée sur les taux annoncés dans le PLF 2026
           </p>
+        </div>
+       */}
+        <div className="px-6 py-10 md:px-10 md:py-12 lg:px-12 lg:py-14">
+          {/* Petit tag en haut */}
+          <div className="inline-block mb-4">
+            <span className="bg-white/20 text-white text-xs md:text-sm font-medium px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/30">
+              PLF 2026 • Plan de relance logement
+            </span>
+          </div>
+
+          {/* Titre principal */}
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-5">
+            Simulateur du statut
+            <br />
+            du bailleur privé
+          </h2>
+
+          {/* Sous-titre */}
+          <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl">
+            Estimez votre avantage fiscal en quelques secondes.
+          </p>
+
+          {/* Liste des avantages */}
+          <ul className="space-y-4 mb-10">
+            <li className="flex items-center gap-3 text-base md:text-lg">
+              <svg
+                className="w-6 h-6 text-cyan-300 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Simulation gratuite</span>
+            </li>
+            <li className="flex items-center gap-3 text-base md:text-lg">
+              <svg
+                className="w-6 h-6 text-cyan-300 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Résultat immédiat</span>
+            </li>
+            <li className="flex items-center gap-3 text-base md:text-lg">
+              <svg
+                className="w-6 h-6 text-cyan-300 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Étude personnalisée</span>
+            </li>
+          </ul>
+
+          {/* Bouton secondaire + lien */}
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-10">
+            <a
+              href="#comprendre"
+              className="text-blue-200 hover:text-white transition-colors text-base underline underline-offset-4 decoration-blue-300/60 hover:decoration-white"
+            >
+              Comprendre le dispositif
+            </a>
+          </div>
+
+          {/* CTA principal */}
+          <button
+            type="button"
+            className="bg-white text-blue-700 hover:bg-blue-50 active:bg-blue-100 font-semibold text-base md:text-lg px-8 py-4 rounded-xl shadow-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-white/30"
+          >
+            Recevoir une étude personnalisée (lots neufs éligibles)
+          </button>
         </div>
 
         <div className="max-w-5xl mx-auto">
@@ -365,6 +444,6 @@ export const SimulateurSection = () => {
       </div>
 
       <ContactModal open={modalOpen} onOpenChange={setModalOpen} />
-    </>
+    </div>
   );
 };
