@@ -69,11 +69,11 @@ export const SimulateurSection = () => {
 
   return (
     <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white rounded-2xl overflow-hidden shadow-2xl">
-      <div className="grid lg:grid-cols-12">
+      <div className="grid lg:grid-cols-2 container mx-auto">
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
-        <div className="flex flex-col justify-center px-8 py-10 md:px-12 md:py-16 bg-black/10 backdrop-blur-[2px] lg:col-span-4">
+        <div className="flex flex-col justify-center px-8 py-10 md:px-12 md:py-16 bg-black/10 backdrop-blur-[2px]">
           {/* Badge */}
           <div className="mb-6">
             <span className="inline-block bg-white/15 text-white text-xs md:text-sm font-medium px-4 py-2 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
@@ -123,7 +123,7 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE DROITE — simulateur ORIGINAL inchangé
         ══════════════════════════════════ */}
-        <div className="bg-white p-6 md:p-10 lg:p-12 lg:col-span-8">
+        <div className="bg-white p-6 md:p-10 lg:p-12">
           <div className="max-w-5xl mx-auto">
             <Card
               className="shadow-lg"
