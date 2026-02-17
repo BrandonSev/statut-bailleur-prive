@@ -56,17 +56,16 @@ export const ParcoursSection = () => {
         </div>
 
         {/* Mobile : vertical */}
-        <div className="md:hidden relative pl-10 space-y-6 mb-6">
-          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-border" />
+        <div className="md:hidden space-y-5 mb-6">
           {steps.map((step, i) => (
-            <div key={i} className="relative flex items-start gap-4">
+            <div key={i} className="flex items-start gap-3">
               <div
-                className="absolute left-[-22px] w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground shadow-sm shrink-0"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground shadow-sm shrink-0"
                 style={{ backgroundColor: "#123768" }}
               >
                 {step.num}
               </div>
-              <div>
+              <div className="pt-1">
                 <h3 className="text-sm font-bold mb-0.5" style={{ color: "#123768" }}>
                   {step.title}
                 </h3>
