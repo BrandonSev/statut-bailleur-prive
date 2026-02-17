@@ -3,13 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TrendingDown, TrendingUp, Wallet, Mail } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 
@@ -53,16 +47,11 @@ export const SimulateurSection = () => {
     const amortissementBrut = baseAmortissable * taux;
     const amortissementAnnuel = Math.min(amortissementBrut, plafond);
     const revenuFoncierSansJeanbrun = loyer - charges;
-    const impotSansJeanbrun = revenuFoncierSansJeanbrun > 0
-      ? revenuFoncierSansJeanbrun * (tmi / 100)
-      : 0;
+    const impotSansJeanbrun = revenuFoncierSansJeanbrun > 0 ? revenuFoncierSansJeanbrun * (tmi / 100) : 0;
     const revenuFoncierAvecJeanbrun = loyer - charges - amortissementAnnuel;
-    const deficitFoncier = revenuFoncierAvecJeanbrun < 0
-      ? Math.min(Math.abs(revenuFoncierAvecJeanbrun), 10700)
-      : 0;
-    const impotAvecJeanbrun = revenuFoncierAvecJeanbrun > 0
-      ? revenuFoncierAvecJeanbrun * (tmi / 100)
-      : -deficitFoncier * (tmi / 100);
+    const deficitFoncier = revenuFoncierAvecJeanbrun < 0 ? Math.min(Math.abs(revenuFoncierAvecJeanbrun), 10700) : 0;
+    const impotAvecJeanbrun =
+      revenuFoncierAvecJeanbrun > 0 ? revenuFoncierAvecJeanbrun * (tmi / 100) : -deficitFoncier * (tmi / 100);
     const economieAnnuelle = impotSansJeanbrun - impotAvecJeanbrun;
 
     return {
@@ -80,7 +69,7 @@ export const SimulateurSection = () => {
 
   return (
     <>
-      <section id="simulateur" className="py-16 md:py-24" style={{ backgroundColor: "#F6FAFC" }}>
+      <section id="simulateur" className="md:py-24" style={{ backgroundColor: "#F6FAFC" }}>
         <div className="container mx-auto px-4">
           {/* Header avec gradient + pictogramme */}
           <div className="text-center max-w-3xl mx-auto mb-10">
@@ -115,7 +104,9 @@ export const SimulateurSection = () => {
                   <div className="space-y-5">
                     {/* Type de bien – VEFA uniquement */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>Type de bien</Label>
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Type de bien
+                      </Label>
                       <Select value="neuf" disabled>
                         <SelectTrigger className="border-[#9AC0D0]/50">
                           <SelectValue placeholder="Neuf / VEFA (recommandé)" />
@@ -139,7 +130,9 @@ export const SimulateurSection = () => {
 
                     {/* Niveau de loyer */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>Niveau de loyer</Label>
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Niveau de loyer
+                      </Label>
                       <div className="flex flex-wrap gap-2">
                         {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
                           <button
@@ -152,10 +145,11 @@ export const SimulateurSection = () => {
                                 : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
                             }
                             onMouseEnter={(e) => {
-                              if (niveauLoyer !== niveau) (e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)");
+                              if (niveauLoyer !== niveau)
+                                e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
                             }}
                             onMouseLeave={(e) => {
-                              if (niveauLoyer !== niveau) (e.currentTarget.style.backgroundColor = "transparent");
+                              if (niveauLoyer !== niveau) e.currentTarget.style.backgroundColor = "transparent";
                             }}
                           >
                             {LABELS_LOYER[niveau]}
@@ -169,7 +163,9 @@ export const SimulateurSection = () => {
 
                     {/* Prix d'achat */}
                     <div className="space-y-2">
-                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>Prix d'achat (€)</Label>
+                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>
+                        Prix d'achat (€)
+                      </Label>
                       <div className="relative">
                         <Input
                           id="prix"
@@ -226,7 +222,9 @@ export const SimulateurSection = () => {
 
                     {/* TMI */}
                     <div className="space-y-2">
-                      <Label className="font-semibold" style={{ color: "#0B1220" }}>Votre TMI (Taux Marginal d'Imposition)</Label>
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Votre TMI (Taux Marginal d'Imposition)
+                      </Label>
                       <div className="flex flex-wrap gap-2">
                         {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
                           <button
@@ -239,10 +237,10 @@ export const SimulateurSection = () => {
                                 : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
                             }
                             onMouseEnter={(e) => {
-                              if (tmi !== rate) (e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)");
+                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
                             }}
                             onMouseLeave={(e) => {
-                              if (tmi !== rate) (e.currentTarget.style.backgroundColor = "transparent");
+                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "transparent";
                             }}
                           >
                             {rate}%
@@ -278,7 +276,10 @@ export const SimulateurSection = () => {
                         }}
                       >
                         <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium flex items-center gap-2" style={{ color: "#046C91" }}>
+                          <CardTitle
+                            className="text-sm font-medium flex items-center gap-2"
+                            style={{ color: "#046C91" }}
+                          >
                             <TrendingDown className="w-4 h-4" />
                             Avec Jeanbrun
                           </CardTitle>
@@ -329,7 +330,9 @@ export const SimulateurSection = () => {
 
                     {/* Détails */}
                     <div className="rounded-2xl p-4" style={{ backgroundColor: "#F6FAFC" }}>
-                      <p className="text-sm font-semibold mb-2" style={{ color: "#0B1220" }}>Détails :</p>
+                      <p className="text-sm font-semibold mb-2" style={{ color: "#0B1220" }}>
+                        Détails :
+                      </p>
                       <ul className="text-sm space-y-1" style={{ color: "#0B1220", opacity: 0.65 }}>
                         <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
                         {resultats.deficitFoncier > 0 && (
