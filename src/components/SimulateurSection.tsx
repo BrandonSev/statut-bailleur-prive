@@ -73,7 +73,7 @@ export const SimulateurSection = () => {
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
-        <div className="flex flex-col justify-center px-6 py-6 md:px-10 md:py-8 bg-black/10 backdrop-blur-[2px] lg:col-span-4">
+        <div className="flex flex-col justify-center px-6 py-6 md:px-10 md:py-8 backdrop-blur-[2px] lg:col-span-4">
           {/* Badge */}
           <div className="mb-4">
             <span className="inline-block bg-white/15 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
