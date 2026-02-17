@@ -16,17 +16,21 @@ export const Footer = () => {
     <footer className="bg-[hsl(196,100%,10%)] text-white/80">
       <div className="max-w-[1200px] mx-auto px-6 py-12 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm">
-
           {/* Col 1 — À propos */}
           <div>
             <h4 className="text-white font-bold text-sm mb-3 leading-snug">
-              Statut du bailleur privé<br />
+              Statut du bailleur privé
+              <br />
               <span className="font-normal text-white/60 text-xs">Dispositif Jeanbrun</span>
             </h4>
             <p className="text-white/50 text-xs leading-relaxed mb-3">
-              Plateforme d'information et de simulation dédiée au statut du bailleur privé issu du Plan de relance logement 2026. Analyse pédagogique et études personnalisées.
+              Plateforme d'information et de simulation dédiée au statut du bailleur privé issu du Plan de relance
+              logement 2026. Analyse pédagogique et études personnalisées.
             </p>
-            <a href="#simulateur" className="text-primary-light text-xs underline underline-offset-2 hover:text-white transition-colors">
+            <a
+              href="#simulateur"
+              className="text-primary-light text-xs underline underline-offset-2 hover:text-white transition-colors"
+            >
               En savoir plus
             </a>
           </div>
@@ -55,21 +59,19 @@ export const Footer = () => {
               <li>• Décrets d'application en attente</li>
               <li>• Simulations indicatives et non contractuelles</li>
             </ul>
-            <div className="flex flex-col gap-1.5">
+            {/* <div className="flex flex-col gap-1.5">
               {["Mentions légales", "Politique de confidentialité", "CGU", "Gestion des cookies"].map((t) => (
                 <a key={t} href="#" className="text-white/40 text-xs hover:text-white/70 transition-colors">
                   {t}
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Col 4 — CTA */}
           <div>
             <h4 className="text-white font-bold text-sm mb-3">Votre étude personnalisée</h4>
-            <p className="text-white/50 text-xs mb-4">
-              Étude gratuite et sans engagement.
-            </p>
+            <p className="text-white/50 text-xs mb-4">Étude gratuite et sans engagement.</p>
             <button
               onClick={() => setModalOpen(true)}
               className="w-full py-2.5 rounded-xl text-white text-xs font-semibold bg-primary hover:bg-primary/80 transition-colors mb-3"
@@ -88,9 +90,7 @@ export const Footer = () => {
       {/* Bas de footer */}
       <div className="border-t border-white/10">
         <div className="max-w-[1200px] mx-auto px-6 py-5 text-center space-y-1.5">
-          <p className="text-white/40 text-xs">
-            © 2026 Polyvalence Immobilier – Tous droits réservés
-          </p>
+          <p className="text-white/40 text-xs">© 2026 Polyvalence Immobilier – Tous droits réservés</p>
           <p className="text-white/30 text-[11px]">
             Statut du bailleur privé (dispositif Jeanbrun) – Plan de relance logement 2026
           </p>
