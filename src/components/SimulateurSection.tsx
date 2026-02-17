@@ -68,8 +68,8 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white rounded-2xl overflow-hidden shadow-2xl">
-      <div className="grid lg:grid-cols-2 container mx-auto">
+    <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white overflow-hidden">
+      <div className="grid lg:grid-cols-2">
         {/* ══════════════════════════════════
             COLONNE GAUCHE — calquée sur l'image
         ══════════════════════════════════ */}
