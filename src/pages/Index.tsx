@@ -21,8 +21,8 @@ const Index = () => {
       <StatusBanner />
       <Header />
       <main>
-        <HeroSection />
-        {/* <TimelineSection /> */}
+        {/* <HeroSection /> */}
+        <TimelineSection />
         <SimulateurSection />
         {/* <HowItWorksSection /> */}
         <MecanismeSection />
