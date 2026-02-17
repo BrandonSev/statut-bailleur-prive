@@ -14,6 +14,10 @@ export const ParcoursSection = () => {
   return (
     <section id="parcours" className="w-full bg-secondary py-14 md:py-18">
       <div className="max-w-[1100px] mx-auto px-6">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-success-light text-success text-sm font-bold">01</span>
+          <span className="text-sm font-medium text-muted-foreground">Étape suivante : votre parcours d'investissement</span>
+        </div>
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
           Les 4 étapes pour investir en Jeanbrun
         </h2>
