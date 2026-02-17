@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TrendingDown, TrendingUp, Wallet, Mail, CheckCircle2, ArrowRight } from "lucide-react";
+import { TrendingDown, TrendingUp, Wallet, Mail } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
@@ -24,14 +24,8 @@ const PLAFONDS: Record<NiveauLoyer, number> = {
 
 const LABELS_LOYER: Record<NiveauLoyer, string> = {
   intermediaire: "Intermédiaire",
-  social: "Social",
-  tres_social: "Très social",
-};
-
-const LABELS_LOYER_DETAIL: Record<NiveauLoyer, string> = {
-  intermediaire: "",
-  social: "≈ −15 %",
-  tres_social: "≈ −30 %",
+  social: "Social (≈ -15%)",
+  tres_social: "Très social (≈ -30%)",
 };
 
 export const SimulateurSection = () => {
@@ -74,394 +68,338 @@ export const SimulateurSection = () => {
   const loyerMensuel = Math.round((parseFloat(loyerAnnuel) || 0) / 12);
 
   return (
-    <div
-      className="w-full overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #1a2f5e 0%, #1a5276 40%, #0e6b8a 100%)" }}
-    >
-      {/* ═══════════════════════════════
-          HEADER BANDE SUPÉRIEURE (mobile seulement)
-          → sur desktop, remplacée par la colonne gauche
-      ═══════════════════════════════ */}
-      <div className="lg:hidden px-6 pt-8 pb-6" style={{ background: "rgba(0,0,0,0.15)" }}>
-        <span
-          className="inline-block mb-4 text-xs font-medium px-3 py-1.5 rounded-full"
-          style={{
-            background: "rgba(255,255,255,0.12)",
-            color: "rgba(255,255,255,0.9)",
-            border: "1px solid rgba(255,255,255,0.18)",
-          }}
-        >
-          PLF 2026 • Plan de relance logement
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
-          Simulateur du statut
-          <br />
-          du bailleur privé
-        </h2>
-        <p className="text-blue-200 text-sm sm:text-base">Estimez votre avantage fiscal en quelques secondes.</p>
-      </div>
-
-      {/* ═══════════════════════════════
-          GRILLE PRINCIPALE desktop : [promo | simulateur]
-      ═══════════════════════════════ */}
-      <div className="lg:grid lg:grid-cols-[420px_1fr]">
-        {/* ── COLONNE GAUCHE : Promo (desktop uniquement) ── */}
-        <div className="hidden lg:flex flex-col justify-between px-10 py-14" style={{ background: "rgba(0,0,0,0.12)" }}>
-          <div>
-            <span
-              className="inline-block mb-6 text-xs font-medium px-4 py-2 rounded-full"
-              style={{
-                background: "rgba(255,255,255,0.12)",
-                color: "rgba(255,255,255,0.9)",
-                border: "1px solid rgba(255,255,255,0.18)",
-              }}
-            >
+    <div className="w-full bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600 text-white rounded-2xl overflow-hidden shadow-2xl">
+      <div className="grid lg:grid-cols-2">
+        {/* ══════════════════════════════════
+            COLONNE GAUCHE — calquée sur l'image
+        ══════════════════════════════════ */}
+        <div className="flex flex-col justify-center px-8 py-10 md:px-12 md:py-16 bg-black/10 backdrop-blur-[2px]">
+          {/* Badge */}
+          <div className="mb-6">
+            <span className="inline-block bg-white/15 text-white text-xs md:text-sm font-medium px-4 py-2 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
               PLF 2026 • Plan de relance logement
             </span>
-
-            <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-5">
-              Simulateur du statut
-              <br />
-              du bailleur privé
-            </h2>
-
-            <p className="text-blue-200 text-lg mb-10 leading-relaxed">
-              Estimez votre avantage fiscal en quelques secondes grâce au nouveau dispositif Jeanbrun.
-            </p>
-
-            <ul className="space-y-4 mb-10">
-              {["Simulation gratuite & immédiate", "Taux actualisés PLF 2026", "Étude personnalisée sur demande"].map(
-                (text, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: "#67e8f9" }} />
-                    <span className="text-white/90 text-sm xl:text-base">{text}</span>
-                  </li>
-                ),
-              )}
-            </ul>
           </div>
 
-          <div className="space-y-4">
-            <a
-              href="#comprendre"
-              className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
-              style={{ color: "#67e8f9" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#67e8f9")}
-            >
-              Comprendre le dispositif
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          {/* Titre */}
+          <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight mb-5">
+            Simulateur du statut
+            <br />
+            du bailleur privé
+          </h2>
 
-            {/* Mini bloc chiffre clé */}
-            <div
-              className="rounded-xl p-5"
-              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}
-            >
-              <p className="text-white/60 text-xs mb-1 uppercase tracking-widest">Économie potentielle</p>
-              <p className="text-3xl font-bold text-white">{fmt(resultats.economieAnnuelle * 9)} €</p>
-              <p className="text-cyan-300 text-sm mt-1">sur 9 ans d'engagement</p>
-            </div>
-          </div>
+          {/* Accroche */}
+          <p className="text-lg md:text-xl font-semibold text-white mb-9">
+            Estimez votre avantage fiscal en quelques secondes.
+          </p>
+
+          {/* Checkmarks */}
+          <ul className="space-y-5 mb-10">
+            {["Simulation gratuite", "Résultat immédiat", "Étude personnalisée"].map((text, i) => (
+              <li key={i} className="flex items-center gap-3 text-base md:text-lg">
+                <svg
+                  className="w-5 h-5 flex-shrink-0 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* Lien */}
+          <a
+            href="#comprendre"
+            className="text-white text-base underline underline-offset-4 decoration-white/50 hover:decoration-white transition-all w-fit"
+          >
+            Comprendre le dispositif
+          </a>
         </div>
 
-        {/* ── COLONNE DROITE : Simulateur ── */}
-        <div className="bg-white p-5 sm:p-8 lg:p-10">
-          <div className="max-w-2xl mx-auto lg:max-w-none">
-            {/* ────────────────────────────────────
-                INPUTS
-            ──────────────────────────────────── */}
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-              {/* Type de bien */}
-              <div className="sm:col-span-2 space-y-1.5">
-                <Label className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Type de bien
-                </Label>
-                <Select value="neuf" disabled>
-                  <SelectTrigger className="border-[#9AC0D0]/50 h-10">
-                    <SelectValue placeholder="Neuf / VEFA (recommandé)" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
-                  </SelectContent>
-                </Select>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <p className="text-xs" style={{ color: "#046C91", opacity: 0.8 }}>
-                    Sélection de lots neufs éligibles selon votre budget et votre ville.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setModalOpen(true)}
-                    className="text-xs underline whitespace-nowrap"
-                    style={{ color: "#046C91", opacity: 0.7 }}
-                  >
-                    Ancien rénové : vérifier en appel
-                  </button>
-                </div>
-              </div>
+        {/* ══════════════════════════════════
+            COLONNE DROITE — simulateur ORIGINAL inchangé
+        ══════════════════════════════════ */}
+        <div className="bg-white p-6 md:p-10 lg:p-12">
+          <div className="max-w-5xl mx-auto">
+            <Card
+              className="shadow-lg"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "1px solid rgba(154, 192, 208, 0.3)",
+                borderRadius: "20px",
+              }}
+            >
+              <CardContent className="p-6 md:p-10">
+                <div className="grid lg:grid-cols-2 gap-10">
+                  {/* ── INPUTS ── */}
+                  <div className="space-y-5">
+                    {/* Type de bien – VEFA uniquement */}
+                    <div className="space-y-2">
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Type de bien
+                      </Label>
+                      <Select value="neuf" disabled>
+                        <SelectTrigger className="border-[#9AC0D0]/50">
+                          <SelectValue placeholder="Neuf / VEFA (recommandé)" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="neuf">Neuf / VEFA (recommandé)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
+                        Recevez une sélection de lots neufs éligibles selon votre budget et votre ville.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setModalOpen(true)}
+                        className="text-xs underline cursor-pointer"
+                        style={{ color: "#046C91", opacity: 0.75 }}
+                      >
+                        Ancien rénové : cas particulier (conditions strictes) – vérifier en appel
+                      </button>
+                    </div>
 
-              {/* Niveau de loyer */}
-              <div className="sm:col-span-2 space-y-1.5">
-                <Label className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Niveau de loyer
-                </Label>
-                <div className="flex flex-wrap gap-2">
-                  {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
-                    <button
-                      key={niveau}
-                      onClick={() => setNiveauLoyer(niveau)}
-                      className="flex items-baseline gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-150"
-                      style={
-                        niveauLoyer === niveau
-                          ? { backgroundColor: "#123768", color: "#FFFFFF" }
-                          : {
-                              backgroundColor: "transparent",
-                              border: "1.5px solid #9AC0D0",
-                              color: "#0B1220",
+                    {/* Niveau de loyer */}
+                    <div className="space-y-2">
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Niveau de loyer
+                      </Label>
+                      <div className="flex flex-wrap gap-2">
+                        {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((niveau) => (
+                          <button
+                            key={niveau}
+                            onClick={() => setNiveauLoyer(niveau)}
+                            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
+                            style={
+                              niveauLoyer === niveau
+                                ? { backgroundColor: "#123768", color: "#FFFFFF" }
+                                : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
                             }
-                      }
-                      onMouseEnter={(e) => {
-                        if (niveauLoyer !== niveau) e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (niveauLoyer !== niveau) e.currentTarget.style.backgroundColor = "transparent";
-                      }}
-                    >
-                      {LABELS_LOYER[niveau]}
-                      {LABELS_LOYER_DETAIL[niveau] && (
-                        <span
-                          className="text-xs font-normal"
-                          style={{
-                            color: niveauLoyer === niveau ? "rgba(255,255,255,0.7)" : "#046C91",
-                          }}
-                        >
-                          {LABELS_LOYER_DETAIL[niveau]}
-                        </span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-                <p className="text-xs" style={{ color: "#0B1220", opacity: 0.4 }}>
-                  Références indicatives, susceptibles d'évoluer avec les textes d'application.
-                </p>
-              </div>
+                            onMouseEnter={(e) => {
+                              if (niveauLoyer !== niveau)
+                                e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
+                            }}
+                            onMouseLeave={(e) => {
+                              if (niveauLoyer !== niveau) e.currentTarget.style.backgroundColor = "transparent";
+                            }}
+                          >
+                            {LABELS_LOYER[niveau]}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs" style={{ color: "#0B1220", opacity: 0.45 }}>
+                        Références indicatives, susceptibles d'évoluer avec les textes d'application.
+                      </p>
+                    </div>
 
-              {/* Prix d'achat */}
-              <div className="space-y-1.5">
-                <Label htmlFor="prix" className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Prix d'achat
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="prix"
-                    type="number"
-                    value={prixAchat}
-                    onChange={(e) => setPrixAchat(e.target.value)}
-                    placeholder="Ex : 250 000"
-                    className="pr-8 h-10 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">€</span>
-                </div>
-              </div>
+                    {/* Prix d'achat */}
+                    <div className="space-y-2">
+                      <Label htmlFor="prix" className="font-semibold" style={{ color: "#0B1220" }}>
+                        Prix d'achat (€)
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="prix"
+                          type="number"
+                          value={prixAchat}
+                          onChange={(e) => setPrixAchat(e.target.value)}
+                          placeholder="Prix du bien en euros"
+                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                        />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                      </div>
+                    </div>
 
-              {/* Loyer annuel */}
-              <div className="space-y-1.5">
-                <Label htmlFor="loyer" className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Loyer annuel brut
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="loyer"
-                    type="number"
-                    value={loyerAnnuel}
-                    onChange={(e) => setLoyerAnnuel(e.target.value)}
-                    className="pr-8 h-10 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">€</span>
-                </div>
-                <p className="text-xs" style={{ color: "#046C91" }}>
-                  ≈ {fmt(loyerMensuel)} €/mois
-                </p>
-              </div>
+                    {/* Loyer annuel + micro-aide */}
+                    <div className="space-y-2">
+                      <Label htmlFor="loyer" className="font-semibold" style={{ color: "#0B1220" }}>
+                        Loyer annuel brut (€/an)
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="loyer"
+                          type="number"
+                          value={loyerAnnuel}
+                          onChange={(e) => setLoyerAnnuel(e.target.value)}
+                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                        />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                      </div>
+                      <p className="text-xs" style={{ color: "#046C91" }}>
+                        ≈ {fmt(loyerMensuel)} €/mois
+                      </p>
+                    </div>
 
-              {/* Charges annuelles */}
-              <div className="space-y-1.5">
-                <Label htmlFor="charges" className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Charges annuelles
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="charges"
-                    type="number"
-                    value={chargesAnnuelles}
-                    onChange={(e) => setChargesAnnuelles(e.target.value)}
-                    placeholder="TF, assurance…"
-                    className="pr-8 h-10 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">€</span>
-                </div>
-                <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
-                  TF + copro + assurance + gestion
-                </p>
-              </div>
+                    {/* Charges annuelles + micro-aide */}
+                    <div className="space-y-2">
+                      <Label htmlFor="charges" className="font-semibold" style={{ color: "#0B1220" }}>
+                        Charges annuelles (€/an)
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="charges"
+                          type="number"
+                          value={chargesAnnuelles}
+                          onChange={(e) => setChargesAnnuelles(e.target.value)}
+                          placeholder="Taxe foncière, assurance, etc."
+                          className="pr-8 focus-visible:ring-[#046C91] border-[#9AC0D0]/50"
+                        />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
+                      </div>
+                      <p className="text-xs" style={{ color: "#046C91", opacity: 0.7 }}>
+                        TF + copro + assurance + gestion (hors crédit)
+                      </p>
+                    </div>
 
-              {/* TMI */}
-              <div className="space-y-1.5">
-                <Label className="text-sm font-semibold" style={{ color: "#0B1220" }}>
-                  Votre TMI
-                </Label>
-                <div className="flex flex-wrap gap-2">
-                  {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
-                    <button
-                      key={rate}
-                      onClick={() => setTmi(rate)}
-                      className="min-w-[52px] px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150"
-                      style={
-                        tmi === rate
-                          ? { backgroundColor: "#123768", color: "#FFFFFF" }
-                          : {
-                              backgroundColor: "transparent",
-                              border: "1.5px solid #9AC0D0",
-                              color: "#0B1220",
+                    {/* TMI */}
+                    <div className="space-y-2">
+                      <Label className="font-semibold" style={{ color: "#0B1220" }}>
+                        Votre TMI (Taux Marginal d'Imposition)
+                      </Label>
+                      <div className="flex flex-wrap gap-2">
+                        {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
+                          <button
+                            key={rate}
+                            onClick={() => setTmi(rate)}
+                            className="min-w-[60px] px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
+                            style={
+                              tmi === rate
+                                ? { backgroundColor: "#123768", color: "#FFFFFF" }
+                                : { backgroundColor: "transparent", border: "1.5px solid #9AC0D0", color: "#0B1220" }
                             }
-                      }
-                      onMouseEnter={(e) => {
-                        if (tmi !== rate) e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (tmi !== rate) e.currentTarget.style.backgroundColor = "transparent";
-                      }}
-                    >
-                      {rate}%
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* ────────────────────────────────────
-                SÉPARATEUR
-            ──────────────────────────────────── */}
-            <div
-              className="w-full h-px mb-6"
-              style={{ background: "linear-gradient(to right, transparent, #9AC0D0, transparent)" }}
-            />
-
-            {/* ────────────────────────────────────
-                RÉSULTATS
-            ──────────────────────────────────── */}
-            <div className="space-y-4">
-              {/* Ligne : sans / avec + économie */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {/* Sans dispositif */}
-                <div className="rounded-xl p-4" style={{ background: "#F8F9FA", border: "1px solid #E5E7EB" }}>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <TrendingUp className="w-4 h-4 text-gray-400" />
-                    <p className="text-xs font-medium text-gray-400">Sans dispositif</p>
+                            onMouseEnter={(e) => {
+                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "rgba(154,192,208,0.15)";
+                            }}
+                            onMouseLeave={(e) => {
+                              if (tmi !== rate) e.currentTarget.style.backgroundColor = "transparent";
+                            }}
+                          >
+                            {rate}%
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-400 mb-0.5">Impôt / an</p>
-                  <p className="text-xl font-bold text-gray-600">{fmt(resultats.impotSansJeanbrun)} €</p>
-                </div>
 
-                {/* Avec Jeanbrun */}
-                <div
-                  className="rounded-xl p-4"
-                  style={{ background: "rgba(4,108,145,0.06)", border: "1px solid rgba(4,108,145,0.2)" }}
-                >
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <TrendingDown className="w-4 h-4" style={{ color: "#046C91" }} />
-                    <p className="text-xs font-medium" style={{ color: "#046C91" }}>
-                      Avec Jeanbrun
+                  {/* ── RESULTS ── */}
+                  <div className="space-y-5">
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Sans dispositif */}
+                      <Card className="border-gray-200 bg-gray-50" style={{ borderRadius: "16px" }}>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                            <TrendingUp className="w-4 h-4" />
+                            Sans dispositif
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
+                          <p className="text-2xl font-bold text-gray-700">{fmt(resultats.impotSansJeanbrun)} €</p>
+                        </CardContent>
+                      </Card>
+
+                      {/* Avec Jeanbrun */}
+                      <Card
+                        style={{
+                          borderRadius: "16px",
+                          backgroundColor: "rgba(4, 108, 145, 0.06)",
+                          border: "1px solid rgba(4, 108, 145, 0.25)",
+                        }}
+                      >
+                        <CardHeader className="pb-2">
+                          <CardTitle
+                            className="text-sm font-medium flex items-center gap-2"
+                            style={{ color: "#046C91" }}
+                          >
+                            <TrendingDown className="w-4 h-4" />
+                            Avec Jeanbrun
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
+                          <p className="text-2xl font-bold" style={{ color: "#046C91" }}>
+                            {fmt(resultats.impotAvecJeanbrun)} €
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Économie */}
+                    <Card
+                      style={{
+                        borderRadius: "16px",
+                        backgroundColor: "rgba(154, 192, 208, 0.2)",
+                        border: "1px solid rgba(154, 192, 208, 0.4)",
+                      }}
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <Wallet className="w-6 h-6" style={{ color: "#046C91" }} />
+                          <span className="text-gray-600 font-medium">Économie annuelle estimée</span>
+                        </div>
+                        <p className="text-3xl md:text-4xl font-bold" style={{ color: "#123768" }}>
+                          {fmt(resultats.economieAnnuelle)} €
+                        </p>
+                        <div className="mt-2 space-y-1">
+                          <p className="text-sm" style={{ color: "#046C91" }}>
+                            Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
+                          </p>
+                          <p className="text-sm" style={{ color: "#046C91" }}>
+                            Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
+                            Taux : {resultats.taux.toFixed(1)}% / an
+                          </Badge>
+                          <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
+                            Amortissement : {fmt(resultats.amortissementAnnuel)} €
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Détails */}
+                    <div className="rounded-2xl p-4" style={{ backgroundColor: "#F6FAFC" }}>
+                      <p className="text-sm font-semibold mb-2" style={{ color: "#0B1220" }}>
+                        Détails :
+                      </p>
+                      <ul className="text-sm space-y-1" style={{ color: "#0B1220", opacity: 0.65 }}>
+                        <li>• Amortissement annuel : {fmt(resultats.amortissementAnnuel)} €</li>
+                        {resultats.deficitFoncier > 0 && (
+                          <li>• Déficit foncier imputable : {fmt(resultats.deficitFoncier)} €</li>
+                        )}
+                        <li>• Économie sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €</li>
+                      </ul>
+                    </div>
+
+                    {/* CTA */}
+                    <button
+                      onClick={() => setModalOpen(true)}
+                      className="w-full flex items-center justify-center gap-2 py-3.5 text-white font-semibold text-sm transition-colors"
+                      style={{ backgroundColor: "#046C91", borderRadius: "14px" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
+                    >
+                      <Mail className="w-5 h-5" />
+                      Recevoir une étude personnalisée (lots neufs éligibles)
+                    </button>
+
+                    <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
+                      <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026.
+                      Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
+                    </p>
+                    <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.4 }}>
+                      N'inclut pas : intérêts d'emprunt et situation fiscale complète (affinés en étude).
                     </p>
                   </div>
-                  <p className="text-xs text-gray-400 mb-0.5">Impôt / an</p>
-                  <p className="text-xl font-bold" style={{ color: "#046C91" }}>
-                    {fmt(resultats.impotAvecJeanbrun)} €
-                  </p>
                 </div>
-
-                {/* Économie — mise en valeur */}
-                <div
-                  className="rounded-xl p-4 sm:col-span-1"
-                  style={{ background: "linear-gradient(135deg, #123768 0%, #1a5276 100%)" }}
-                >
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Wallet className="w-4 h-4 text-cyan-300" />
-                    <p className="text-xs font-medium text-cyan-300">Économie / an</p>
-                  </div>
-                  <p className="text-xs text-white/60 mb-0.5">Estimée</p>
-                  <p className="text-xl font-bold text-white">{fmt(resultats.economieAnnuelle)} €</p>
-                </div>
-              </div>
-
-              {/* Bande récap économies */}
-              <div
-                className="rounded-xl px-5 py-4"
-                style={{ background: "rgba(154,192,208,0.15)", border: "1px solid rgba(154,192,208,0.35)" }}
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap gap-5">
-                    <div>
-                      <p className="text-xs text-gray-500 mb-0.5">Mensuel</p>
-                      <p className="text-base font-bold" style={{ color: "#123768" }}>
-                        ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 mb-0.5">Sur 9 ans</p>
-                      <p className="text-base font-bold" style={{ color: "#123768" }}>
-                        {fmt(resultats.economieAnnuelle * 9)} €
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge
-                      className="bg-white/80 text-xs"
-                      style={{ color: "#123768", border: "1px solid rgba(154,192,208,0.5)" }}
-                    >
-                      Taux {resultats.taux.toFixed(1)} % / an
-                    </Badge>
-                    <Badge
-                      className="bg-white/80 text-xs"
-                      style={{ color: "#123768", border: "1px solid rgba(154,192,208,0.5)" }}
-                    >
-                      Amort. {fmt(resultats.amortissementAnnuel)} €
-                    </Badge>
-                    {resultats.deficitFoncier > 0 && (
-                      <Badge
-                        className="bg-white/80 text-xs"
-                        style={{ color: "#046C91", border: "1px solid rgba(4,108,145,0.3)" }}
-                      >
-                        Déficit {fmt(resultats.deficitFoncier)} €
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA */}
-              <button
-                onClick={() => setModalOpen(true)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 text-white font-semibold text-sm rounded-xl transition-colors"
-                style={{ backgroundColor: "#046C91" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
-              >
-                <Mail className="w-4 h-4" />
-                Recevoir une étude personnalisée – lots neufs éligibles
-              </button>
-
-              {/* Disclaimers */}
-              <div className="space-y-1 text-center">
-                <p className="text-xs" style={{ color: "#0B1220", opacity: 0.4 }}>
-                  <strong>Simulation indicative</strong> — Taux annoncés dans le PLF 2026, modalités définitives par
-                  décret. Engagement 9 ans, location nue obligatoire.
-                </p>
-                <p className="text-xs" style={{ color: "#0B1220", opacity: 0.35 }}>
-                  Hors intérêts d'emprunt et situation fiscale complète (affinés en étude).
-                </p>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
