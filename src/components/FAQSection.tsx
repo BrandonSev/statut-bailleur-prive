@@ -7,64 +7,62 @@ import {
 
 const faqs = [
   {
-    question: "Peut-on investir dès maintenant ?",
-    answer: "Pas encore. Le texte a été adopté en janvier 2026, mais les décrets d'application n'ont pas été publiés. Il est prudent d'attendre leur parution avant de concrétiser un projet pour éviter toute mauvaise surprise sur les critères d'éligibilité."
+    q: "Le dispositif Jeanbrun est-il officiellement en vigueur ?",
+    a: "Le dispositif est intégré à la loi de finances 2026. Certaines modalités restent susceptibles d'être précisées par les décrets d'application.",
   },
   {
-    question: "Puis-je louer le bien à un proche ?",
-    answer: "Non, la loi interdit expressément de louer aux membres du foyer fiscal ainsi qu'aux ascendants et descendants (parents, enfants, petits-enfants). Cette mesure vise à éviter les montages d'optimisation intrafamiliaux."
+    q: "Quelle est la durée d'engagement ?",
+    a: "L'engagement de location est de 9 ans minimum en résidence principale.",
   },
   {
-    question: "Comment déterminer le loyer maximum ?",
-    answer: "Le plafond dépend de la zone géographique du bien et du niveau de conventionnement choisi. Les barèmes s'appuient sur les anciens plafonds Pinel, avec un coefficient correcteur basé sur la surface. Trois niveaux existent : standard, modéré (-15%) et très modéré (-30%)."
+    q: "Peut-on louer à un membre de sa famille ?",
+    a: "Sous conditions de respect des plafonds de ressources et hors foyer fiscal, selon les règles fiscales en vigueur.",
   },
   {
-    question: "Quelle est la différence concrète avec le Pinel ?",
-    answer: "Le Pinel offrait une réduction d'impôt plafonnée. Le nouveau mécanisme crée une charge déductible du revenu global. Concrètement, cela peut générer un déficit imputable sur vos autres revenus (salaires, etc.), ce qui n'était pas possible avant."
+    q: "Quels logements sont éligibles ?",
+    a: "Logements collectifs neufs ou anciens rénovés répondant aux critères du dispositif.",
   },
   {
-    question: "Sur quelle période le dispositif est-il ouvert ?",
-    answer: "Les acquisitions réalisées entre le 1er janvier 2026 et le 31 décembre 2028 sont visées par le texte actuel. L'amortissement s'étale ensuite sur 9 années pleines de location effective."
+    q: "L'avantage fiscal est-il plafonné ?",
+    a: "Oui. L'amortissement annuel est encadré par des plafonds selon le niveau choisi (intermédiaire, social, très social).",
   },
   {
-    question: "Y a-t-il une limite au nombre de logements ?",
-    answer: "Oui, le bénéfice est plafonné à deux biens par foyer fiscal. Au-delà, l'amortissement supplémentaire n'est plus admis en déduction."
-  }
+    q: "Quelle différence avec le Pinel ?",
+    a: "Le Pinel reposait sur une réduction d'impôt. Le statut du bailleur privé repose sur un mécanisme d'amortissement fiscal venant réduire la base imposable des revenus locatifs.",
+  },
 ];
 
 export const FAQSection = () => {
   return (
-    <section id="faq" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          {/* Section header */}
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4">
-              Vos interrogations
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Les points essentiels à connaître avant de vous lancer
-            </p>
-          </div>
+    <section id="faq" className="w-full bg-background py-16 md:py-20">
+      <div className="max-w-[900px] mx-auto px-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2" style={{ color: "#123768" }}>
+          Questions fréquentes
+        </h2>
+        <p className="text-center text-muted-foreground text-sm md:text-base mb-10">
+          Les réponses essentielles avant d'investir.
+        </p>
 
-          {/* FAQ Accordion */}
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border rounded-lg px-6 data-[state=open]:border-primary/30 transition-colors"
-              >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, i) => (
+            <AccordionItem
+              key={i}
+              value={`faq-${i}`}
+              className="border border-border rounded-2xl px-5 data-[state=open]:shadow-sm transition-shadow"
+            >
+              <AccordionTrigger className="text-sm font-semibold text-left py-4 hover:no-underline" style={{ color: "#123768" }}>
+                {faq.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-4">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+
+        <p className="text-xs text-muted-foreground text-center mt-8">
+          Une question spécifique ? <a href="#contact" className="text-primary underline underline-offset-2">Contactez-nous</a> pour une étude personnalisée.
+        </p>
       </div>
     </section>
   );
