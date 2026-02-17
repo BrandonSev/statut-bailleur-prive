@@ -62,12 +62,11 @@ export const TimelineSection = () => {
         </div>
 
         {/* Mobile vertical */}
-        <div className="md:hidden relative pl-12 space-y-6 mb-8">
-          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-border" />
+        <div className="md:hidden space-y-5 mb-8">
           {steps.map((step, i) => (
-            <div key={i} className="relative">
+            <div key={i} className="flex items-start gap-3">
               <div
-                className={`absolute left-[-30px] w-9 h-9 rounded-full flex items-center justify-center ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
                   step.done
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground border border-border"
@@ -75,12 +74,14 @@ export const TimelineSection = () => {
               >
                 {step.icon}
               </div>
-              <h3 className="text-sm font-semibold text-foreground mb-1">
-                {step.title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {step.text}
-              </p>
+              <div className="pt-1">
+                <h3 className="text-sm font-semibold text-foreground mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {step.text}
+                </p>
+              </div>
             </div>
           ))}
         </div>
