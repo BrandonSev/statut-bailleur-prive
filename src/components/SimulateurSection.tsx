@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, TrendingDown, Sparkles } from "lucide-react";
 import { ContactModal } from "./ContactModal";
+import { CityAutocomplete } from "./CityAutocomplete";
 
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
 type TMI = 0 | 11 | 30 | 41 | 45;
@@ -33,6 +34,7 @@ export const SimulateurSection = () => {
   const [chargesAnnuelles, setChargesAnnuelles] = useState<string>("2000");
   const [tmi, setTmi] = useState<TMI>(30);
   const [modalOpen, setModalOpen] = useState(false);
+  const [ville, setVille] = useState<string>("");
 
   const resultats = useMemo(() => {
     const prix = parseFloat(prixAchat) || 0;
@@ -195,6 +197,16 @@ export const SimulateurSection = () => {
                   </div>
                   <p className="text-xs text-gray-400">TF, assurance, etc.</p>
                 </div>
+              </div>
+
+              {/* Ville (autocomplete API gouv) */}
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-gray-700">Ville du bien</Label>
+                <CityAutocomplete
+                  value={ville}
+                  onChange={(city) => setVille(city)}
+                  className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                />
               </div>
 
               {/* Niveau de loyer + TMI en ligne */}
@@ -367,6 +379,22 @@ export const SimulateurSection = () => {
               Je demande mon étude gratuite
             </button>
             <p className="text-xs text-gray-400 mt-3">Sans engagement • Vos données restent confidentielles</p>
+
+            {/* Step indicator */}
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-success-light text-success text-sm font-bold">0</span>
+              <span className="text-sm font-medium text-gray-500">Simulation réalisée</span>
+              <span className="text-success text-sm">✓</span>
+            </div>
+            <a
+              href="#plafonds"
+              className="inline-flex items-center gap-2 mt-3 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
+            >
+              Avancer : découvrir les plafonds
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l7 7-7 7" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
