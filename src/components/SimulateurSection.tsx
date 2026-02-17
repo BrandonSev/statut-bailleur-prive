@@ -34,6 +34,7 @@ export const SimulateurSection = () => {
   const [chargesAnnuelles, setChargesAnnuelles] = useState<string>("2000");
   const [tmi, setTmi] = useState<TMI>(30);
   const [modalOpen, setModalOpen] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const [ville, setVille] = useState<string>("");
 
   const resultats = useMemo(() => {
@@ -244,49 +245,65 @@ export const SimulateurSection = () => {
                 </div>
               </div>
 
-              {/* Séparateur */}
-              <div className="relative py-2">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
-                </div>
-                <div className="relative flex justify-center">
-                  <span className="px-3 bg-white text-xs text-gray-400 font-medium">Votre économie</span>
-                </div>
-              </div>
-
-              {/* Résultat économie — mise en avant forte */}
-              <div className="text-center py-4">
-                <div className="inline-flex items-center gap-2 mb-2">
-                  <Sparkles className="w-5 h-5 text-yellow-500" />
-                  <p className="text-sm font-medium text-gray-600">Économie annuelle estimée</p>
-                </div>
-                <p
-                  className="text-5xl font-extrabold bg-gradient-to-br from-blue-600 to-cyan-500 bg-clip-text text-transparent"
-                  style={{ lineHeight: 1.1 }}
+              {/* Bouton Simuler ou Résultats */}
+              {!showResults ? (
+                <button
+                  onClick={() => setShowResults(true)}
+                  className="w-full h-12 rounded-xl font-semibold text-white text-base shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                  style={{
+                    background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
+                  }}
                 >
-                  {fmt(resultats.economieAnnuelle)} €
-                </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  Soit {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois • {fmt(resultats.economieAnnuelle * 9)}{" "}
-                  € sur 9 ans
-                </p>
-              </div>
+                  <Sparkles className="w-5 h-5" />
+                  Simuler mon économie
+                </button>
+              ) : (
+                <>
+                  {/* Séparateur */}
+                  <div className="relative py-2">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div className="relative flex justify-center">
+                      <span className="px-3 bg-white text-xs text-gray-400 font-medium">Votre économie</span>
+                    </div>
+                  </div>
 
-              {/* CTA principal */}
-              <button
-                onClick={() => setModalOpen(true)}
-                className="w-full h-12 rounded-xl font-semibold text-white text-base shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
-                style={{
-                  background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
-                }}
-              >
-                <Mail className="w-5 h-5" />
-                Recevoir mon étude personnalisée
-              </button>
+                  {/* Résultat économie */}
+                  <div className="text-center py-4">
+                    <div className="inline-flex items-center gap-2 mb-2">
+                      <Sparkles className="w-5 h-5 text-yellow-500" />
+                      <p className="text-sm font-medium text-gray-600">Économie annuelle estimée</p>
+                    </div>
+                    <p
+                      className="text-5xl font-extrabold bg-gradient-to-br from-blue-600 to-cyan-500 bg-clip-text text-transparent"
+                      style={{ lineHeight: 1.1 }}
+                    >
+                      {fmt(resultats.economieAnnuelle)} €
+                    </p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Soit {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois • {fmt(resultats.economieAnnuelle * 9)}{" "}
+                      € sur 9 ans
+                    </p>
+                  </div>
 
-              <p className="text-xs text-center text-gray-400 leading-relaxed">
-                Obtenez une sélection de biens neufs éligibles + analyse détaillée de votre projet
-              </p>
+                  {/* CTA principal */}
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="w-full h-12 rounded-xl font-semibold text-white text-base shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                    style={{
+                      background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
+                    }}
+                  >
+                    <Mail className="w-5 h-5" />
+                    Recevoir mon étude personnalisée
+                  </button>
+
+                  <p className="text-xs text-center text-gray-400 leading-relaxed">
+                    Obtenez une sélection de biens neufs éligibles + analyse détaillée de votre projet
+                  </p>
+                </>
+              )}
             </div>
 
             {/* Footer info */}
