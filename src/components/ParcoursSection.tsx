@@ -27,7 +27,7 @@ export const ParcoursSection = () => {
           {steps.map((step, i) => (
             <div key={i} className="flex flex-col items-center text-center relative z-10">
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold mb-4 shadow-sm ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}
+                className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold mb-4 shadow-sm ${i === 0 ? "bg-success-light text-success border-2 border-success" : "bg-primary-dark text-primary-foreground"}`}
               >
                 {step.num}
               </div>
@@ -42,7 +42,7 @@ export const ParcoursSection = () => {
           {steps.map((step, i) => (
             <div key={i} className="flex items-start gap-3">
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-sm shrink-0 ${i === 0 ? "bg-success-light text-success" : "bg-primary-dark text-primary-foreground"}`}
+                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-sm shrink-0 ${i === 0 ? "bg-success-light text-success border-2 border-success" : "bg-primary-dark text-primary-foreground"}`}
               >
                 {step.num}
               </div>
