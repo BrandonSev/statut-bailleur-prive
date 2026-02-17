@@ -61,6 +61,8 @@ All colors MUST be HSL.
     --gold-light: 45 90% 92%;
     --success: 145 65% 40%;
     --success-light: 145 60% 95%;
+    --success-pastel: 145 40% 92%;
+    --step-indicator: 145 50% 90%;
     
     /* Hero gradient */
     --hero-start: 220 63% 18%;
