@@ -286,19 +286,19 @@ export const SimulateurSection = () => {
                   </div>
 
                   {/* ── RESULTS ── */}
-                  <div className="space-y-3">
-                    <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2 sm:space-y-3">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       {/* Sans dispositif */}
                       <Card className="border-gray-200 bg-gray-50" style={{ borderRadius: "16px" }}>
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4" />
-                            Sans dispositif
+                        <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
+                          <CardTitle className="text-xs sm:text-sm font-medium text-gray-500 flex items-center gap-1.5 sm:gap-2">
+                            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                            <span className="truncate">Sans dispositif</span>
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
-                          <p className="text-2xl font-bold text-gray-700">{fmt(resultats.impotSansJeanbrun)} €</p>
+                        <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
+                          <p className="text-[10px] sm:text-xs text-gray-400 mb-0.5 sm:mb-1">Impôt annuel</p>
+                          <p className="text-lg sm:text-2xl font-bold text-gray-700">{fmt(resultats.impotSansJeanbrun)} €</p>
                         </CardContent>
                       </Card>
 
@@ -310,18 +310,18 @@ export const SimulateurSection = () => {
                           border: "1px solid rgba(4, 108, 145, 0.25)",
                         }}
                       >
-                        <CardHeader className="pb-2">
+                        <CardHeader className="p-3 pb-1 sm:pb-2 sm:p-4">
                           <CardTitle
-                            className="text-sm font-medium flex items-center gap-2"
+                            className="text-xs sm:text-sm font-medium flex items-center gap-1.5 sm:gap-2"
                             style={{ color: "#046C91" }}
                           >
-                            <TrendingDown className="w-4 h-4" />
-                            Avec Jeanbrun
+                            <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                            <span className="truncate">Avec Jeanbrun</span>
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-xs text-gray-400 mb-1">Impôt annuel</p>
-                          <p className="text-2xl font-bold" style={{ color: "#046C91" }}>
+                        <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
+                          <p className="text-[10px] sm:text-xs text-gray-400 mb-0.5 sm:mb-1">Impôt annuel</p>
+                          <p className="text-lg sm:text-2xl font-bold" style={{ color: "#046C91" }}>
                             {fmt(resultats.impotAvecJeanbrun)} €
                           </p>
                         </CardContent>
@@ -336,27 +336,27 @@ export const SimulateurSection = () => {
                         border: "1px solid rgba(154, 192, 208, 0.4)",
                       }}
                     >
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Wallet className="w-5 h-5" style={{ color: "#046C91" }} />
-                          <span className="text-gray-600 font-medium text-sm">Économie annuelle estimée</span>
+                      <CardContent className="p-3 sm:p-4">
+                        <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                          <Wallet className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: "#046C91" }} />
+                          <span className="text-gray-600 font-medium text-xs sm:text-sm">Économie annuelle estimée</span>
                         </div>
-                        <p className="text-2xl md:text-3xl font-bold" style={{ color: "#123768" }}>
+                        <p className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: "#123768" }}>
                           {fmt(resultats.economieAnnuelle)} €
                         </p>
                         <div className="mt-1 space-y-0.5">
-                          <p className="text-sm" style={{ color: "#046C91" }}>
+                          <p className="text-xs sm:text-sm" style={{ color: "#046C91" }}>
                             Soit ≈ {fmt(Math.round(resultats.economieAnnuelle / 12))} €/mois
                           </p>
-                          <p className="text-sm" style={{ color: "#046C91" }}>
+                          <p className="text-xs sm:text-sm" style={{ color: "#046C91" }}>
                             Sur 9 ans : {fmt(resultats.economieAnnuelle * 9)} €
                           </p>
                         </div>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
+                          <Badge className="bg-white/70 border border-[#9AC0D0]/40 text-[10px] sm:text-xs" style={{ color: "#123768" }}>
                             Taux : {resultats.taux.toFixed(1)}% / an
                           </Badge>
-                          <Badge className="bg-white/70 border border-[#9AC0D0]/40" style={{ color: "#123768" }}>
+                          <Badge className="bg-white/70 border border-[#9AC0D0]/40 text-[10px] sm:text-xs" style={{ color: "#123768" }}>
                             Amortissement : {fmt(resultats.amortissementAnnuel)} €
                           </Badge>
                         </div>
@@ -380,20 +380,21 @@ export const SimulateurSection = () => {
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 text-white font-semibold text-sm transition-colors"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 text-white font-semibold text-xs sm:text-sm transition-colors"
                       style={{ backgroundColor: "#046C91", borderRadius: "14px" }}
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#035D7D")}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#046C91")}
                     >
-                      <Mail className="w-5 h-5" />
-                      Recevoir une étude personnalisée (lots neufs éligibles)
+                      <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline">Recevoir une étude personnalisée (lots neufs éligibles)</span>
+                      <span className="sm:hidden">Recevoir mon étude personnalisée</span>
                     </button>
 
-                    <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
+                    <p className="text-[10px] sm:text-xs text-center" style={{ color: "#0B1220", opacity: 0.45 }}>
                       <strong>Simulation indicative :</strong> Ce calcul repose sur les taux annoncés dans le PLF 2026.
                       Les modalités définitives seront précisées par décret. Engagement 9 ans, location nue obligatoire.
                     </p>
-                    <p className="text-xs text-center" style={{ color: "#0B1220", opacity: 0.4 }}>
+                    <p className="text-[10px] sm:text-xs text-center" style={{ color: "#0B1220", opacity: 0.4 }}>
                       N'inclut pas : intérêts d'emprunt et situation fiscale complète (affinés en étude).
                     </p>
                   </div>
