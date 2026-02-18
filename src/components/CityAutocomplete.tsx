@@ -12,7 +12,7 @@ type Commune = {
 
 interface CityAutocompleteProps {
   value: string;
-  onChange: (city: string, codePostal?: string) => void;
+  onChange: (city: string, codePostal?: string, codeInsee?: string) => void;
   placeholder?: string;
   className?: string;
 }
@@ -89,7 +89,7 @@ export const CityAutocomplete = ({ value, onChange, placeholder = "Rechercher un
               onClick={() => {
                 const label = `${c.nom} (${c.codesPostaux[0] || c.departement.code})`;
                 setQuery(label);
-                onChange(c.nom, c.codesPostaux[0]);
+                onChange(c.nom, c.codesPostaux[0], c.code);
                 setIsOpen(false);
               }}
             >
