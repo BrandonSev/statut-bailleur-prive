@@ -6572,6 +6572,5 @@ const ZONES: Record<string, ZoneABC> = {
  * @returns ZoneABC — 'C' par défaut si la commune n'est pas trouvée
  */
 export const getZoneByInsee = (codeInsee: string): ZoneABC => {
-  debugger;
   return ZONES[codeInsee] ?? "C";
 };
