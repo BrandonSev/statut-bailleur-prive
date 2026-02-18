@@ -167,7 +167,9 @@ export const SimulateurSection = () => {
     C: "bg-gray-100 text-gray-600",
   };
 
-  debugger;
+  const isValid = () => {
+    return niveauLoyer && prixAchat && surface && tmi && ville
+  }
 
   return (
     <div
@@ -363,7 +365,7 @@ export const SimulateurSection = () => {
                 {/* Bouton Simuler */}
                 {!showResults && (
                   <button
-                    onClick={() => setShowResults(true)}
+                    onClick={() => { if(isValid()} setShowResults(true)}
                     className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                     style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
