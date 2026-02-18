@@ -17,7 +17,7 @@ const AMORTISSEMENTS = [
 export const PlafondsSection = () => {
   return (
     <section id="plafonds" className="w-full bg-secondary py-16 md:py-20">
-      <div className="max-w-[1100px] mx-auto px-6">
+      <div className="container mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">Plafonds &amp; taux applicables</h2>
         <p className="text-sm md:text-base text-muted-foreground mb-10 max-w-2xl">
           Les avantages fiscaux sont encadrés par des plafonds de loyers et des limites annuelles d'amortissement.

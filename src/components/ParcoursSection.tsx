@@ -13,7 +13,7 @@ export const ParcoursSection = () => {
 
   return (
     <section id="parcours" className="w-full bg-secondary py-14 md:py-18">
-      <div className="max-w-[1100px] mx-auto px-6">
+      <div className="container mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
           Les 4 étapes pour investir en Jeanbrun
         </h2>
