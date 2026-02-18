@@ -60,7 +60,7 @@ export const SimulateurSection = () => {
       "A bis": { intermediaire: 18.25, social: 7.62, tres_social: 7.62 },
       A: { intermediaire: 14.03, social: 7.14, tres_social: 7.14 },
       B1: { intermediaire: 11.31, social: 6.45, tres_social: 6.45 },
-      "B2 / C": { intermediaire: 9.83, social: 6.20, tres_social: 6.20 },
+      "B2 / C": { intermediaire: 9.83, social: 6.2, tres_social: 6.2 },
     };
     const prixM2 = plafonds[zone]?.[niveauLoyer] ?? 9.83;
     return Math.round(prixM2 * s * 12);
@@ -131,7 +131,13 @@ export const SimulateurSection = () => {
             <ul className="space-y-2 text-sm">
               {["Simulation gratuite", "Résultat immédiat", "Sans engagement"].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg
+                    className="w-4 h-4 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   <span>{text}</span>
@@ -164,9 +170,7 @@ export const SimulateurSection = () => {
 
                 {/* 2 — Ville + Zone */}
                 <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-700">
-                    Ville d'investissement souhaitée
-                  </Label>
+                  <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
                   <CityAutocomplete
                     value={ville}
                     onChange={(city, cp) => {
@@ -247,7 +251,9 @@ export const SimulateurSection = () => {
 
                 {/* 5 — Niveau de loyer / amortissement */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700">Choix de l'amortissement et plafond de loyer</Label>
+                  <Label className="text-xs font-medium text-gray-700">
+                    Choix de l'amortissement et plafond de loyer
+                  </Label>
                   <div className="flex gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
@@ -260,7 +266,8 @@ export const SimulateurSection = () => {
                             : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                         }`}
                       >
-                        {LABELS_LOYER[n]} — {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort. / {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
+                        {LABELS_LOYER[n]} <br /> {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort. /{" "}
+                        {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
                       </button>
                     ))}
                   </div>
@@ -290,11 +297,19 @@ export const SimulateurSection = () => {
                       <div className="relative z-10 text-center">
                         <div className="flex items-center justify-center gap-1.5 mb-2">
                           <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
-                            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                            <svg
+                              className="w-2.5 h-2.5 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={3}
+                            >
                               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                           </div>
-                          <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">Économie d'impôt</p>
+                          <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">
+                            Économie d'impôt
+                          </p>
                         </div>
                         <p className="text-3xl font-extrabold text-green-600 leading-none mb-1">
                           {fmt(resultats.economieAnnuelle)} €
@@ -302,7 +317,8 @@ export const SimulateurSection = () => {
                         <p className="text-xs text-green-600 font-medium mb-2">par an</p>
                         <div className="w-12 h-px bg-green-300 mx-auto mb-2"></div>
                         <p className="text-sm font-semibold text-green-700">
-                          {fmt(resultats.economieAnnuelle * 9)} € <span className="font-normal text-green-600">sur 9 ans</span>
+                          {fmt(resultats.economieAnnuelle * 9)} €{" "}
+                          <span className="font-normal text-green-600">sur 9 ans</span>
                         </p>
                       </div>
                     </div>
@@ -338,7 +354,11 @@ export const SimulateurSection = () => {
 
               <div className="grid sm:grid-cols-3 gap-8">
                 {[
-                  { icon: "💰", title: "Cash-flow détaillé", desc: "Effort d'épargne réel après crédit et avantage fiscal" },
+                  {
+                    icon: "💰",
+                    title: "Cash-flow détaillé",
+                    desc: "Effort d'épargne réel après crédit et avantage fiscal",
+                  },
                   { icon: "🏢", title: "Biens éligibles", desc: "Lots neufs compatibles avec votre budget" },
                   { icon: "🤝", title: "Accompagnement", desc: "Conseils personnalisés par nos experts" },
                 ].map((item, i) => (
