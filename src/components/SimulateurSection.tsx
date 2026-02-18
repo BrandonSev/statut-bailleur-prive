@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, TrendingDown, Sparkles } from "lucide-react";
+import { ArrowRight, TrendingDown } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
@@ -212,59 +212,44 @@ export const SimulateurSection = () => {
                 </Select>
               </div>
 
-              {/* Séparateur */}
-              <div className="border-t border-gray-100 my-3"></div>
+              {/* Séparateur minimaliste */}
+              <div className="border-t border-gray-100"></div>
 
               {/* ═══════════════════════════════════════════════
-                  BLOC RÉSULTAT — Design attractif green
+                  BLOC RÉSULTAT — Ultra-compact green
               ═══════════════════════════════════════════════ */}
-              <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 border-green-200 p-4 shadow-sm">
-                {/* Sparkles décoratives */}
-                <div className="absolute top-2 right-2 opacity-20">
-                  <Sparkles className="w-12 h-12 text-green-600" />
-                </div>
-                <div className="absolute bottom-1 left-2 opacity-10">
-                  <Sparkles className="w-8 h-8 text-emerald-600" />
-                </div>
+              <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 px-3 py-2.5">
+                {/* Icône coin gauche */}
+                <div className="absolute -left-1 -top-1 w-8 h-8 bg-green-500 rounded-full opacity-10"></div>
 
-                {/* Contenu */}
-                <div className="relative z-10">
-                  {/* Header avec icône */}
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                      <TrendingDown className="w-4 h-4 text-white" />
+                <div className="relative z-10 flex items-center justify-between gap-3">
+                  {/* Left: Label + icon */}
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+                      <TrendingDown className="w-3 h-3 text-white" />
                     </div>
-                    <p className="text-xs font-semibold text-green-700 uppercase tracking-wide">
+                    <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">
                       Votre économie d'impôt
                     </p>
                   </div>
 
-                  {/* Montant annuel */}
-                  <div className="text-center mb-1">
-                    <p className="text-4xl font-extrabold text-green-700 leading-none">
+                  {/* Right: Montants */}
+                  <div className="text-right">
+                    <p className="text-2xl font-extrabold text-green-700 leading-none">
                       {fmt(resultats.economieAnnuelle)} €
                     </p>
-                    <p className="text-xs text-green-600 font-medium mt-1">par an</p>
-                  </div>
-
-                  {/* Barre séparatrice */}
-                  <div className="w-16 h-0.5 bg-green-300 mx-auto my-2"></div>
-
-                  {/* Total sur 9 ans */}
-                  <div className="text-center">
-                    <p className="text-sm text-green-700">
-                      <span className="font-semibold">{fmt(resultats.economieAnnuelle * 9)} €</span>
-                      <span className="text-green-600 ml-1">sur 9 ans</span>
+                    <p className="text-[10px] text-green-600 font-medium">
+                      par an • {fmt(resultats.economieAnnuelle * 9)} € sur 9 ans
                     </p>
                   </div>
+                </div>
 
-                  {/* Badge info */}
-                  <div className="mt-3 flex items-center justify-center gap-1.5 bg-white/60 rounded-full px-3 py-1.5 border border-green-200">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                    <p className="text-[10px] text-green-700 font-medium">
-                      Amortissement {resultats.taux.toFixed(1)}% / an
-                    </p>
-                  </div>
+                {/* Badge discret en bas */}
+                <div className="mt-1.5 flex items-center justify-center gap-1 bg-white/50 rounded-full px-2 py-0.5">
+                  <div className="w-1 h-1 rounded-full bg-green-500"></div>
+                  <p className="text-[9px] text-green-700 font-medium">
+                    Amortissement {resultats.taux.toFixed(1)}% / an
+                  </p>
                 </div>
               </div>
 
@@ -289,7 +274,7 @@ export const SimulateurSection = () => {
       </div>
 
       {/* ══════════════════════════════════
-          BLOC DÉTAILS BAS DE PAGE (optionnel)
+          BLOC DÉTAILS BAS DE PAGE
       ══════════════════════════════════ */}
       <div className="bg-white/95 backdrop-blur-sm border-t border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 py-10 md:py-12">
