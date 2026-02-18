@@ -150,7 +150,7 @@ export const SimulateurSection = () => {
   // CityAutocomplete doit passer le code INSEE (5 chiffres) en 3e argument du onChange
   const [codeInsee, setCodeInsee] = useState<string | undefined>();
 
-  const zone = codeInsee ? getZoneByInsee(codeInsee) : "Inconnu";
+  const zone: ZoneABC = codeInsee ? getZoneByInsee(codeInsee) : "C";
 
   const r = useMemo<Resultats>(
     () => calculer(parseFloat(prixAchat) || 0, parseFloat(surface) || 0, zone, niveauLoyer, tmi),
@@ -366,7 +366,7 @@ export const SimulateurSection = () => {
                 {/* Bouton Simuler */}
                 {!showResults && (
                   <button
-                    onClick={() => { if(isValid()} setShowResults(true)}
+                    onClick={() => { if (isValid()) setShowResults(true); }}
                     className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                     style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
