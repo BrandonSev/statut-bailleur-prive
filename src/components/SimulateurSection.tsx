@@ -149,7 +149,7 @@ export const SimulateurSection = () => {
 
   // CityAutocomplete doit passer le code INSEE (5 chiffres) en 3e argument du onChange
   const [codeInsee, setCodeInsee] = useState<string | undefined>();
-
+  console.log("codeInsee", codeInsee);
   const zone = useMemo<ZoneABC>(() => (codeInsee ? getZoneByInsee(codeInsee) : "C"), [codeInsee]);
 
   const r = useMemo<Resultats>(
