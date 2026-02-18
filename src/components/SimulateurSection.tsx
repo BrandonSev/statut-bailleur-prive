@@ -216,15 +216,42 @@ export const SimulateurSection = () => {
               <div className="border-t border-gray-100 my-3"></div>
 
               {/* Résultat — Ultra-compact */}
-              <div className="text-center py-2 bg-green-50 border border-green-100">
-                <p className="text-xs text-gray-500 mb-1">Économie annuelle estimée</p>
-                <p
-                  className="text-3xl font-bold text-green-400 bg-clip-text text-transparent"
-                  style={{ lineHeight: 1.1 }}
-                >
-                  {fmt(resultats.economieAnnuelle)} €
-                </p>
-                <p className="text-xs text-gray-400 mt-1">{fmt(resultats.economieAnnuelle * 9)} € sur 9 ans</p>
+              <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 p-3">
+                {/* Décoration subtile */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full blur-3xl opacity-20"></div>
+
+                <div className="relative z-10 text-center">
+                  {/* Header avec icône */}
+                  <div className="flex items-center justify-center gap-1.5 mb-2">
+                    <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+                      <svg
+                        className="w-2.5 h-2.5 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={3}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">Économie d'impôt</p>
+                  </div>
+
+                  {/* Montant principal */}
+                  <p className="text-3xl font-extrabold text-green-600 leading-none mb-1">
+                    {fmt(resultats.economieAnnuelle)} €
+                  </p>
+                  <p className="text-xs text-green-600 font-medium mb-2">par an</p>
+
+                  {/* Divider */}
+                  <div className="w-12 h-px bg-green-300 mx-auto mb-2"></div>
+
+                  {/* Total 9 ans */}
+                  <p className="text-sm font-semibold text-green-700">
+                    {fmt(resultats.economieAnnuelle * 9)} €{" "}
+                    <span className="font-normal text-green-600">sur 9 ans</span>
+                  </p>
+                </div>
               </div>
 
               {/* CTA unique */}
