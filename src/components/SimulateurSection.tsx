@@ -244,7 +244,7 @@ export const SimulateurSection = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement</Label>
+                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
                     {/*
                       ⚠️  CityAutocomplete doit appeler :
                           onChange(nomVille: string, codePostal: string, codeInsee: string)
@@ -262,9 +262,7 @@ export const SimulateurSection = () => {
                       placeholder="Rechercher une ville…"
                       className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
                     />
-                    {villeError && (
-                      <span className="text-[10px] text-red-500">Veuillez sélectionner une ville</span>
-                    )}
+                    {villeError && <span className="text-[10px] text-red-500">Veuillez sélectionner une ville</span>}
                     {codeInsee && (
                       <span
                         className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${ZONE_BADGE[zone]}`}
@@ -280,7 +278,7 @@ export const SimulateurSection = () => {
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
                       <Label htmlFor="surface" className="text-xs font-medium text-gray-700">
-                        Surface habitable
+                        Surface légale à louer
                       </Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -339,7 +337,9 @@ export const SimulateurSection = () => {
 
                 {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700">Niveau de loyer & amortissement</Label>
+                  <Label className="text-xs font-medium text-gray-700">
+                    Choix de l'amortissement et plafond de loyer
+                  </Label>
                   <div className="flex gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
