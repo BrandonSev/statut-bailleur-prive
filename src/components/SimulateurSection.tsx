@@ -105,7 +105,7 @@ export const SimulateurSection = () => {
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 py-10 md:py-12 lg:pt-32">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
+        <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
           {/* COLONNE GAUCHE */}
           <div className="text-white space-y-4">
             <div className="inline-block">
@@ -266,7 +266,7 @@ export const SimulateurSection = () => {
                             : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                         }`}
                       >
-                        {LABELS_LOYER[n]} <br /> {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort. /{" "}
+                        {LABELS_LOYER[n]} <br /> {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort /{" "}
                         {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
                       </button>
                     ))}
