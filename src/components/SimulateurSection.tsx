@@ -442,6 +442,7 @@ export const SimulateurSection = () => {
                           </p>
                         </div>
                       </div>
+                    </div>
 
                       {/* <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
                         <div className="grid grid-cols-3 px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
