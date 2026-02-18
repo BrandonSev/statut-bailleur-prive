@@ -443,30 +443,25 @@ export const SimulateurSection = () => {
                         </div>
                       </div>
 
-                      {/* Détail fiscal */}
-                      <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
-                        {/* Header */}
+                      {/* <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
                         <div className="grid grid-cols-3 px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
                           <span>Détail fiscal</span>
                           <span className="text-center">Sans Jeanbrun</span>
                           <span className="text-right">Avec Jeanbrun</span>
                         </div>
 
-                        {/* Loyer annuel */}
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span>Loyers perçus</span>
                           <span className="text-center">{fmt(r.loyerAnnuel)} €</span>
                           <span className="text-right">{fmt(r.loyerAnnuel)} €</span>
                         </div>
 
-                        {/* Charges */}
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span>Charges (–20%)</span>
                           <span className="text-center">–{fmt(r.chargesAnnuelles)} €</span>
                           <span className="text-right">–{fmt(r.chargesAnnuelles)} €</span>
                         </div>
 
-                        {/* Amortissement */}
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span className="flex items-center gap-1">
                             Amortissement
@@ -485,7 +480,6 @@ export const SimulateurSection = () => {
                           <span className="text-right font-medium text-blue-700">–{fmt(r.amortissementAnnuel)} €</span>
                         </div>
 
-                        {/* Revenu net */}
                         <div className="grid grid-cols-3 px-3 py-1.5 font-semibold text-gray-700">
                           <span>Revenu foncier net</span>
                           <span className="text-center">{fmt(r.revenuNetSans)} €</span>
@@ -495,7 +489,6 @@ export const SimulateurSection = () => {
                           </span>
                         </div>
 
-                        {/* Déficit si applicable */}
                         {hasDeficit && (
                           <div className="grid grid-cols-3 px-3 py-1.5 text-orange-700 bg-orange-50">
                             <span className="flex items-center gap-1 col-span-2">
@@ -514,7 +507,6 @@ export const SimulateurSection = () => {
                           </div>
                         )}
 
-                        {/* IR */}
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span>Impôt IR ({tmi}%)</span>
                           <span className="text-center">{fmt(r.impotIRSans)} €</span>
@@ -523,15 +515,12 @@ export const SimulateurSection = () => {
                             {fmt(r.impotIRAvec)} €
                           </span>
                         </div>
-
-                        {/* PS */}
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span>Prélèv. sociaux (17,2%)</span>
                           <span className="text-center">{fmt(r.impotPSSans)} €</span>
                           <span className="text-right">{fmt(r.impotPSAvec)} €</span>
                         </div>
 
-                        {/* Total impôt */}
                         <div className="grid grid-cols-3 px-3 py-2 font-bold text-gray-800 bg-white rounded-b-lg">
                           <span>Total impôts</span>
                           <span className="text-center">{fmt(r.impotTotalSans)} €</span>
@@ -539,11 +528,11 @@ export const SimulateurSection = () => {
                         </div>
                       </div>
 
-                      {/* Disclaimer */}
                       <p className="text-[10px] text-gray-400 leading-relaxed text-center">
                         Simulation indicative — barèmes PLF 2026. Loyers social/très social en attente des décrets ANAH.
                       </p>
-                    </div>
+                    </div> */}
+                      
 
                     <button
                       onClick={() => setModalOpen(true)}
