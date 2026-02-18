@@ -22,7 +22,7 @@ const comparatif = [
 export const ComparatifSection = () => {
   return (
     <section id="comparatif" className="w-full bg-background py-16 md:py-20">
-      <div className="max-w-[1100px] mx-auto px-6">
+      <div className="container mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary-dark">
           Statut du bailleur privé vs Pinel : ce qui change
         </h2>

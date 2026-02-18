@@ -14,7 +14,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-[hsl(196,100%,10%)] text-white/80">
-      <div className="max-w-[1200px] mx-auto px-6 py-12 md:py-14">
+      <div className="container mx-auto px-6 py-12 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm md:justify-items-center">
           {/* Col 1 — À propos */}
           <div>
@@ -89,7 +89,7 @@ export const Footer = () => {
 
       {/* Bas de footer */}
       <div className="border-t border-white/10">
-        <div className="max-w-[1200px] mx-auto px-6 py-5 text-center space-y-1.5">
+        <div className="container mx-auto px-6 py-5 text-center space-y-1.5">
           <p className="text-white/40 text-xs">© 2026 Polyvalence Immobilier – Tous droits réservés</p>
           <p className="text-white/30 text-[11px]">
             Statut du bailleur privé (dispositif Jeanbrun) – Plan de relance logement 2026
