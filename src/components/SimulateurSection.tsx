@@ -248,7 +248,7 @@ export const SimulateurSection = () => {
                 {/* 5 — Niveau de loyer / amortissement */}
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-gray-700">Choix de l'amortissement et plafond de loyer</Label>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
                         key={n}
