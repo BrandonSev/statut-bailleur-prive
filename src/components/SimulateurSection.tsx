@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { ArrowRight, Info, Calculator } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 import { CityAutocomplete } from "./CityAutocomplete";
@@ -226,36 +226,44 @@ export const SimulateurSection = () => {
                         </TooltipContent>
                       </Tooltip>
                     </div>
-                    <Select value={String(tmi)} onValueChange={(v) => setTmi(Number(v) as TMI)}>
-                      <SelectTrigger className="h-9 border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
-                          <SelectItem key={rate} value={String(rate)}>
-                            {rate} %
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex flex-wrap gap-1.5">
+                      {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
+                        <button
+                          key={rate}
+                          type="button"
+                          onClick={() => setTmi(rate)}
+                          className={`px-2.5 py-1 rounded-md text-xs font-medium border transition-all ${
+                            tmi === rate
+                              ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                              : "bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
+                          }`}
+                        >
+                          {rate} %
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 {/* 5 — Niveau de loyer / amortissement */}
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-gray-700">Choix de l'amortissement et plafond de loyer</Label>
-                  <Select value={niveauLoyer} onValueChange={(v) => setNiveauLoyer(v as NiveauLoyer)}>
-                    <SelectTrigger className="h-9 border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
-                        <SelectItem key={n} value={n}>
-                          {LABELS_LOYER[n]} — {TAUX_AMORTISSEMENT[n] * 100}% amort. / {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex flex-col gap-1.5">
+                    {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
+                      <button
+                        key={n}
+                        type="button"
+                        onClick={() => setNiveauLoyer(n)}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium border transition-all ${
+                          niveauLoyer === n
+                            ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                            : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
+                        }`}
+                      >
+                        {LABELS_LOYER[n]} — {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort. / {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Bouton Simuler */}
