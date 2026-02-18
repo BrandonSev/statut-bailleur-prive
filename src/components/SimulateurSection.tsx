@@ -26,13 +26,20 @@ const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
   tres_social: 12_000,
 };
 
-// Barèmes 2026 (indicatifs, basés sur Pinel pour intermédiaire + annexe III CGI pour social/très social)
-const PLAFONDS_LOYER_M2: Record<ZoneABC, Record<NiveauLoyer, number>> = {
-  "A bis": { intermediaire: 19.51, social: 13.64, tres_social: 10.63 },
-  A: { intermediaire: 14.49, social: 10.49, tres_social: 8.18 },
-  B1: { intermediaire: 11.68, social: 9.04, tres_social: 7.04 },
-  B2: { intermediaire: 10.15, social: 8.67, tres_social: 6.74 },
-  C: { intermediaire: 10.15, social: 8.05, tres_social: 6.25 },
+// Barèmes Pinel 2026 (BOFiP) — référence Jeanbrun pour le loyer intermédiaire
+const PLAFONDS_LOYER_M2: Record<ZoneABC, number> = {
+  "A bis": 19.51,
+  A: 14.49,
+  B1: 11.59,
+  B2: 10.06,
+  C: 10.06, // même plafond que B2 (Jeanbrun sans zonage)
+};
+
+// Décotes loyer social / très social (en attente décrets ANAH/Loc'Avantages)
+const DECOTE_NIVEAU: Record<NiveauLoyer, number> = {
+  intermediaire: 1.0,
+  social: 0.85, // –15%
+  tres_social: 0.7, // –30%
 };
 
 const LABELS_LOYER: Record<NiveauLoyer, string> = {
@@ -48,7 +55,7 @@ const TAUX_PS = 0.172;
 const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
   const coefficient = Math.min(0.7 + 19 / surface, 1.2);
-  const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer];
+  const plafondM2 = PLAFONDS_LOYER_M2[zone] * DECOTE_NIVEAU[niveauLoyer];
   return Math.round(surface * coefficient * plafondM2);
 };
 
@@ -143,7 +150,7 @@ export const SimulateurSection = () => {
   // CityAutocomplete doit passer le code INSEE (5 chiffres) en 3e argument du onChange
   const [codeInsee, setCodeInsee] = useState<string | undefined>();
 
-  const zone: ZoneABC = codeInsee ? getZoneByInsee(codeInsee) : "C"; // Fallback à C si inconnu
+  const zone = codeInsee ? getZoneByInsee(codeInsee) : "Inconnu";
 
   const r = useMemo<Resultats>(
     () => calculer(parseFloat(prixAchat) || 0, parseFloat(surface) || 0, zone, niveauLoyer, tmi),
@@ -159,6 +166,8 @@ export const SimulateurSection = () => {
     B2: "bg-yellow-100 text-yellow-700",
     C: "bg-gray-100 text-gray-600",
   };
+
+  debugger;
 
   return (
     <div
@@ -483,12 +492,12 @@ export const SimulateurSection = () => {
                             {fmt(Math.max(r.impotTotalAvec, 0))} €
                           </span>
                         </div>
-                      </div> */}
+                      </div>
 
                       <p className="text-[10px] text-gray-400 leading-relaxed text-center">
-                        Simulation indicative — barèmes PLF 2026 & zonage ABC officiel du 5 sept. 2025. Loyers
-                        social/très social en attente des décrets ANAH.
-                      </p>
+                        Simulation indicative — barèmes PLF 2026 & zonage ABC officiel du 5 sept. 2025.
+                        Loyers social/très social en attente des décrets ANAH.
+                      </p> */}
                     </div>
 
                     <button
