@@ -150,43 +150,44 @@ export const SimulateurSection = () => {
           <TooltipProvider delayDuration={200}>
             <div className="rounded-xl shadow-xl overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
               <div className="p-5 space-y-3">
-                {/* 1 — Prix d'achat */}
-                <div className="space-y-1">
-                  <Label htmlFor="prix" className="text-xs font-medium text-gray-700">
-                    Prix d'achat envisagé
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="prix"
-                      type="number"
-                      value={prixAchat}
-                      onChange={(e) => setPrixAchat(e.target.value)}
-                      placeholder="200 000"
-                      className="h-9 pr-8 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                    />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">€</span>
-                  </div>
-                </div>
-
-                {/* 2 — Ville + Zone */}
-                <div className="space-y-1">
-                  <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
-                  <CityAutocomplete
-                    value={ville}
-                    onChange={(city, cp) => {
-                      setVille(city);
-                      setCodePostal(cp);
-                    }}
-                    placeholder="Rechercher une ville…"
-                    className="h-9 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  {codePostal && (
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
-                        Zone {zone}
-                      </span>
+                {/* 1 — Prix d'achat + 2 — Ville */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <Label htmlFor="prix" className="text-xs font-medium text-gray-700">
+                      Prix d'achat envisagé
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="prix"
+                        type="number"
+                        value={prixAchat}
+                        onChange={(e) => setPrixAchat(e.target.value)}
+                        placeholder="200 000"
+                        className="h-9 pr-8 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                      <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">€</span>
                     </div>
-                  )}
+                  </div>
+
+                  <div className="space-y-1">
+                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement</Label>
+                    <CityAutocomplete
+                      value={ville}
+                      onChange={(city, cp) => {
+                        setVille(city);
+                        setCodePostal(cp);
+                      }}
+                      placeholder="Rechercher une ville…"
+                      className="h-9 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    {codePostal && (
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
+                          Zone {zone}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* 3 — Surface + 4 — TMI */}
