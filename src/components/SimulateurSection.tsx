@@ -168,7 +168,8 @@ export const SimulateurSection = () => {
   };
 
   const isValid = () => {
-    return niveauLoyer && prixAchat && surface && tmi && ville
+    if (!ville) return false;
+    return true;
   }
 
   return (
