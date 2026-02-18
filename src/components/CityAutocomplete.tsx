@@ -99,7 +99,10 @@ export const CityAutocomplete = ({
               }}
             >
               <MapPin className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-              <span className="text-foreground font-medium">{c.nom}</span>
+              <div>
+                <span className="text-foreground font-medium">{c.nom}</span>
+                <span className="text-foreground font-light">{getZoneByInsee(c.code)}</span>
+              </div>
               <span className="text-muted-foreground text-xs ml-auto">{c.codesPostaux[0] || c.departement.code}</span>
             </button>
           ))}
