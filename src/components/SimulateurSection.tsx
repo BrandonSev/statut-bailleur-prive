@@ -242,6 +242,7 @@ export const SimulateurSection = () => {
                     <CityAutocomplete
                       value={ville}
                       onChange={(city, _cp, insee) => {
+                        console.log(city, _cp, insee);
                         setVille(city);
                         setCodeInsee(insee);
                       }}
