@@ -272,8 +272,8 @@ export const SimulateurSection = () => {
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
-                          Surface habitable du logement. Le loyer plafonné est calculé avec la formule Pinel 2026 :
-                          coeff = min(0,7 + 19/S, 1,2).
+                          Surface habitable du logement. Le loyer plafonné est calculé avec la formule : coeff = min(0,7
+                          + 19/S, 1,2).
                         </TooltipContent>
                       </Tooltip>
                     </div>
