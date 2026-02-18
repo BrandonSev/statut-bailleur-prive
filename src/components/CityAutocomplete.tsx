@@ -17,7 +17,12 @@ interface CityAutocompleteProps {
   className?: string;
 }
 
-export const CityAutocomplete = ({ value, onChange, placeholder = "Rechercher une ville…", className }: CityAutocompleteProps) => {
+export const CityAutocomplete = ({
+  value,
+  onChange,
+  placeholder = "Rechercher une ville…",
+  className,
+}: CityAutocompleteProps) => {
   const [query, setQuery] = useState(value);
   const [results, setResults] = useState<Commune[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +42,7 @@ export const CityAutocomplete = ({ value, onChange, placeholder = "Rechercher un
       try {
         const res = await fetch(
           `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(query)}&fields=nom,code,codesPostaux,population,departement&boost=population&limit=7`,
-          { signal: controller.signal }
+          { signal: controller.signal },
         );
         const data: Commune[] = await res.json();
         setResults(data);
@@ -95,9 +100,7 @@ export const CityAutocomplete = ({ value, onChange, placeholder = "Rechercher un
             >
               <MapPin className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
               <span className="text-foreground font-medium">{c.nom}</span>
-              <span className="text-muted-foreground text-xs ml-auto">
-                {c.codesPostaux[0] || c.departement.code}
-              </span>
+              <span className="text-muted-foreground text-xs ml-auto">{c.codesPostaux[0] || c.departement.code}</span>
             </button>
           ))}
         </div>
