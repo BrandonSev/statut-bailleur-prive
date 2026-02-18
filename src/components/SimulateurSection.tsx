@@ -522,11 +522,11 @@ export const SimulateurSection = () => {
                       <ArrowRight className="w-4 h-4" />
                     </button>
                     <p className="text-[10px] text-center text-gray-400 leading-relaxed">
-                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
-                      PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
+                      Sélection de biens neufs éligibles + analyse personnalisée
                     </p>
                     <p className="text-[10px] text-center text-gray-400 leading-relaxed">
-                      Sélection de biens neufs éligibles + analyse personnalisée
+                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
+                      PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
                     </p>
                   </>
                 )}
