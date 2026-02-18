@@ -521,7 +521,7 @@ export const SimulateurSection = () => {
                       Recevoir mon étude gratuite
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-[10px] text-center text-gray-400 leading-relaxed">
+                    <p className="text-[10px] text-center text-gray-400">
                       Sélection de biens neufs éligibles + analyse personnalisée
                     </p>
                     <p className="text-[10px] text-center text-gray-400 leading-relaxed">
