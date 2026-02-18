@@ -5,6 +5,7 @@ import { ArrowRight, Info, Calculator } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 import { CityAutocomplete } from "./CityAutocomplete";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { getZoneByInsee, type ZoneABC } from "@/data/zonesABC";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -14,9 +15,9 @@ type TMI = 0 | 11 | 30 | 41 | 45;
 // ─── CONSTANTES OFFICIELLES PLF 2026 ──────────────────────────────────────────
 
 const TAUX_AMORTISSEMENT: Record<NiveauLoyer, number> = {
-  intermediaire: 0.035, // 3,5% — plafonné 8 000 €
-  social: 0.045, // 4,5% — plafonné 10 000 €
-  tres_social: 0.055, // 5,5% — plafonné 12 000 €
+  intermediaire: 0.035,
+  social: 0.045,
+  tres_social: 0.055,
 };
 
 const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
@@ -25,12 +26,13 @@ const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
   tres_social: 12_000,
 };
 
-// Barèmes Pinel 2026 (BOFiP) — utilisés par Jeanbrun pour le loyer intermédiaire
-const PLAFONDS_LOYER_M2: Record<string, number> = {
+// Barèmes Pinel 2026 (BOFiP) — référence Jeanbrun pour le loyer intermédiaire
+const PLAFONDS_LOYER_M2: Record<ZoneABC, number> = {
   "A bis": 19.51,
   A: 14.49,
   B1: 11.59,
   B2: 10.06,
+  C: 10.06, // même plafond que B2 (Jeanbrun sans zonage)
 };
 
 // Décotes loyer social / très social (en attente décrets ANAH/Loc'Avantages)
@@ -40,70 +42,21 @@ const DECOTE_NIVEAU: Record<NiveauLoyer, number> = {
   tres_social: 0.7, // –30%
 };
 
-const LABELS_LOYER: Record<NiveauLoyer, { court: string; long: string }> = {
-  intermediaire: { court: "Intermédiaire", long: "–10 à 15% du marché" },
-  social: { court: "Social", long: "–15% du plafond interm." },
-  tres_social: { court: "Très social", long: "–30% du plafond interm." },
+const LABELS_LOYER: Record<NiveauLoyer, string> = {
+  intermediaire: "Intermédiaire",
+  social: "Social",
+  tres_social: "Très social",
 };
 
-const TAUX_PS = 0.172; // 17,2% prélèvements sociaux
-
-// ─── ZONAGE ───────────────────────────────────────────────────────────────────
-
-const getZone = (codePostal?: string): string => {
-  if (!codePostal) return "—";
-  const cp2 = codePostal.slice(0, 2);
-
-  // Zone A bis — Paris + petite couronne
-  if (codePostal.startsWith("75")) return "A bis";
-  if (["92", "93", "94"].includes(cp2)) return "A bis";
-
-  // Zone A — Grande couronne + grandes métropoles
-  if (["78", "91", "95"].includes(cp2)) return "A";
-  if (["69", "13", "06"].includes(cp2)) return "A";
-  if (cp2 === "59" && codePostal.startsWith("590")) return "A"; // Lille
-
-  // Zone B1 — Agglomérations importantes
-  const b1 = [
-    "33",
-    "31",
-    "44",
-    "35",
-    "67",
-    "68",
-    "57",
-    "54",
-    "38",
-    "74",
-    "73",
-    "63",
-    "37",
-    "51",
-    "21",
-    "45",
-    "76",
-    "14",
-    "25",
-    "64",
-    "34",
-    "66",
-    "83",
-  ];
-  if (b1.includes(cp2)) return "B1";
-
-  return "B2";
-};
+const TAUX_PS = 0.172;
 
 // ─── CALCULS ──────────────────────────────────────────────────────────────────
 
-const calculLoyerMensuel = (surface: number, zone: string, niveauLoyer: NiveauLoyer): number => {
+const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
-  // Surface pondérée (pas d'annexes dans ce formulaire simplifié)
-  const surfacePonderee = surface;
-  // Coefficient Pinel : min(0,7 + 19/S, 1,2)
-  const coefficient = Math.min(0.7 + 19 / surfacePonderee, 1.2);
-  const plafondM2 = (PLAFONDS_LOYER_M2[zone] ?? PLAFONDS_LOYER_M2["B2"]) * DECOTE_NIVEAU[niveauLoyer];
-  return Math.round(surfacePonderee * coefficient * plafondM2);
+  const coefficient = Math.min(0.7 + 19 / surface, 1.2);
+  const plafondM2 = PLAFONDS_LOYER_M2[zone] * DECOTE_NIVEAU[niveauLoyer];
+  return Math.round(surface * coefficient * plafondM2);
 };
 
 interface Resultats {
@@ -115,55 +68,45 @@ interface Resultats {
   revenuNetSans: number;
   revenuNetAvec: number;
   deficitImputable: number;
-  // Sans Jeanbrun
   impotIRSans: number;
   impotPSSans: number;
   impotTotalSans: number;
-  // Avec Jeanbrun
   impotIRAvec: number;
   impotPSAvec: number;
   impotTotalAvec: number;
-  // Résultat final
   economieAnnuelle: number;
   economieSur9ans: number;
 }
 
-const calculer = (prixAchat: number, surface: number, zone: string, niveauLoyer: NiveauLoyer, tmi: TMI): Resultats => {
+const calculer = (prixAchat: number, surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer, tmi: TMI): Resultats => {
   const loyerMensuel = calculLoyerMensuel(surface, zone, niveauLoyer);
   const loyerAnnuel = loyerMensuel * 12;
   const chargesAnnuelles = Math.round(loyerAnnuel * 0.2);
 
-  // Amortissement : base = prix × 80% (terrain 20% exclu — PLF 2026)
   const baseAmortissable = prixAchat * 0.8;
   const amortissementBrut = baseAmortissable * TAUX_AMORTISSEMENT[niveauLoyer];
   const amortissementAnnuel = Math.min(amortissementBrut, PLAFONDS_AMORTISSEMENT[niveauLoyer]);
 
-  // Revenus fonciers nets
   const revenuNetSans = loyerAnnuel - chargesAnnuelles;
   const revenuNetAvec = loyerAnnuel - chargesAnnuelles - amortissementAnnuel;
 
-  // Déficit foncier imputable sur revenu global (plafond 10 700 €/an — NEUF)
   const deficitImputable = revenuNetAvec < 0 ? Math.min(Math.abs(revenuNetAvec), 10_700) : 0;
 
   const tauxIR = tmi / 100;
-
-  // Fiscalité SANS Jeanbrun : IR + PS sur revenu foncier net positif
   const baseSans = Math.max(revenuNetSans, 0);
+
   const impotIRSans = Math.round(baseSans * tauxIR);
   const impotPSSans = Math.round(baseSans * TAUX_PS);
   const impotTotalSans = impotIRSans + impotPSSans;
 
-  // Fiscalité AVEC Jeanbrun
   let impotIRAvec = 0;
   let impotPSAvec = 0;
 
   if (revenuNetAvec > 0) {
-    // Revenu net positif : IR + PS sur le revenu résiduel
     impotIRAvec = Math.round(revenuNetAvec * tauxIR);
     impotPSAvec = Math.round(revenuNetAvec * TAUX_PS);
   } else {
-    // Déficit : économie IR grâce à l'imputation sur revenu global
-    // NB : les PS ne s'imputent pas sur le revenu global → pas d'économie PS
+    // Déficit → économie IR uniquement (PS non imputables sur revenu global)
     impotIRAvec = -Math.round(deficitImputable * tauxIR);
     impotPSAvec = 0;
   }
@@ -192,7 +135,6 @@ const calculer = (prixAchat: number, surface: number, zone: string, niveauLoyer:
 };
 
 const fmt = (n: number) => Math.abs(n).toLocaleString("fr-FR", { maximumFractionDigits: 0 });
-const fmtSigned = (n: number) => (n < 0 ? "–" : "+") + fmt(n) + " €";
 
 // ─── COMPOSANT ────────────────────────────────────────────────────────────────
 
@@ -204,15 +146,26 @@ export const SimulateurSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [ville, setVille] = useState("");
-  const [codePostal, setCodePostal] = useState<string | undefined>();
 
-  const zone = useMemo(() => getZone(codePostal), [codePostal]);
+  // CityAutocomplete doit passer le code INSEE (5 chiffres) en 3e argument du onChange
+  const [codeInsee, setCodeInsee] = useState<string | undefined>();
 
-  const r = useMemo<Resultats>(() => {
-    return calculer(parseFloat(prixAchat) || 0, parseFloat(surface) || 0, zone === "—" ? "B2" : zone, niveauLoyer, tmi);
-  }, [prixAchat, surface, zone, niveauLoyer, tmi]);
+  const zone = useMemo<ZoneABC>(() => (codeInsee ? getZoneByInsee(codeInsee) : "C"), [codeInsee]);
+
+  const r = useMemo<Resultats>(
+    () => calculer(parseFloat(prixAchat) || 0, parseFloat(surface) || 0, zone, niveauLoyer, tmi),
+    [prixAchat, surface, zone, niveauLoyer, tmi],
+  );
 
   const hasDeficit = r.revenuNetAvec < 0;
+
+  const ZONE_BADGE: Record<ZoneABC, string> = {
+    "A bis": "bg-purple-100 text-purple-700",
+    A: "bg-red-100 text-red-700",
+    B1: "bg-orange-100 text-orange-700",
+    B2: "bg-yellow-100 text-yellow-700",
+    C: "bg-gray-100 text-gray-600",
+  };
 
   return (
     <div
@@ -281,17 +234,24 @@ export const SimulateurSection = () => {
 
                   <div className="space-y-1">
                     <Label className="text-xs font-medium text-gray-700">Ville d'investissement</Label>
+                    {/*
+                      ⚠️  CityAutocomplete doit appeler :
+                          onChange(nomVille: string, codePostal: string, codeInsee: string)
+                      Le code INSEE à 5 chiffres est requis pour le zonage officiel ABC.
+                    */}
                     <CityAutocomplete
                       value={ville}
-                      onChange={(city, cp) => {
+                      onChange={(city, _cp, insee) => {
                         setVille(city);
-                        setCodePostal(cp);
+                        setCodeInsee(insee);
                       }}
                       placeholder="Rechercher une ville…"
                       className="h-9 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    {codePostal && (
-                      <span className="inline-block text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full mt-1">
+                    {codeInsee && (
+                      <span
+                        className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${ZONE_BADGE[zone]}`}
+                      >
                         Zone {zone}
                       </span>
                     )}
@@ -310,7 +270,7 @@ export const SimulateurSection = () => {
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
-                          Surface habitable (hors annexes). Le loyer plafonné est calculé selon la formule Pinel 2026 :
+                          Surface habitable du logement. Le loyer plafonné est calculé avec la formule Pinel 2026 :
                           coeff = min(0,7 + 19/S, 1,2).
                         </TooltipContent>
                       </Tooltip>
@@ -336,8 +296,8 @@ export const SimulateurSection = () => {
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
-                          Taux marginal d'imposition. L'impôt total inclut également les 17,2% de prélèvements sociaux
-                          sur les revenus fonciers.
+                          Taux marginal d'imposition. L'impôt total inclut 17,2% de prélèvements sociaux sur les revenus
+                          fonciers.
                         </TooltipContent>
                       </Tooltip>
                     </div>
@@ -375,7 +335,7 @@ export const SimulateurSection = () => {
                             : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                         }`}
                       >
-                        <span className="font-semibold">{LABELS_LOYER[n].court}</span>
+                        <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
                           {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}% amort. /{" "}
@@ -386,8 +346,8 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* Loyer estimé (toujours visible dès qu'on a surface + zone) */}
-                {r.loyerMensuel > 0 && codePostal && (
+                {/* Loyer estimé — visible dès surface + ville renseignés */}
+                {r.loyerMensuel > 0 && codeInsee && (
                   <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
                     <span className="text-xs text-blue-700">Loyer plafonné estimé</span>
                     <span className="text-sm font-bold text-blue-800">
@@ -442,8 +402,8 @@ export const SimulateurSection = () => {
                           </p>
                         </div>
                       </div>
-                    </div>
 
+                      {/* Tableau détail fiscal */}
                       {/* <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
                         <div className="grid grid-cols-3 px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
                           <span>Détail fiscal</span>
@@ -471,36 +431,35 @@ export const SimulateurSection = () => {
                                 <Info className="w-3 h-3 text-gray-400 cursor-help" />
                               </TooltipTrigger>
                               <TooltipContent side="top" className="max-w-[200px] text-xs">
-                                Base × {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% plafonné à{" "}
-                                {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €/an. Base = prix × 80%
-                                (terrain exclu).
+                                Base (prix × 80%) × {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}%,
+                                plafonné à {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €/an.
                               </TooltipContent>
                             </Tooltip>
                           </span>
                           <span className="text-center text-gray-400">—</span>
-                          <span className="text-right font-medium text-blue-700">–{fmt(r.amortissementAnnuel)} €</span>
+                          <span className="text-right font-medium text-blue-700">
+                            –{fmt(r.amortissementAnnuel)} €
+                          </span>
                         </div>
 
                         <div className="grid grid-cols-3 px-3 py-1.5 font-semibold text-gray-700">
                           <span>Revenu foncier net</span>
                           <span className="text-center">{fmt(r.revenuNetSans)} €</span>
                           <span className={`text-right ${hasDeficit ? "text-orange-600" : ""}`}>
-                            {hasDeficit ? "–" : ""}
-                            {fmt(r.revenuNetAvec)} €
+                            {hasDeficit ? "–" : ""}{fmt(r.revenuNetAvec)} €
                           </span>
                         </div>
 
                         {hasDeficit && (
                           <div className="grid grid-cols-3 px-3 py-1.5 text-orange-700 bg-orange-50">
                             <span className="flex items-center gap-1 col-span-2">
-                              Déficit imputable (revenu global)
+                              Déficit imputable (rev. global)
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <Info className="w-3 h-3 text-orange-400 cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent side="top" className="max-w-[220px] text-xs">
-                                  Nouveauté Jeanbrun : le déficit foncier s'impute sur votre revenu global dans la
-                                  limite de 10 700 €/an.
+                                  Nouveauté Jeanbrun : le déficit foncier s'impute sur votre revenu global, dans la limite de 10 700 €/an.
                                 </TooltipContent>
                               </Tooltip>
                             </span>
@@ -512,10 +471,10 @@ export const SimulateurSection = () => {
                           <span>Impôt IR ({tmi}%)</span>
                           <span className="text-center">{fmt(r.impotIRSans)} €</span>
                           <span className={`text-right ${r.impotIRAvec < 0 ? "text-green-600 font-semibold" : ""}`}>
-                            {r.impotIRAvec < 0 ? "–" : ""}
-                            {fmt(r.impotIRAvec)} €
+                            {r.impotIRAvec < 0 ? "–" : ""}{fmt(r.impotIRAvec)} €
                           </span>
                         </div>
+
                         <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
                           <span>Prélèv. sociaux (17,2%)</span>
                           <span className="text-center">{fmt(r.impotPSSans)} €</span>
@@ -525,15 +484,17 @@ export const SimulateurSection = () => {
                         <div className="grid grid-cols-3 px-3 py-2 font-bold text-gray-800 bg-white rounded-b-lg">
                           <span>Total impôts</span>
                           <span className="text-center">{fmt(r.impotTotalSans)} €</span>
-                          <span className="text-right text-blue-700">{fmt(Math.max(r.impotTotalAvec, 0))} €</span>
+                          <span className="text-right text-blue-700">
+                            {fmt(Math.max(r.impotTotalAvec, 0))} €
+                          </span>
                         </div>
                       </div>
 
                       <p className="text-[10px] text-gray-400 leading-relaxed text-center">
-                        Simulation indicative — barèmes PLF 2026. Loyers social/très social en attente des décrets ANAH.
-                      </p>
-                    </div> */}
-                      
+                        Simulation indicative — barèmes PLF 2026 & zonage ABC officiel du 5 sept. 2025.
+                        Loyers social/très social en attente des décrets ANAH.
+                      </p> */}
+                    </div>
 
                     <button
                       onClick={() => setModalOpen(true)}
