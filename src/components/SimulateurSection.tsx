@@ -1,44 +1,200 @@
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import { ArrowRight, Info, Calculator } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 import { CityAutocomplete } from "./CityAutocomplete";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
+// ─── TYPES ────────────────────────────────────────────────────────────────────
+
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
 type TMI = 0 | 11 | 30 | 41 | 45;
 
+// ─── CONSTANTES OFFICIELLES PLF 2026 ──────────────────────────────────────────
+
 const TAUX_AMORTISSEMENT: Record<NiveauLoyer, number> = {
-  intermediaire: 0.035,
-  social: 0.045,
-  tres_social: 0.055,
+  intermediaire: 0.035, // 3,5% — plafonné 8 000 €
+  social: 0.045, // 4,5% — plafonné 10 000 €
+  tres_social: 0.055, // 5,5% — plafonné 12 000 €
 };
 
-const PLAFONDS: Record<NiveauLoyer, number> = {
-  intermediaire: 8000,
-  social: 10000,
-  tres_social: 12000,
+const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
+  intermediaire: 8_000,
+  social: 10_000,
+  tres_social: 12_000,
 };
 
-const LABELS_LOYER: Record<NiveauLoyer, string> = {
-  intermediaire: "Intermédiaire",
-  social: "Social",
-  tres_social: "Très social",
+// Barèmes Pinel 2026 (BOFiP) — utilisés par Jeanbrun pour le loyer intermédiaire
+const PLAFONDS_LOYER_M2: Record<string, number> = {
+  "A bis": 19.51,
+  A: 14.49,
+  B1: 11.59,
+  B2: 10.06,
 };
 
-// Zonage simplifié basé sur le code postal
+// Décotes loyer social / très social (en attente décrets ANAH/Loc'Avantages)
+const DECOTE_NIVEAU: Record<NiveauLoyer, number> = {
+  intermediaire: 1.0,
+  social: 0.85, // –15%
+  tres_social: 0.7, // –30%
+};
+
+const LABELS_LOYER: Record<NiveauLoyer, { court: string; long: string }> = {
+  intermediaire: { court: "Intermédiaire", long: "–10 à 15% du marché" },
+  social: { court: "Social", long: "–15% du plafond interm." },
+  tres_social: { court: "Très social", long: "–30% du plafond interm." },
+};
+
+const TAUX_PS = 0.172; // 17,2% prélèvements sociaux
+
+// ─── ZONAGE ───────────────────────────────────────────────────────────────────
+
 const getZone = (codePostal?: string): string => {
   if (!codePostal) return "—";
-  const cp = codePostal.slice(0, 2);
+  const cp2 = codePostal.slice(0, 2);
+
+  // Zone A bis — Paris + petite couronne
   if (codePostal.startsWith("75")) return "A bis";
-  if (["92", "93", "94"].includes(cp)) return "A bis";
-  if (["78", "91", "95"].includes(cp)) return "A";
-  if (["69", "13", "33", "31", "59", "67", "68"].includes(cp)) return "B1";
-  if (["06", "34", "44", "35", "57", "54", "51", "21", "37", "45", "63", "38", "73", "74"].includes(cp)) return "B1";
-  return "B2 / C";
+  if (["92", "93", "94"].includes(cp2)) return "A bis";
+
+  // Zone A — Grande couronne + grandes métropoles
+  if (["78", "91", "95"].includes(cp2)) return "A";
+  if (["69", "13", "06"].includes(cp2)) return "A";
+  if (cp2 === "59" && codePostal.startsWith("590")) return "A"; // Lille
+
+  // Zone B1 — Agglomérations importantes
+  const b1 = [
+    "33",
+    "31",
+    "44",
+    "35",
+    "67",
+    "68",
+    "57",
+    "54",
+    "38",
+    "74",
+    "73",
+    "63",
+    "37",
+    "51",
+    "21",
+    "45",
+    "76",
+    "14",
+    "25",
+    "64",
+    "34",
+    "66",
+    "83",
+  ];
+  if (b1.includes(cp2)) return "B1";
+
+  return "B2";
 };
+
+// ─── CALCULS ──────────────────────────────────────────────────────────────────
+
+const calculLoyerMensuel = (surface: number, zone: string, niveauLoyer: NiveauLoyer): number => {
+  if (!surface || surface <= 0) return 0;
+  // Surface pondérée (pas d'annexes dans ce formulaire simplifié)
+  const surfacePonderee = surface;
+  // Coefficient Pinel : min(0,7 + 19/S, 1,2)
+  const coefficient = Math.min(0.7 + 19 / surfacePonderee, 1.2);
+  const plafondM2 = (PLAFONDS_LOYER_M2[zone] ?? PLAFONDS_LOYER_M2["B2"]) * DECOTE_NIVEAU[niveauLoyer];
+  return Math.round(surfacePonderee * coefficient * plafondM2);
+};
+
+interface Resultats {
+  loyerMensuel: number;
+  loyerAnnuel: number;
+  chargesAnnuelles: number;
+  baseAmortissable: number;
+  amortissementAnnuel: number;
+  revenuNetSans: number;
+  revenuNetAvec: number;
+  deficitImputable: number;
+  // Sans Jeanbrun
+  impotIRSans: number;
+  impotPSSans: number;
+  impotTotalSans: number;
+  // Avec Jeanbrun
+  impotIRAvec: number;
+  impotPSAvec: number;
+  impotTotalAvec: number;
+  // Résultat final
+  economieAnnuelle: number;
+  economieSur9ans: number;
+}
+
+const calculer = (prixAchat: number, surface: number, zone: string, niveauLoyer: NiveauLoyer, tmi: TMI): Resultats => {
+  const loyerMensuel = calculLoyerMensuel(surface, zone, niveauLoyer);
+  const loyerAnnuel = loyerMensuel * 12;
+  const chargesAnnuelles = Math.round(loyerAnnuel * 0.2);
+
+  // Amortissement : base = prix × 80% (terrain 20% exclu — PLF 2026)
+  const baseAmortissable = prixAchat * 0.8;
+  const amortissementBrut = baseAmortissable * TAUX_AMORTISSEMENT[niveauLoyer];
+  const amortissementAnnuel = Math.min(amortissementBrut, PLAFONDS_AMORTISSEMENT[niveauLoyer]);
+
+  // Revenus fonciers nets
+  const revenuNetSans = loyerAnnuel - chargesAnnuelles;
+  const revenuNetAvec = loyerAnnuel - chargesAnnuelles - amortissementAnnuel;
+
+  // Déficit foncier imputable sur revenu global (plafond 10 700 €/an — NEUF)
+  const deficitImputable = revenuNetAvec < 0 ? Math.min(Math.abs(revenuNetAvec), 10_700) : 0;
+
+  const tauxIR = tmi / 100;
+
+  // Fiscalité SANS Jeanbrun : IR + PS sur revenu foncier net positif
+  const baseSans = Math.max(revenuNetSans, 0);
+  const impotIRSans = Math.round(baseSans * tauxIR);
+  const impotPSSans = Math.round(baseSans * TAUX_PS);
+  const impotTotalSans = impotIRSans + impotPSSans;
+
+  // Fiscalité AVEC Jeanbrun
+  let impotIRAvec = 0;
+  let impotPSAvec = 0;
+
+  if (revenuNetAvec > 0) {
+    // Revenu net positif : IR + PS sur le revenu résiduel
+    impotIRAvec = Math.round(revenuNetAvec * tauxIR);
+    impotPSAvec = Math.round(revenuNetAvec * TAUX_PS);
+  } else {
+    // Déficit : économie IR grâce à l'imputation sur revenu global
+    // NB : les PS ne s'imputent pas sur le revenu global → pas d'économie PS
+    impotIRAvec = -Math.round(deficitImputable * tauxIR);
+    impotPSAvec = 0;
+  }
+
+  const impotTotalAvec = impotIRAvec + impotPSAvec;
+  const economieAnnuelle = impotTotalSans - impotTotalAvec;
+
+  return {
+    loyerMensuel,
+    loyerAnnuel,
+    chargesAnnuelles,
+    baseAmortissable: Math.round(baseAmortissable),
+    amortissementAnnuel: Math.round(amortissementAnnuel),
+    revenuNetSans: Math.round(revenuNetSans),
+    revenuNetAvec: Math.round(revenuNetAvec),
+    deficitImputable: Math.round(deficitImputable),
+    impotIRSans,
+    impotPSSans,
+    impotTotalSans,
+    impotIRAvec,
+    impotPSAvec,
+    impotTotalAvec,
+    economieAnnuelle: Math.round(economieAnnuelle),
+    economieSur9ans: Math.round(economieAnnuelle * 9),
+  };
+};
+
+const fmt = (n: number) => Math.abs(n).toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+const fmtSigned = (n: number) => (n < 0 ? "–" : "+") + fmt(n) + " €";
+
+// ─── COMPOSANT ────────────────────────────────────────────────────────────────
 
 export const SimulateurSection = () => {
   const [niveauLoyer, setNiveauLoyer] = useState<NiveauLoyer>("intermediaire");
@@ -47,87 +203,41 @@ export const SimulateurSection = () => {
   const [tmi, setTmi] = useState<TMI>(30);
   const [modalOpen, setModalOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
-
-  // Ville
   const [ville, setVille] = useState("");
   const [codePostal, setCodePostal] = useState<string | undefined>();
+
   const zone = useMemo(() => getZone(codePostal), [codePostal]);
 
-  // Calcul du loyer plafonné selon zone + surface + niveau
-  const loyerPlafond = useMemo(() => {
-    const s = parseFloat(surface) || 0;
-    const plafonds: Record<string, Record<NiveauLoyer, number>> = {
-      "A bis": { intermediaire: 18.25, social: 7.62, tres_social: 7.62 },
-      A: { intermediaire: 14.03, social: 7.14, tres_social: 7.14 },
-      B1: { intermediaire: 11.31, social: 6.45, tres_social: 6.45 },
-      "B2 / C": { intermediaire: 9.83, social: 6.2, tres_social: 6.2 },
-    };
-    const prixM2 = plafonds[zone]?.[niveauLoyer] ?? 9.83;
-    return Math.round(prixM2 * s * 12);
-  }, [zone, surface, niveauLoyer]);
+  const r = useMemo<Resultats>(() => {
+    return calculer(parseFloat(prixAchat) || 0, parseFloat(surface) || 0, zone === "—" ? "B2" : zone, niveauLoyer, tmi);
+  }, [prixAchat, surface, zone, niveauLoyer, tmi]);
 
-  const resultats = useMemo(() => {
-    const prix = parseFloat(prixAchat) || 0;
-    const loyer = loyerPlafond;
-    const charges = Math.round(loyer * 0.2); // estimation charges 20%
-
-    const baseAmortissable = prix * 0.8;
-    const taux = TAUX_AMORTISSEMENT[niveauLoyer];
-    const plafond = PLAFONDS[niveauLoyer];
-    const amortissementBrut = baseAmortissable * taux;
-    const amortissementAnnuel = Math.min(amortissementBrut, plafond);
-    const revenuFoncierSansJeanbrun = loyer - charges;
-    const impotSansJeanbrun = revenuFoncierSansJeanbrun > 0 ? revenuFoncierSansJeanbrun * (tmi / 100) : 0;
-    const revenuFoncierAvecJeanbrun = loyer - charges - amortissementAnnuel;
-    const deficitFoncier = revenuFoncierAvecJeanbrun < 0 ? Math.min(Math.abs(revenuFoncierAvecJeanbrun), 10700) : 0;
-    const impotAvecJeanbrun =
-      revenuFoncierAvecJeanbrun > 0 ? revenuFoncierAvecJeanbrun * (tmi / 100) : -deficitFoncier * (tmi / 100);
-    const economieAnnuelle = impotSansJeanbrun - impotAvecJeanbrun;
-
-    return {
-      amortissementAnnuel,
-      impotSansJeanbrun,
-      impotAvecJeanbrun,
-      economieAnnuelle,
-      deficitFoncier,
-      taux: taux * 100,
-    };
-  }, [niveauLoyer, prixAchat, loyerPlafond, tmi]);
-
-  const fmt = (n: number) => n.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+  const hasDeficit = r.revenuNetAvec < 0;
 
   return (
     <div
       id="simulateur"
       className="w-full"
-      style={{
-        background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)",
-      }}
+      style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}
     >
       <div className="container mx-auto px-4 sm:px-6 py-10 md:py-12 lg:pt-32">
         <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
-          {/* COLONNE GAUCHE */}
+          {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
             <div className="inline-block">
               <span
                 className="text-xs font-medium px-3 py-1 rounded-full"
-                style={{
-                  background: "rgba(255,255,255,0.15)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                }}
+                style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)" }}
               >
                 PLF 2026
               </span>
             </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
               Simulateur du statut
               <br />
               du bailleur privé
             </h2>
-
             <p className="text-base sm:text-lg text-white/90">Calculez votre avantage fiscal en 2 minutes.</p>
-
             <ul className="space-y-2 text-sm">
               {["Simulation gratuite", "Résultat immédiat", "Sans engagement"].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
@@ -146,11 +256,11 @@ export const SimulateurSection = () => {
             </ul>
           </div>
 
-          {/* COLONNE DROITE — Formulaire */}
+          {/* ── COLONNE DROITE — Formulaire ── */}
           <TooltipProvider delayDuration={200}>
-            <div className="rounded-xl shadow-xl overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
+            <div className="rounded-xl shadow-xl overflow-hidden bg-white">
               <div className="p-5 space-y-3">
-                {/* 1 — Prix d'achat + 2 — Ville */}
+                {/* 1 — Prix + Ville */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="prix" className="text-xs font-medium text-gray-700">
@@ -181,28 +291,27 @@ export const SimulateurSection = () => {
                       className="h-9 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
                     {codePostal && (
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
-                          Zone {zone}
-                        </span>
-                      </div>
+                      <span className="inline-block text-[10px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full mt-1">
+                        Zone {zone}
+                      </span>
                     )}
                   </div>
                 </div>
 
-                {/* 3 — Surface + 4 — TMI */}
+                {/* 2 — Surface + TMI */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
                       <Label htmlFor="surface" className="text-xs font-medium text-gray-700">
-                        Surface légale à louer
+                        Surface habitable
                       </Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
-                          Surface hab. + surf. ext. / 2 plafonné à 8 m²
+                          Surface habitable (hors annexes). Le loyer plafonné est calculé selon la formule Pinel 2026 :
+                          coeff = min(0,7 + 19/S, 1,2).
                         </TooltipContent>
                       </Tooltip>
                     </div>
@@ -227,7 +336,8 @@ export const SimulateurSection = () => {
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
-                          Votre TMI actuelle (Taux marginal d'imposition)
+                          Taux marginal d'imposition. L'impôt total inclut également les 17,2% de prélèvements sociaux
+                          sur les revenus fonciers.
                         </TooltipContent>
                       </Tooltip>
                     </div>
@@ -243,18 +353,16 @@ export const SimulateurSection = () => {
                               : "bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                           }`}
                         >
-                          {rate} %
+                          {rate}%
                         </button>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                {/* 5 — Niveau de loyer / amortissement */}
+                {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700">
-                    Choix de l'amortissement et plafond de loyer
-                  </Label>
+                  <Label className="text-xs font-medium text-gray-700">Niveau de loyer & amortissement</Label>
                   <div className="flex gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
@@ -267,69 +375,180 @@ export const SimulateurSection = () => {
                             : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                         }`}
                       >
-                        {LABELS_LOYER[n]} <br /> {(TAUX_AMORTISSEMENT[n] * 100).toFixed(2)}% amort /{" "}
-                        {PLAFONDS[n].toLocaleString("fr-FR")} € plafond
+                        <span className="font-semibold">{LABELS_LOYER[n].court}</span>
+                        <br />
+                        <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
+                          {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}% amort. /{" "}
+                          {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} € max
+                        </span>
                       </button>
                     ))}
                   </div>
                 </div>
+
+                {/* Loyer estimé (toujours visible dès qu'on a surface + zone) */}
+                {r.loyerMensuel > 0 && codePostal && (
+                  <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                    <span className="text-xs text-blue-700">Loyer plafonné estimé</span>
+                    <span className="text-sm font-bold text-blue-800">
+                      {fmt(r.loyerMensuel)} €<span className="font-normal text-blue-600">/mois</span>
+                    </span>
+                  </div>
+                )}
 
                 {/* Bouton Simuler */}
                 {!showResults && (
                   <button
                     onClick={() => setShowResults(true)}
                     className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
-                    style={{
-                      background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
                     <Calculator className="w-4 h-4" />
                     Lancer la simulation
                   </button>
                 )}
 
-                {/* Résultats — visibles après clic */}
+                {/* ── RÉSULTATS ── */}
                 {showResults && (
                   <>
-                    <div className="border-t border-gray-100 my-3"></div>
-
-                    <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 p-3">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full blur-3xl opacity-20"></div>
-                      <div className="relative z-10 text-center">
-                        <div className="flex items-center justify-center gap-1.5 mb-2">
-                          <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
-                            <svg
-                              className="w-2.5 h-2.5 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={3}
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
+                    <div className="border-t border-gray-100 pt-3 space-y-2">
+                      {/* Économie principale */}
+                      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 p-3">
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full blur-3xl opacity-20" />
+                        <div className="relative z-10 text-center">
+                          <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                            <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+                              <svg
+                                className="w-2.5 h-2.5 text-white"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={3}
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                            <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">
+                              Économie d'impôt estimée
+                            </p>
                           </div>
-                          <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">
-                            Économie d'impôt
+                          <p className="text-3xl font-extrabold text-green-600 leading-none mb-0.5">
+                            {fmt(r.economieAnnuelle)} €
+                          </p>
+                          <p className="text-xs text-green-600 font-medium mb-2">par an (IR + PS)</p>
+                          <div className="w-12 h-px bg-green-300 mx-auto mb-2" />
+                          <p className="text-sm font-semibold text-green-700">
+                            {fmt(r.economieSur9ans)} € <span className="font-normal text-green-600">sur 9 ans</span>
                           </p>
                         </div>
-                        <p className="text-3xl font-extrabold text-green-600 leading-none mb-1">
-                          {fmt(resultats.economieAnnuelle)} €
-                        </p>
-                        <p className="text-xs text-green-600 font-medium mb-2">par an</p>
-                        <div className="w-12 h-px bg-green-300 mx-auto mb-2"></div>
-                        <p className="text-sm font-semibold text-green-700">
-                          {fmt(resultats.economieAnnuelle * 9)} €{" "}
-                          <span className="font-normal text-green-600">sur 9 ans</span>
-                        </p>
                       </div>
+
+                      {/* Détail fiscal */}
+                      <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
+                        {/* Header */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
+                          <span>Détail fiscal</span>
+                          <span className="text-center">Sans Jeanbrun</span>
+                          <span className="text-right">Avec Jeanbrun</span>
+                        </div>
+
+                        {/* Loyer annuel */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
+                          <span>Loyers perçus</span>
+                          <span className="text-center">{fmt(r.loyerAnnuel)} €</span>
+                          <span className="text-right">{fmt(r.loyerAnnuel)} €</span>
+                        </div>
+
+                        {/* Charges */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
+                          <span>Charges (–20%)</span>
+                          <span className="text-center">–{fmt(r.chargesAnnuelles)} €</span>
+                          <span className="text-right">–{fmt(r.chargesAnnuelles)} €</span>
+                        </div>
+
+                        {/* Amortissement */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
+                          <span className="flex items-center gap-1">
+                            Amortissement
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                              </TooltipTrigger>
+                              <TooltipContent side="top" className="max-w-[200px] text-xs">
+                                Base × {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% plafonné à{" "}
+                                {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €/an. Base = prix × 80%
+                                (terrain exclu).
+                              </TooltipContent>
+                            </Tooltip>
+                          </span>
+                          <span className="text-center text-gray-400">—</span>
+                          <span className="text-right font-medium text-blue-700">–{fmt(r.amortissementAnnuel)} €</span>
+                        </div>
+
+                        {/* Revenu net */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 font-semibold text-gray-700">
+                          <span>Revenu foncier net</span>
+                          <span className="text-center">{fmt(r.revenuNetSans)} €</span>
+                          <span className={`text-right ${hasDeficit ? "text-orange-600" : ""}`}>
+                            {hasDeficit ? "–" : ""}
+                            {fmt(r.revenuNetAvec)} €
+                          </span>
+                        </div>
+
+                        {/* Déficit si applicable */}
+                        {hasDeficit && (
+                          <div className="grid grid-cols-3 px-3 py-1.5 text-orange-700 bg-orange-50">
+                            <span className="flex items-center gap-1 col-span-2">
+                              Déficit imputable (revenu global)
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Info className="w-3 h-3 text-orange-400 cursor-help" />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-[220px] text-xs">
+                                  Nouveauté Jeanbrun : le déficit foncier s'impute sur votre revenu global dans la
+                                  limite de 10 700 €/an.
+                                </TooltipContent>
+                              </Tooltip>
+                            </span>
+                            <span className="text-right font-semibold">{fmt(r.deficitImputable)} €</span>
+                          </div>
+                        )}
+
+                        {/* IR */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
+                          <span>Impôt IR ({tmi}%)</span>
+                          <span className="text-center">{fmt(r.impotIRSans)} €</span>
+                          <span className={`text-right ${r.impotIRAvec < 0 ? "text-green-600 font-semibold" : ""}`}>
+                            {r.impotIRAvec < 0 ? "–" : ""}
+                            {fmt(r.impotIRAvec)} €
+                          </span>
+                        </div>
+
+                        {/* PS */}
+                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
+                          <span>Prélèv. sociaux (17,2%)</span>
+                          <span className="text-center">{fmt(r.impotPSSans)} €</span>
+                          <span className="text-right">{fmt(r.impotPSAvec)} €</span>
+                        </div>
+
+                        {/* Total impôt */}
+                        <div className="grid grid-cols-3 px-3 py-2 font-bold text-gray-800 bg-white rounded-b-lg">
+                          <span>Total impôts</span>
+                          <span className="text-center">{fmt(r.impotTotalSans)} €</span>
+                          <span className="text-right text-blue-700">{fmt(Math.max(r.impotTotalAvec, 0))} €</span>
+                        </div>
+                      </div>
+
+                      {/* Disclaimer */}
+                      <p className="text-[10px] text-gray-400 leading-relaxed text-center">
+                        Simulation indicative — barèmes PLF 2026. Loyers social/très social en attente des décrets ANAH.
+                      </p>
                     </div>
 
                     <button
                       onClick={() => setModalOpen(true)}
                       className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
-                      style={{
-                        background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)",
-                      }}
+                      style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
                       Recevoir mon étude gratuite
                       <ArrowRight className="w-4 h-4" />
@@ -346,13 +565,12 @@ export const SimulateurSection = () => {
         </div>
       </div>
 
-      {/* BLOC DÉTAILS BAS DE PAGE — visible uniquement après simulation */}
+      {/* ── BLOC BAS DE PAGE ── */}
       {showResults && (
         <div className="bg-white/95 backdrop-blur-sm border-t border-gray-100">
           <div className="container mx-auto px-4 sm:px-6 py-10 md:py-12">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-8">Votre étude personnalisée inclut</h3>
-
               <div className="grid sm:grid-cols-3 gap-8">
                 {[
                   {
@@ -370,7 +588,6 @@ export const SimulateurSection = () => {
                   </div>
                 ))}
               </div>
-
               <button
                 onClick={() => setModalOpen(true)}
                 className="mt-8 px-7 py-3 rounded-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02]"
