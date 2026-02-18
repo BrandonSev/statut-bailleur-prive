@@ -104,7 +104,7 @@ export const CityAutocomplete = ({
                 <span className="block text-foreground font-medium">{c.nom}</span>
                 <span className="text-muted-foreground text-xs">{c.codesPostaux[0] || c.departement.code}</span>
               </div>
-              <span className="text-xs text-muted-foreground text-center leading-relaxed  ml-auto">
+              <span className="text-xs text-muted-foreground text-center leading-relaxed ml-auto">
                 Zone {getZoneByInsee(c.code)}
               </span>
             </button>
