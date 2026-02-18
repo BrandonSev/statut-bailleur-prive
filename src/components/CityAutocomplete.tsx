@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { MapPin } from "lucide-react";
+import { getZoneByInsee, type ZoneABC } from "@/data/zonesABC";
 
 type Commune = {
   nom: string;
