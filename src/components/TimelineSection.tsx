@@ -29,7 +29,7 @@ const steps = [
 
 export const TimelineSection = () => {
   return (
-    <section id="timeline" className="py-12 md:py-16 bg-secondary/40">
+    <section id="timeline" className="py-12 md:py-16 bg-secondary">
       <div className="container mx-auto px-6">
         <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center mb-10">
           Avancement législatif du dispositif Jeanbrun
@@ -51,12 +51,8 @@ export const TimelineSection = () => {
               >
                 {step.icon}
               </div>
-              <h3 className="text-sm font-semibold text-foreground mb-1.5 leading-tight max-w-[180px]">
-                {step.title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
-                {step.text}
-              </p>
+              <h3 className="text-sm font-semibold text-foreground mb-1.5 leading-tight max-w-[180px]">{step.title}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">{step.text}</p>
             </div>
           ))}
         </div>
@@ -75,12 +71,8 @@ export const TimelineSection = () => {
                 {step.icon}
               </div>
               <div className="pt-1">
-                <h3 className="text-sm font-semibold text-foreground mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {step.text}
-                </p>
+                <h3 className="text-sm font-semibold text-foreground mb-1">{step.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{step.text}</p>
               </div>
             </div>
           ))}
@@ -89,7 +81,8 @@ export const TimelineSection = () => {
         {/* Disclaimer */}
         <div className="border border-border rounded-lg px-5 py-4 bg-background">
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            Les informations présentées sont fournies à titre indicatif. L'application définitive du dispositif dépendra des textes officiels publiés au Journal Officiel.
+            Les informations présentées sont fournies à titre indicatif. L'application définitive du dispositif dépendra
+            des textes officiels publiés au Journal Officiel.
           </p>
         </div>
       </div>
