@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Info, Calculator } from "lucide-react";
@@ -168,17 +167,14 @@ export const SimulateurSection = () => {
     C: "bg-gray-100 text-gray-600",
   };
 
-  const { toast } = useToast();
+  const [villeError, setVilleError] = useState(false);
 
   const handleSimuler = () => {
     if (!ville) {
-      toast({
-        title: "Ville requise",
-        description: "Veuillez sélectionner une ville d'investissement pour lancer la simulation.",
-        variant: "destructive",
-      });
+      setVilleError(true);
       return;
     }
+    setVilleError(false);
     setShowResults(true);
   };
 
@@ -259,12 +255,16 @@ export const SimulateurSection = () => {
                       onChange={(city, _cp, insee) => {
                         console.log(city, _cp, insee);
                         setVille(city);
+                        setVilleError(false);
                         console.log(getZoneByInsee(insee), "here", insee);
                         setCodeInsee(insee);
                       }}
                       placeholder="Rechercher une ville…"
-                      className="h-9 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
                     />
+                    {villeError && (
+                      <span className="text-[10px] text-red-500">Veuillez sélectionner une ville</span>
+                    )}
                     {codeInsee && (
                       <span
                         className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${ZONE_BADGE[zone]}`}
