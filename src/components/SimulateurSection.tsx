@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Info, Calculator } from "lucide-react";
@@ -167,10 +168,19 @@ export const SimulateurSection = () => {
     C: "bg-gray-100 text-gray-600",
   };
 
-  const isValid = () => {
-    if (!ville) return false;
-    return true;
-  }
+  const { toast } = useToast();
+
+  const handleSimuler = () => {
+    if (!ville) {
+      toast({
+        title: "Ville requise",
+        description: "Veuillez sélectionner une ville d'investissement pour lancer la simulation.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setShowResults(true);
+  };
 
   return (
     <div
@@ -366,7 +376,7 @@ export const SimulateurSection = () => {
                 {/* Bouton Simuler */}
                 {!showResults && (
                   <button
-                    onClick={() => { if (isValid()) setShowResults(true); }}
+                    onClick={handleSimuler}
                     className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                     style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
