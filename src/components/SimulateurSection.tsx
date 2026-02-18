@@ -244,7 +244,7 @@ export const SimulateurSection = () => {
                       onChange={(city, _cp, insee) => {
                         console.log(city, _cp, insee);
                         setVille(city);
-                        console.log(getZoneByInsee(insee));
+                        console.log(getZoneByInsee(insee), "here", insee);
                         setCodeInsee(insee);
                       }}
                       placeholder="Rechercher une ville…"
