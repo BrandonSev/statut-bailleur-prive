@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, TrendingDown, Sparkles } from "lucide-react";
 import { ContactModal } from "./ContactModal";
 
 type NiveauLoyer = "intermediaire" | "social" | "tres_social";
@@ -215,16 +215,57 @@ export const SimulateurSection = () => {
               {/* Séparateur */}
               <div className="border-t border-gray-100 my-3"></div>
 
-              {/* Résultat — Ultra-compact */}
-              <div className="text-center py-2">
-                <p className="text-xs text-gray-500 mb-1">Économie annuelle estimée</p>
-                <p
-                  className="text-3xl font-bold bg-gradient-to-br from-blue-600 to-cyan-500 bg-clip-text text-transparent"
-                  style={{ lineHeight: 1.1 }}
-                >
-                  {fmt(resultats.economieAnnuelle)} €
-                </p>
-                <p className="text-xs text-gray-400 mt-1">{fmt(resultats.economieAnnuelle * 9)} € sur 9 ans</p>
+              {/* ═══════════════════════════════════════════════
+                  BLOC RÉSULTAT — Design attractif green
+              ═══════════════════════════════════════════════ */}
+              <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 border-green-200 p-4 shadow-sm">
+                {/* Sparkles décoratives */}
+                <div className="absolute top-2 right-2 opacity-20">
+                  <Sparkles className="w-12 h-12 text-green-600" />
+                </div>
+                <div className="absolute bottom-1 left-2 opacity-10">
+                  <Sparkles className="w-8 h-8 text-emerald-600" />
+                </div>
+
+                {/* Contenu */}
+                <div className="relative z-10">
+                  {/* Header avec icône */}
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                      <TrendingDown className="w-4 h-4 text-white" />
+                    </div>
+                    <p className="text-xs font-semibold text-green-700 uppercase tracking-wide">
+                      Votre économie d'impôt
+                    </p>
+                  </div>
+
+                  {/* Montant annuel */}
+                  <div className="text-center mb-1">
+                    <p className="text-4xl font-extrabold text-green-700 leading-none">
+                      {fmt(resultats.economieAnnuelle)} €
+                    </p>
+                    <p className="text-xs text-green-600 font-medium mt-1">par an</p>
+                  </div>
+
+                  {/* Barre séparatrice */}
+                  <div className="w-16 h-0.5 bg-green-300 mx-auto my-2"></div>
+
+                  {/* Total sur 9 ans */}
+                  <div className="text-center">
+                    <p className="text-sm text-green-700">
+                      <span className="font-semibold">{fmt(resultats.economieAnnuelle * 9)} €</span>
+                      <span className="text-green-600 ml-1">sur 9 ans</span>
+                    </p>
+                  </div>
+
+                  {/* Badge info */}
+                  <div className="mt-3 flex items-center justify-center gap-1.5 bg-white/60 rounded-full px-3 py-1.5 border border-green-200">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                    <p className="text-[10px] text-green-700 font-medium">
+                      Amortissement {resultats.taux.toFixed(1)}% / an
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* CTA unique */}
