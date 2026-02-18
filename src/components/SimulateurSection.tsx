@@ -219,7 +219,7 @@ export const SimulateurSection = () => {
               <div className="text-center py-2 bg-green-50 border border-green-100">
                 <p className="text-xs text-gray-500 mb-1">Économie annuelle estimée</p>
                 <p
-                  className="text-3xl font-bold bg-gradient-to-br from-blue-600 to-cyan-500 bg-clip-text text-transparent"
+                  className="text-3xl font-bold text-green-400 bg-clip-text text-transparent"
                   style={{ lineHeight: 1.1 }}
                 >
                   {fmt(resultats.economieAnnuelle)} €
