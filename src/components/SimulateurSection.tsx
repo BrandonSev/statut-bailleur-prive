@@ -27,12 +27,12 @@ const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
 };
 
 // Barèmes Pinel 2026 (BOFiP) — référence Jeanbrun pour le loyer intermédiaire
-const PLAFONDS_LOYER_M2: Record<ZoneABC, number> = {
-  "A bis": 19.51,
-  A: 14.49,
-  B1: 11.59,
-  B2: 10.06,
-  C: 10.06, // même plafond que B2 (Jeanbrun sans zonage)
+const PLAFONDS_LOYER_M2: Record<ZoneABC, Record<NiveauLoyer, number>> = {
+  "A bis": { intermediaire: 19.51, social: 13.64, tres_social: 10.63 },
+  A: { intermediaire: 14.49, social: 10.49, tres_social: 8.18 },
+  B1: { intermediaire: 11.68, social: 9.04, tres_social: 7.04 },
+  B2: { intermediaire: 10.15, social: 8.67, tres_social: 6.74 },
+  C: { intermediaire: 10.15, social: 8.05, tres_social: 6.25 },
 };
 
 // Décotes loyer social / très social (en attente décrets ANAH/Loc'Avantages)
@@ -55,7 +55,7 @@ const TAUX_PS = 0.172;
 const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
   const coefficient = Math.min(0.7 + 19 / surface, 1.2);
-  const plafondM2 = PLAFONDS_LOYER_M2[zone] * DECOTE_NIVEAU[niveauLoyer];
+  const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer]; // ← lecture directe zone + niveau
   return Math.round(surface * coefficient * plafondM2);
 };
 
@@ -414,7 +414,8 @@ export const SimulateurSection = () => {
                           <p className="text-xs text-green-600 font-medium mb-2">par an (IR + PS)</p>
                           <div className="w-12 h-px bg-green-300 mx-auto mb-2" />
                           <p className="text-sm font-semibold text-green-700">
-                            {fmt(r.economieSur9ans)} € <span className="font-normal text-green-600">sur 9 ans</span>
+                            soit {fmt(r.economieSur9ans)} €{" "}
+                            <span className="font-normal text-green-600">sur 9 ans</span>
                           </p>
                         </div>
                       </div>
@@ -520,9 +521,9 @@ export const SimulateurSection = () => {
                       Recevoir mon étude gratuite
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-[10px] text-center text-gray-400">
+                    {/* <p className="text-[10px] text-center text-gray-400">
                       Sélection de biens neufs éligibles + analyse personnalisée
-                    </p>
+                    </p> */}
                     <p className="text-[10px] text-center text-gray-400 leading-relaxed">
                       Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
                       PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
