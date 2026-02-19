@@ -360,7 +360,7 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* Loyer estimé — visible dès surface + ville renseignés */}
+                {/* Loyer estimé — visible dès surface + ville renseignés 
                 {r.loyerMensuel > 0 && codeInsee && (
                   <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
                     <span className="text-xs text-blue-700">Loyer plafonné estimé</span>
@@ -368,7 +368,7 @@ export const SimulateurSection = () => {
                       {fmt(r.loyerMensuel)} €<span className="font-normal text-blue-600">/mois</span>
                     </span>
                   </div>
-                )}
+                )}*/}
 
                 {/* Bouton Simuler */}
                 {!showResults && (
@@ -389,13 +389,13 @@ export const SimulateurSection = () => {
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                          <p className="text-gray-500 mb-0.5">Loyer annuel plafonné</p>
+                          <p className="text-gray-500 mb-0.5">Loyer annuel brut x€/an</p>
                           <p className="font-bold text-gray-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-gray-500">/an</span>
                           </p>
                         </div>
                         <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                          <p className="text-gray-500 mb-0.5">Amortissement annuel</p>
+                          <p className="text-gray-500 mb-0.5">Amortissement annuel X€/an</p>
                           <p className="font-bold text-gray-800 text-sm">
                             {fmt(r.amortissementAnnuel)} €<span className="font-normal text-gray-500">/an</span>
                           </p>
