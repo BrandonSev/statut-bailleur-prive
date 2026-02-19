@@ -354,8 +354,7 @@ export const SimulateurSection = () => {
                         <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
-                          {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}% amort. /{" "}
-                          {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} € max
+                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/ans > {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
                         </span>
                       </button>
                     ))}
