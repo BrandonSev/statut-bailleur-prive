@@ -390,13 +390,13 @@ export const SimulateurSection = () => {
                     <div className="border-t border-gray-100 pt-3 space-y-2">
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs place-items-center">
-                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
+                        <div className="flex items-center justify-between gap-2 flex-wrap bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
                           <p className="text-blue-500 mb-0.5">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                         </div>
-                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
+                        <div className="flex items-center justify-between gap-2 flex-wrap bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
                           <p className="text-blue-500 mb-0.5">Amortissement annuel</p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
