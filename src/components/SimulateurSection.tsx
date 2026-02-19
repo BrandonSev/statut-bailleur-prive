@@ -388,25 +388,16 @@ export const SimulateurSection = () => {
                     <div className="border-t border-gray-100 pt-3 space-y-2">
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
-                          <p className="text-blue-700 mb-0.5">Loyer annuel brut</p>
+                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                          <p className="text-blue-500 mb-0.5">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
-                            {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-700">/an</span>
+                            {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                         </div>
-                        <div className="bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <p className="text-blue-700 mb-0.5 cursor-help underline decoration-dotted">
-                                Amortissement annuel
-                              </p>
-                            </TooltipTrigger>
-                            <TooltipContent side="top" className="max-w-[220px] text-xs">
-                              80% du prix × Taux d'amortissement choisi
-                            </TooltipContent>
-                          </Tooltip>
+                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                          <p className="text-blue-500 mb-0.5">Amortissement annuel</p>
                           <p className="font-bold text-blue-800 text-sm">
-                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-700">/an</span>
+                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                           <p className="text-[10px] text-blue-400">
                             Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
