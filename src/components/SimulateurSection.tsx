@@ -286,8 +286,6 @@ export const SimulateurSection = () => {
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-[220px] text-xs">
                           Surface habitable + (surface extérieure / 2) plafonnée à 8 m².
-                          <br />
-                          Coefficient : min(0,7 + 19 / S pondérée, 1,2)
                         </TooltipContent>
                       </Tooltip>
                     </div>
@@ -339,7 +337,7 @@ export const SimulateurSection = () => {
                 {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-gray-700">
-                    Choix de l'amortissement et plafond de loyer
+                    Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
                   <div className="flex gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
@@ -382,7 +380,7 @@ export const SimulateurSection = () => {
                     style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
                     <Calculator className="w-4 h-4" />
-                    Lancer la simulation
+                    Voir la simulation simplifiée
                   </button>
                 )}
 
