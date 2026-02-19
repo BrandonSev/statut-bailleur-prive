@@ -244,7 +244,9 @@ export const SimulateurSection = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
+                    <Label className="text-xs font-medium text-gray-700 font-bold">
+                      Ville d'investissement souhaitée
+                    </Label>
                     {/*
                       ⚠️  CityAutocomplete doit appeler :
                           onChange(nomVille: string, codePostal: string, codeInsee: string)
@@ -260,7 +262,9 @@ export const SimulateurSection = () => {
                       placeholder="Rechercher une ville…"
                       className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
                     />
-                    {villeError && <span className="text-[10px] text-red-500">Veuillez sélectionner une ville</span>}
+                    {villeError && (
+                      <span className="text-[10px] text-red-500 font-bold">Veuillez sélectionner une ville</span>
+                    )}
                     {codeInsee && (
                       <span
                         className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${ZONE_BADGE[zone]}`}
@@ -275,7 +279,7 @@ export const SimulateurSection = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700">
+                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700 font-bold">
                         Surface légale à louer
                       </Label>
                       <Tooltip>
@@ -302,7 +306,7 @@ export const SimulateurSection = () => {
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label className="text-xs font-medium text-gray-700">Votre TMI</Label>
+                      <Label className="text-xs font-medium text-gray-700 font-bold">Votre TMI</Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
@@ -334,7 +338,7 @@ export const SimulateurSection = () => {
 
                 {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700">
+                  <Label className="text-xs font-medium text-gray-700 font-bold">
                     Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
                   <div className="flex gap-1.5">
@@ -479,7 +483,7 @@ export const SimulateurSection = () => {
                       className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      Accéder gratuitement à une simulation personnalisée et détaillée
+                      Accéder gratuitement une simulation personnalisée et détaillée
                       <ArrowRight className="w-4 h-4" />
                     </button>
 
