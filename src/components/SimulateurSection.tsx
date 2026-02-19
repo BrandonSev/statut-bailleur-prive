@@ -479,7 +479,7 @@ export const SimulateurSection = () => {
                       className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      Accéder gratuitement une simulation personnalisée et détaillée
+                      Accéder gratuitement à une simulation personnalisée et détaillée
                       <ArrowRight className="w-4 h-4" />
                     </button>
 
