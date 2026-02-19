@@ -244,7 +244,9 @@ export const SimulateurSection = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
+                    <Label className="text-xs font-medium text-gray-700 font-bold">
+                      Ville d'investissement souhaitée
+                    </Label>
                     {/*
                       ⚠️  CityAutocomplete doit appeler :
                           onChange(nomVille: string, codePostal: string, codeInsee: string)
@@ -275,7 +277,7 @@ export const SimulateurSection = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700">
+                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700 font-bold">
                         Surface légale à louer
                       </Label>
                       <Tooltip>
@@ -302,7 +304,7 @@ export const SimulateurSection = () => {
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label className="text-xs font-medium text-gray-700">Votre TMI</Label>
+                      <Label className="text-xs font-medium text-gray-700 font-bold">Votre TMI</Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
@@ -334,7 +336,7 @@ export const SimulateurSection = () => {
 
                 {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700">
+                  <Label className="text-xs font-medium text-gray-700 font-bold">
                     Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
                   <div className="flex gap-1.5">
@@ -352,8 +354,8 @@ export const SimulateurSection = () => {
                         <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
-                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an <br />
-                          soit {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
+                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an {">"}{" "}
+                          {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
                         </span>
                       </button>
                     ))}
@@ -389,24 +391,19 @@ export const SimulateurSection = () => {
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
-                          <p className="text-blue-500 mb-0.5">
-                            Loyer annuel brut {fmt(r.loyerAnnuel)} €
-                            <span className="font-normal text-blue-500">/an</span>
-                          </p>
+                          <p className="text-blue-500 mb-0.5">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500 mb-0.5">Amortissement annuel</p>
-                          <div>
-                            <p className="font-bold text-blue-800 text-sm">
-                              {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
-                            </p>
-                            <p className="text-[10px] text-blue-400">
-                              Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
-                            </p>
-                          </div>
+                          <p className="font-bold text-blue-800 text-sm">
+                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
+                          </p>
+                          <p className="text-[10px] text-blue-400">
+                            Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
+                          </p>
                         </div>
                       </div>
 
