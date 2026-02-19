@@ -455,6 +455,7 @@ export const SimulateurSection = () => {
                             soit {fmt(r.economieSur9ans)} €{" "}
                             <span className="font-normal text-green-600">sur 9 ans</span>
                           </p>
+                          {/* 
                           {hasDeficit && (
                             <p className="text-[10px] text-green-600 mt-1 opacity-80">
                               Dont déficit foncier imputable : {fmt(r.deficitImputable)} €/an
@@ -466,6 +467,7 @@ export const SimulateurSection = () => {
                             {(parseFloat(prixAchat) * 0.8).toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €,
                             plafonné à {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €)
                           </p>
+                          */}
                         </div>
                       </div>
                     </div>
