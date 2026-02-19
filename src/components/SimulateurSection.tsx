@@ -386,11 +386,52 @@ export const SimulateurSection = () => {
                 {showResults && (
                   <>
                     <div className="border-t border-gray-100 pt-3 space-y-2">
-                      {/* Économie principale */}
+                      {/* Ligne 1 — Loyer annuel + Amortissement */}
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                          <p className="text-gray-500 mb-0.5">Loyer annuel plafonné</p>
+                          <p className="font-bold text-gray-800 text-sm">
+                            {fmt(r.loyerAnnuel)} €<span className="font-normal text-gray-500">/an</span>
+                          </p>
+                        </div>
+                        <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                          <p className="text-gray-500 mb-0.5">Amortissement annuel</p>
+                          <p className="font-bold text-gray-800 text-sm">
+                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-gray-500">/an</span>
+                          </p>
+                          <p className="text-[10px] text-gray-400">
+                            Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                          <p className="text-gray-500 mb-1 flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full bg-gray-300 inline-block" />
+                            Achat sans dispositif
+                          </p>
+                          <p className="text-gray-400 text-[10px] mb-0.5">Impôt annuel</p>
+                          <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
+                          <p className="text-[10px] text-gray-400">d'impôts sur revenus fonciers</p>
+                        </div>
+                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-200">
+                          <p className="text-blue-700 mb-1 flex items-center gap-1 font-medium">
+                            <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
+                            Achat avec Jeanbrun
+                          </p>
+                          <p className="text-blue-500 text-[10px] mb-0.5">Impôt annuel</p>
+                          <p className="font-bold text-blue-700 text-base">{fmt(Math.max(r.impotTotalAvec, 0))} €</p>
+                          <p className="text-[10px] text-blue-500">d'impôts sur revenus fonciers</p>
+                        </div>
+                      </div>
+
+                      {/* Ligne 3 — Économie bloc vert */}
                       <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 p-3">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full blur-3xl opacity-20" />
                         <div className="relative z-10 text-center">
-                          <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                          <div className="flex items-center justify-center gap-1.5 mb-1">
                             <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
                               <svg
                                 className="w-2.5 h-2.5 text-white"
@@ -409,120 +450,37 @@ export const SimulateurSection = () => {
                           <p className="text-3xl font-extrabold text-green-600 leading-none mb-0.5">
                             {fmt(r.economieAnnuelle)} €
                           </p>
-                          <p className="text-xs text-green-600 font-medium mb-2">par an (IR + PS)</p>
-                          <div className="w-12 h-px bg-green-300 mx-auto mb-2" />
+                          <p className="text-xs text-green-600 font-medium mb-1">par an (IR + PS)</p>
                           <p className="text-sm font-semibold text-green-700">
-                            <span className="font-normal text-green-600">soit&nbsp;</span>
-                            {fmt(r.economieSur9ans)} € <span className="font-normal text-green-600">sur 9 ans</span>
+                            soit {fmt(r.economieSur9ans)} €{" "}
+                            <span className="font-normal text-green-600">sur 9 ans</span>
+                          </p>
+                          {hasDeficit && (
+                            <p className="text-[10px] text-green-600 mt-1 opacity-80">
+                              Dont déficit foncier imputable : {fmt(r.deficitImputable)} €/an
+                            </p>
+                          )}
+                          <p className="text-[10px] text-green-500 mt-1">
+                            Détail : Amortissement {fmt(r.amortissementAnnuel)} € (
+                            {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% sur{" "}
+                            {(parseFloat(prixAchat) * 0.8).toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €,
+                            plafonné à {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €)
                           </p>
                         </div>
                       </div>
-
-                      {/* Tableau détail fiscal */}
-                      {/* <div className="rounded-lg border border-gray-100 bg-gray-50 divide-y divide-gray-100 text-xs">
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
-                          <span>Détail fiscal</span>
-                          <span className="text-center">Sans Jeanbrun</span>
-                          <span className="text-right">Avec Jeanbrun</span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
-                          <span>Loyers perçus</span>
-                          <span className="text-center">{fmt(r.loyerAnnuel)} €</span>
-                          <span className="text-right">{fmt(r.loyerAnnuel)} €</span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
-                          <span>Charges (–20%)</span>
-                          <span className="text-center">–{fmt(r.chargesAnnuelles)} €</span>
-                          <span className="text-right">–{fmt(r.chargesAnnuelles)} €</span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
-                          <span className="flex items-center gap-1">
-                            Amortissement
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Info className="w-3 h-3 text-gray-400 cursor-help" />
-                              </TooltipTrigger>
-                              <TooltipContent side="top" className="max-w-[200px] text-xs">
-                                Base (prix × 80%) × {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}%,
-                                plafonné à {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €/an.
-                              </TooltipContent>
-                            </Tooltip>
-                          </span>
-                          <span className="text-center text-gray-400">—</span>
-                          <span className="text-right font-medium text-blue-700">
-                            –{fmt(r.amortissementAnnuel)} €
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 font-semibold text-gray-700">
-                          <span>Revenu foncier net</span>
-                          <span className="text-center">{fmt(r.revenuNetSans)} €</span>
-                          <span className={`text-right ${hasDeficit ? "text-orange-600" : ""}`}>
-                            {hasDeficit ? "–" : ""}{fmt(r.revenuNetAvec)} €
-                          </span>
-                        </div>
-
-                        {hasDeficit && (
-                          <div className="grid grid-cols-3 px-3 py-1.5 text-orange-700 bg-orange-50">
-                            <span className="flex items-center gap-1 col-span-2">
-                              Déficit imputable (rev. global)
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Info className="w-3 h-3 text-orange-400 cursor-help" />
-                                </TooltipTrigger>
-                                <TooltipContent side="top" className="max-w-[220px] text-xs">
-                                  Nouveauté Jeanbrun : le déficit foncier s'impute sur votre revenu global, dans la limite de 10 700 €/an.
-                                </TooltipContent>
-                              </Tooltip>
-                            </span>
-                            <span className="text-right font-semibold">{fmt(r.deficitImputable)} €</span>
-                          </div>
-                        )}
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
-                          <span>Impôt IR ({tmi}%)</span>
-                          <span className="text-center">{fmt(r.impotIRSans)} €</span>
-                          <span className={`text-right ${r.impotIRAvec < 0 ? "text-green-600 font-semibold" : ""}`}>
-                            {r.impotIRAvec < 0 ? "–" : ""}{fmt(r.impotIRAvec)} €
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-1.5 text-gray-600">
-                          <span>Prélèv. sociaux (17,2%)</span>
-                          <span className="text-center">{fmt(r.impotPSSans)} €</span>
-                          <span className="text-right">{fmt(r.impotPSAvec)} €</span>
-                        </div>
-
-                        <div className="grid grid-cols-3 px-3 py-2 font-bold text-gray-800 bg-white rounded-b-lg">
-                          <span>Total impôts</span>
-                          <span className="text-center">{fmt(r.impotTotalSans)} €</span>
-                          <span className="text-right text-blue-700">
-                            {fmt(Math.max(r.impotTotalAvec, 0))} €
-                          </span>
-                        </div>
-                      </div>
-
-                      <p className="text-[10px] text-gray-400 leading-relaxed text-center">
-                        Simulation indicative — barèmes PLF 2026 & zonage ABC officiel du 5 sept. 2025.
-                        Loyers social/très social en attente des décrets ANAH.
-                      </p> */}
                     </div>
 
+                    {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
                       className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      Recevoir mon étude gratuite
+                      Accéder gratuitement une simulation personnalisée et détaillée
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    {/* <p className="text-[10px] text-center text-gray-400">
-                      Sélection de biens neufs éligibles + analyse personnalisée
-                    </p> */}
-                    <p className="text-[10px] text-center text-gray-400 leading-relaxed">
+
+                    <p className="text-[10px] text-gray-400 leading-relaxed">
                       Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
                       PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
                     </p>
