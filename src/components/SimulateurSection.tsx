@@ -452,7 +452,7 @@ export const SimulateurSection = () => {
                           </p>
                           <p className="text-xs text-green-600 font-medium mb-1">par an (IR + PS)</p>
                           <p className="text-sm font-normal text-green-600">
-                            <span>soi t</span>
+                            <span>soit </span>
                             <span className="font-semibold text-green-700">{fmt(r.economieSur9ans)} € </span>
                             <span>sur 9 ans</span>
                           </p>
