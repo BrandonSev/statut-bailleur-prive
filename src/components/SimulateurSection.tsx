@@ -244,9 +244,7 @@ export const SimulateurSection = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium text-gray-700 font-bold">
-                      Ville d'investissement souhaitée
-                    </Label>
+                    <Label className="text-xs font-medium text-gray-700">Ville d'investissement souhaitée</Label>
                     {/*
                       ⚠️  CityAutocomplete doit appeler :
                           onChange(nomVille: string, codePostal: string, codeInsee: string)
@@ -262,9 +260,7 @@ export const SimulateurSection = () => {
                       placeholder="Rechercher une ville…"
                       className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
                     />
-                    {villeError && (
-                      <span className="text-[10px] text-red-500 font-bold">Veuillez sélectionner une ville</span>
-                    )}
+                    {villeError && <span className="text-[10px] text-red-500">Veuillez sélectionner une ville</span>}
                     {codeInsee && (
                       <span
                         className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${ZONE_BADGE[zone]}`}
@@ -279,7 +275,7 @@ export const SimulateurSection = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700 font-bold">
+                      <Label htmlFor="surface" className="text-xs font-medium text-gray-700">
                         Surface légale à louer
                       </Label>
                       <Tooltip>
@@ -306,7 +302,7 @@ export const SimulateurSection = () => {
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
-                      <Label className="text-xs font-medium text-gray-700 font-bold">Votre TMI</Label>
+                      <Label className="text-xs font-medium text-gray-700">Votre TMI</Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
@@ -338,7 +334,7 @@ export const SimulateurSection = () => {
 
                 {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-gray-700 font-bold">
+                  <Label className="text-xs font-medium text-gray-700">
                     Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
                   <div className="flex gap-1.5">
@@ -356,8 +352,8 @@ export const SimulateurSection = () => {
                         <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
-                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an {">"}{" "}
-                          {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
+                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an <br />
+                          soit {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
                         </span>
                       </button>
                     ))}
@@ -393,19 +389,24 @@ export const SimulateurSection = () => {
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
-                          <p className="text-blue-500 mb-0.5">Loyer annuel brut</p>
+                          <p className="text-blue-500 mb-0.5">
+                            Loyer annuel brut {fmt(r.loyerAnnuel)} €
+                            <span className="font-normal text-blue-500">/an</span>
+                          </p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                         </div>
-                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                        <div className="flex items-center gap-2 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500 mb-0.5">Amortissement annuel</p>
-                          <p className="font-bold text-blue-800 text-sm">
-                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
-                          </p>
-                          <p className="text-[10px] text-blue-400">
-                            Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
-                          </p>
+                          <div>
+                            <p className="font-bold text-blue-800 text-sm">
+                              {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
+                            </p>
+                            <p className="text-[10px] text-blue-400">
+                              Taux : {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an
+                            </p>
+                          </div>
                         </div>
                       </div>
 
