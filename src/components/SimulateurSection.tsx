@@ -395,7 +395,14 @@ export const SimulateurSection = () => {
                           </p>
                         </div>
                         <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                          <p className="text-gray-500 mb-0.5">Amortissement annuel</p>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="text-gray-500 mb-0.5 cursor-help underline decoration-dotted">Amortissement annuel</p>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-[220px] text-xs">
+                              80% du prix × Taux d'amortissement choisi
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="font-bold text-gray-800 text-sm">
                             {fmt(r.amortissementAnnuel)} €<span className="font-normal text-gray-500">/an</span>
                           </p>
