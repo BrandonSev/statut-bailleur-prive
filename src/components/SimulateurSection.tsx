@@ -227,7 +227,7 @@ export const SimulateurSection = () => {
                 {/* 1 — Prix + Ville */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <Label htmlFor="prix" className="text-xs font-medium text-gray-700">
+                    <Label htmlFor="prix" className="text-xs font-medium text-gray-700 font-bold">
                       Prix d'achat envisagé
                     </Label>
                     <div className="relative">
