@@ -496,11 +496,15 @@ export const SimulateurSection = () => {
                         </div>
                       </div>
                     </div>
+                    <p className="text-[10px] text-gray-400 leading-relaxed">
+                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
+                      PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
+                    </p>
 
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
+                      className="w-full h-12 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
                       <div className="flex items-center justify-center gap-2">
@@ -511,10 +515,6 @@ export const SimulateurSection = () => {
                         Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
                       </p>
                     </button>
-                    <p className="text-[10px] text-gray-400 leading-relaxed">
-                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
-                      PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
-                    </p>
                   </>
                 )}
               </div>
