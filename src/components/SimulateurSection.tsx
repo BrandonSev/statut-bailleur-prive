@@ -200,19 +200,34 @@ export const SimulateurSection = () => {
               <br />
               <span className="text-[#D4AF37]">DISPOSITIF JEANBRUN</span>
             </h2>
-            <p className="text-base sm:text-lg text-white/90">S'informer et comprendre le statut du bailleur privé.</p>
-            <p className="text-sm text-white/75 leading-relaxed">
-              Le dispositif Jeanbrun, successeur du Pinel, permet aux propriétaires bailleurs de déduire un
-              amortissement sur le prix d'acquisition de leur bien en contrepartie d'un engagement locatif à loyer
-              plafonné. Trois niveaux de loyer — intermédiaire, social et très social — offrent des taux d'amortissement
-              croissants, jusqu'à 5,5 % par an.
+            <p className="text-base sm:text-lg text-white/90">
+              Le Statut du Bailleur Privé : Un nouveau levier fiscal pour les investisseurs immobiliers.
             </p>
             <p className="text-sm text-white/75 leading-relaxed">
-              Estimez en quelques clics l'impact fiscal sur vos revenus fonciers : loyer plafonné, amortissement annuel,
-              économie d'impôt et prélèvements sociaux.
+              La loi de finances 2026 introduit un mécanisme d’amortissement en location nue permettant de réduire
+              durablement la pression fiscale sur les revenus locatifs.
+            </p>
+            <p className="text-sm text-white/75 leading-relaxed">
+              • Amortissement jusqu’à 80 % du prix (hors foncier) • Taux annuel de 3,5 % à 5,5 % • Engagement minimal de
+              9 ans • Absence de réintégration dans la plus-value
             </p>
             <ul className="space-y-2 text-sm">
-              {["Simulation gratuite", "Résultat immédiat", "Sans engagement"].map((text, i) => (
+              {[
+                "Amortissement jusqu’à 80 % du prix (hors foncier)",
+                "Taux annuel de 3,5 % à 5,5",
+                "Engagement minimal de 9 ans",
+                "Absence de réintégration dans la plus-value",
+              ].map((text, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  •<span>{text}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-white/75 leading-relaxed">
+              Mesurez immédiatement l’impact sur votre situation fiscale.
+            </p>
+            <ul className="space-y-2 text-sm">
+              {["Simulation gratuite", "Analyse simplifiée", "Sans engagement"].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <svg
                     className="w-4 h-4 flex-shrink-0"
