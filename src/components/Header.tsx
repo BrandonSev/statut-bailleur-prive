@@ -18,11 +18,20 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border" style={{ top: 'var(--banner-height, 32px)' }}>
+    <header
+      className="fixed left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border"
+      style={{ top: "var(--banner-height, 32px)" }}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           {/* Logo / Brand */}
-          <span className="font-semibold text-foreground text-sm whitespace-nowrap">Statut du bailleur privé</span>
+          <span className="flex items-center gap-3 font-semibold text-foreground text-sm whitespace-nowrap">
+            <img
+              src="https://doc.polyvalence-immobilier.fr/imgs/polyvalence/pictos/investir/defisc-png-15.png"
+              width="50"
+            />
+            Statut du bailleur privé
+          </span>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
