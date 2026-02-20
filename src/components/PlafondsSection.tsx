@@ -51,25 +51,31 @@ export const PlafondsSection = () => {
                 </tbody>
               </table>
             </div>
-            <div class="mt-2 border-t border-gray-200 text-xs text-gray-700 leading-relaxed">
-              <p class="font-medium text-gray-800 mb-1">Fondement juridique des plafonds de loyers</p>
-              <p class="mb-1.5">
-                Conformément aux dispositions de la loi de finances 2026 (publiée au JO le 20 février), le dispositif
-                Jeanbrun renvoie :
+            <div class="mt-3 px-4 py-3 text-xs text-gray-600 leading-relaxed bg-gray-50/70 border-t border-gray-200">
+              <p class="font-medium text-gray-800 mb-1.5">Fondement juridique des plafonds de loyers</p>
+
+              <p class="mb-2">
+                Conformément aux dispositions issues de la loi de finances 2026 publiées au Journal Officiel le 20
+                février, le dispositif Jeanbrun renvoie :
               </p>
-              <ul class="list-disc pl-5 mb-1.5 space-y-1">
-                <li>logement locatif intermédiaire : art. 199 novovicies III CGI → art. 2 terdecies D annexe III</li>
+
+              <ul class="list-disc pl-5 mb-2 space-y-1">
                 <li>
-                  logement locatif social et très social : conventions art. L.321-8 CCH → art. 199 tricies CGI → art. 2
-                  terdecies G annexe III
+                  pour le logement locatif intermédiaire, aux plafonds prévus à l’article 199 novovicies III du Code
+                  général des impôts, fixés à l’article 2 terdecies D de l’annexe III du CGI ;
+                </li>
+                <li>
+                  pour le logement locatif social et très social, aux conventions mentionnées à l’article L.321-8 du
+                  Code de la construction et de l’habitation, auxquelles renvoie l’article 199 tricies du CGI, les
+                  montants étant précisés à l’article 2 terdecies G de l’annexe III du CGI.
                 </li>
               </ul>
-              <p class="mb-1">
-                <strong>Hors charges</strong> – actualisation annuelle.
-              </p>
-              <p class="text-gray-600 italic">
-                Cette méthode garantit une application rigoureuse et évite les approximations dans un environnement
-                normatif en évolution.
+
+              <p class="mb-1.5">Ces plafonds sont exprimés hors charges et actualisés annuellement.</p>
+
+              <p class="italic">
+                Cette approche permet de sécuriser l’analyse et d’éviter toute approximation dans l’application des
+                plafonds, dans un contexte réglementaire en évolution.
               </p>
             </div>
             <p className="text-xs text-muted-foreground mt-3">
