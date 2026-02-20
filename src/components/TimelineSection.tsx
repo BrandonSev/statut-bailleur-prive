@@ -21,24 +21,60 @@ const steps = [
   },
   {
     icon: <Clock className="w-5 h-5" />,
-    title: "Promulgation & décrets d'application",
-    text: "L'entrée en vigueur définitive est conditionnée à la publication des décrets d'application.",
+    title: "Promulgation & entrée en vigueur",
+    text: "Le dispositif est entré en vigueur le 21 février 2026, au lendemain de la publication de la loi de finances 2026 au Journal Officiel.",
+    done: true,
+  },
+  {
+    icon: <Clock className="w-5 h-5" />,
+    title: "Doctrine administrative (BOFiP)",
+    text: "Les modalités déclaratives et interprétatives feront l’objet de précisions dans la doctrine administrative publiée par l’administration fiscale ultérieurement.",
     done: false,
   },
 ];
 
 export const TimelineSection = () => {
+  const lastDoneIndex = steps.reduce((acc, step, i) => (step.done ? i : acc), -1);
+  // La ligne va de 12.5% à 87.5% (left-[12.5%] right-[12.5%])
+  // On calcule jusqu'où le faisceau doit aller (jusqu'à la dernière étape "done")
+  const lineStart = 12.5;
+  const lineEnd = 87.5;
+  const lineWidth = lineEnd - lineStart;
+  // Position de chaque étape sur la ligne (en % de la ligne totale)
+  const stepPositions = steps.map((_, i) => (i / (steps.length - 1)) * lineWidth);
+  const beamEndPercent = stepPositions[lastDoneIndex]; // % depuis le début de la ligne
+
   return (
     <section id="timeline" className="py-12 md:py-16 bg-secondary">
       <div className="container mx-auto px-6">
         <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center mb-10">
           Avancement législatif du dispositif Jeanbrun
         </h2>
-
         {/* Desktop horizontal */}
         <div className="hidden md:grid grid-cols-4 gap-0 relative mb-8">
           {/* Connecting line */}
           <div className="absolute top-5 left-[12.5%] right-[12.5%] h-px bg-border" />
+
+          {/* Beam animation */}
+          <div
+            className="absolute top-5 overflow-hidden"
+            style={{
+              left: `${lineStart}%`,
+              width: `${beamEndPercent}%`,
+              height: "1px",
+            }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(to right, transparent, hsl(var(--primary)), transparent)",
+                width: "60px",
+                height: "3px",
+                top: "-1px",
+                animation: "beam-travel 2s ease-in-out infinite",
+              }}
+            />
+          </div>
 
           {steps.map((step, i) => (
             <div key={i} className="flex flex-col items-center text-center relative z-10">
@@ -56,7 +92,6 @@ export const TimelineSection = () => {
             </div>
           ))}
         </div>
-
         {/* Mobile vertical */}
         <div className="md:hidden space-y-5 mb-8">
           {steps.map((step, i) => (
@@ -77,7 +112,6 @@ export const TimelineSection = () => {
             </div>
           ))}
         </div>
-
         {/* Disclaimer */}
         <div className="border border-border rounded-lg px-5 py-4 bg-background">
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
@@ -86,6 +120,25 @@ export const TimelineSection = () => {
           </p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes beam-travel {
+          0% {
+            left: -60px;
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            left: 100%;
+            opacity: 0;
+          }
+        }
+      `}</style>
     </section>
   );
 };
