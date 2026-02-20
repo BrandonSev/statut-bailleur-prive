@@ -17,7 +17,7 @@ export const StatusBanner = () => {
     <>
       <div
         ref={bannerRef}
-        className="fixed top-0 left-0 right-0 z-[60] bg-secondary border-b border-border py-1.5 px-4"
+        className="fixed top-0 left-0 right-0 z-[60] bg-green-200  border-b border-border py-1.5 px-4 text-green-900"
       >
         <div className="container mx-auto">
           <p className="text-center text-xs font-medium text-muted-foreground">
