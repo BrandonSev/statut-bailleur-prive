@@ -505,10 +505,10 @@ export const SimulateurSection = () => {
                     >
                       Recevoir gratuitement ma simulation personnalisée
                       <ArrowRight className="w-4 h-4" />
+                      <p className="text-[10px] text-gray-400 leading-relaxed flex-1">
+                        Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
+                      </p>
                     </button>
-                    <p className="text-[10px] text-gray-400 leading-relaxed">
-                      Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
-                    </p>
                     <p className="text-[10px] text-gray-400 leading-relaxed">
                       Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
                       PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
