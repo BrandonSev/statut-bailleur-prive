@@ -511,7 +511,7 @@ export const SimulateurSection = () => {
                         Recevoir gratuitement ma simulation personnalisée
                         <ArrowRight className="w-4 h-4" />
                       </div>
-                      <p className="text-[10px] text-white leading-relaxed">
+                      <p className="text-[10px] text-muted leading-relaxed">
                         Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
                       </p>
                     </button>
