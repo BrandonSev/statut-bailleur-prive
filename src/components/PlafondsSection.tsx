@@ -1,4 +1,5 @@
-import { Wallet } from "lucide-react";
+import { Wallet, Info } from "lucide-react";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 const ZONES = [
   { label: "A bis", intermediaire: "19,51 €", social: "13,64 €", tres_social: "10,63 €" },
@@ -51,7 +52,17 @@ export const PlafondsSection = () => {
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-3">
-              Le loyer final intègre un coefficient multiplicateur selon la surface. Barèmes indicatifs alignés sur les plafonds existants.
+              Le loyer final intègre un coefficient multiplicateur selon la surface.{" "}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="inline w-3.5 h-3.5 text-muted-foreground cursor-help align-text-bottom" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs max-w-[220px]">Barèmes indicatifs alignés sur les plafonds existants.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </p>
           </div>
 
