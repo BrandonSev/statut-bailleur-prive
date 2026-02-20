@@ -8,18 +8,20 @@ const secondaryCards = [
   },
   {
     icon: CalendarCheck,
-    title: "Engagement de location",
-    text: "Location en résidence principale pendant une durée minimale de 9 ans.",
+    title: "Engagement encadré et flexible",
+    text: "Le dispositif prévoit un engagement locatif nu de 9 ans minimum, tout en permettant une détention prolongée et la poursuite de l’amortissement au-delà de cette période. En cas de revente après la période minimale, les amortissements pratiqués ne sont pas remis en cause.",
   },
   {
     icon: ShieldCheck,
-    title: "Plafonds encadrés",
-    text: "Respect des plafonds de loyers et de ressources des locataires.",
+    title: "Une stratégie locative modulable",
+    text: "L’investisseur choisit un niveau de loyer (Intermédiaire, Social ou Très social) déterminant le taux d’amortissement applicable. Plus le loyer est abordable, plus l’avantage fiscal est renforcé. Les plafonds de loyers et de ressources sont définis selon la zone du bien.",
   },
   {
     icon: Landmark,
-    title: "Objectif patrimonial",
-    text: "Constituer un patrimoine immobilier avec une fiscalité optimisée.",
+    title: "Une stratégie de détention optimisée",
+    text: "Le mécanisme articule optimisation fiscale et constitution d’un actif immobilier durable, inscrit dans une logique patrimoniale long terme. Pour les contribuables fortement fiscalisés (TMI 30 % et plus), l’amortissement permet de réduire la pression sur les revenus fonciers et les prélèvements sociaux.
+Le cas échéant, un déficit foncier peut être imputé sur le revenu global dans la limite prévue par la loi (10 700 € par an).
+Une analyse personnalisée reste indispensable pour mesurer l’effet réel du dispositif.",
   },
 ];
 
