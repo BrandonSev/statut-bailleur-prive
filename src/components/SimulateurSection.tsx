@@ -497,8 +497,8 @@ export const SimulateurSection = () => {
                       </div>
                     </div>
                     <p className="text-[10px] text-gray-400 leading-relaxed">
-                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
-                      PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
+                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux en vigueur dans
+                      l'article 47 du PLF 2026 publié au Journal Officiel.
                     </p>
 
                     {/* CTA */}
