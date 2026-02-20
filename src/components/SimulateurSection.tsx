@@ -333,7 +333,7 @@ export const SimulateurSection = () => {
                           onClick={() => setTmi(rate)}
                           className={`px-2.5 py-1 rounded-md text-xs font-medium border transition-all ${
                             tmi === rate
-                              ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                              ? "bg-primary text-white shadow-sm"
                               : "bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                           }`}
                         >
