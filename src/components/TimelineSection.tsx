@@ -96,11 +96,15 @@ export const TimelineSection = () => {
           ))}
         </div>
         {/* Mobile vertical */}
-        <div className="md:hidden space-y-5 mb-8">
+        <div className="md:hidden space-y-0 mb-8 relative">
           {steps.map((step, i) => (
-            <div key={i} className="flex items-start gap-3">
+            <div key={i} className="flex items-start gap-3 relative">
+              {/* Ligne verticale entre les étapes */}
+              {i < steps.length - 1 && (
+                <div className="absolute left-[17px] top-9 w-px bg-border" style={{ height: "calc(100% - 4px)" }} />
+              )}
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 relative z-10 ${
                   step.done
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground border border-border"
@@ -108,7 +112,7 @@ export const TimelineSection = () => {
               >
                 {step.icon}
               </div>
-              <div className="pt-1">
+              <div className="pt-1 pb-5">
                 <h3 className="text-sm font-semibold text-foreground mb-1">{step.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{step.text}</p>
               </div>
