@@ -30,7 +30,7 @@ export const PlafondsSection = () => {
             <h3 className="text-base font-semibold mb-4 text-primary-dark">
               Plafonds de loyers par zone (€/m²)
               <TooltipProvider>
-                <Tooltip>
+                <Tooltip className="ml-2">
                   <TooltipTrigger asChild>
                     <Info className="inline w-3.5 h-3.5 text-muted-foreground cursor-help align-text-bottom" />
                   </TooltipTrigger>
