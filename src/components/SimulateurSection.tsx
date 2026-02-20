@@ -189,7 +189,7 @@ export const SimulateurSection = () => {
           {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
             <div className="inline-block">
-              <span className="text-xs font-medium px-3 py-1 rounded-full border border-success bg-green-300">
+              <span className="text-xs font-medium px-3 py-1 rounded-full bg-success/70">
                 PLF 2026 — Projet de Loi de Finances
               </span>
             </div>
