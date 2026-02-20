@@ -51,6 +51,27 @@ export const PlafondsSection = () => {
                 </tbody>
               </table>
             </div>
+            <div class="mt-2 bg-gray-50 border-t border-gray-200 px-4 py-3 text-xs text-gray-700 leading-relaxed">
+              <p class="font-medium text-gray-800 mb-1">Fondement juridique des plafonds de loyers</p>
+              <p class="mb-1.5">
+                Conformément aux dispositions de la loi de finances 2026 (publiée au JO le 20 février), le dispositif
+                Jeanbrun renvoie :
+              </p>
+              <ul class="list-disc pl-5 mb-1.5 space-y-1">
+                <li>logement locatif intermédiaire : art. 199 novovicies III CGI → art. 2 terdecies D annexe III</li>
+                <li>
+                  logement locatif social et très social : conventions art. L.321-8 CCH → art. 199 tricies CGI → art. 2
+                  terdecies G annexe III
+                </li>
+              </ul>
+              <p class="mb-1">
+                <strong>Hors charges</strong> – actualisation annuelle.
+              </p>
+              <p class="text-gray-600 italic">
+                Cette méthode garantit une application rigoureuse et évite les approximations dans un environnement
+                normatif en évolution.
+              </p>
+            </div>
             <p className="text-xs text-muted-foreground mt-3">
               Le loyer final intègre un coefficient multiplicateur selon la surface.{" "}
               <TooltipProvider>
@@ -79,7 +100,9 @@ export const PlafondsSection = () => {
                     <Wallet className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-muted-foreground mb-0.5">{item.niveau} ({item.taux})</p>
+                    <p className="text-xs font-medium text-muted-foreground mb-0.5">
+                      {item.niveau} ({item.taux})
+                    </p>
                     <p className="text-xl font-bold text-primary">
                       {item.montant}&nbsp;€<span className="text-sm font-medium text-muted-foreground"> / an</span>
                     </p>
@@ -93,7 +116,6 @@ export const PlafondsSection = () => {
             </p>
           </div>
         </div>
-
       </div>
     </section>
   );
