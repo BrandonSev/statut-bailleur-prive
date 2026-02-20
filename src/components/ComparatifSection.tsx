@@ -62,7 +62,7 @@ export const ComparatifSection = () => {
               {comparatif.map((row, i) => (
                 <TableRow key={i} className={i % 2 === 0 ? "bg-card" : "bg-secondary/40"}>
                   <TableCell className="font-medium text-sm text-foreground py-3">{row.critere}</TableCell>
-                  <TableCell className="text-center text-sm font-medium py-3 bg-success text-foreground">
+                  <TableCell className="text-center text-sm font-medium py-3 bg-success-light text-foreground">
                     {row.bailleur}
                   </TableCell>
                   <TableCell className="text-center text-sm text-muted-foreground/70 py-3 bg-muted/30 line-through decoration-muted-foreground/30">
