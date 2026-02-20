@@ -14,7 +14,7 @@ interface ContactModalProps {
 export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [form, setForm] = useState({ prenom: "", email: "", telephone: "", ville: "" });
+  const [form, setForm] = useState({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
@@ -51,7 +51,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
       setConsent(false);
       setApiError(null);
       setIsLoading(false);
-      setForm({ prenom: "", email: "", telephone: "", ville: "" });
+      setForm({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "" });
     }
     onOpenChange(v);
   };
@@ -85,14 +85,45 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
               <div className="space-y-1.5">
-                <Label className="text-foreground">Prénom</Label>
-                <Input
-                  required
-                  value={form.prenom}
-                  onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                  className="border-border focus-visible:ring-ring"
-                  placeholder="Votre prénom"
-                />
+                <Label className="text-foreground">Civilité</Label>
+                <div className="flex gap-3">
+                  {["M.", "Mme"].map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setForm({ ...form, civilite: c })}
+                      className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                        form.civilite === c
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "border-border text-foreground hover:bg-accent/20"
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-foreground">Nom</Label>
+                  <Input
+                    required
+                    value={form.nom}
+                    onChange={(e) => setForm({ ...form, nom: e.target.value })}
+                    className="border-border focus-visible:ring-ring"
+                    placeholder="Votre nom"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-foreground">Prénom</Label>
+                  <Input
+                    required
+                    value={form.prenom}
+                    onChange={(e) => setForm({ ...form, prenom: e.target.value })}
+                    className="border-border focus-visible:ring-ring"
+                    placeholder="Votre prénom"
+                  />
+                </div>
               </div>
               <div className="space-y-1.5">
                 <Label className="text-foreground">Email</Label>
