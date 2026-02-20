@@ -2,9 +2,21 @@ import { Building2, CalendarCheck, ShieldCheck, Landmark, BarChart3 } from "luci
 
 const secondaryCards = [
   { icon: Building2, title: "Logements éligibles", text: "Appartements neufs ou rénovés destinés à la location nue." },
-  { icon: CalendarCheck, title: "Engagement de location", text: "Location en résidence principale pendant une durée minimale de 9 ans." },
-  { icon: ShieldCheck, title: "Plafonds encadrés", text: "Respect des plafonds de loyers et de ressources des locataires." },
-  { icon: Landmark, title: "Objectif patrimonial", text: "Constituer un patrimoine immobilier avec une fiscalité optimisée." },
+  {
+    icon: CalendarCheck,
+    title: "Engagement de location",
+    text: "Location en résidence principale pendant une durée minimale de 9 ans.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Plafonds encadrés",
+    text: "Respect des plafonds de loyers et de ressources des locataires.",
+  },
+  {
+    icon: Landmark,
+    title: "Objectif patrimonial",
+    text: "Constituer un patrimoine immobilier avec une fiscalité optimisée.",
+  },
 ];
 
 export const MecanismeSection = () => {
@@ -12,10 +24,11 @@ export const MecanismeSection = () => {
     <section id="mecanisme" className="w-full bg-background py-16 md:py-20">
       <div className="container mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
-          Le mécanisme du statut du bailleur privé
+          Les avantages du statut du bailleur privé
         </h2>
         <p className="text-center text-muted-foreground text-sm md:text-base mb-10 max-w-2xl mx-auto">
-          Un dispositif basé sur l'amortissement fiscal des logements locatifs.
+          Dispositif Jeanbrun : Un mécanisme d’amortissement fiscal inédit pour optimiser durablement vos revenus
+          locatifs.
         </p>
 
         <div className="rounded-2xl border border-primary/15 bg-trust-light p-6 md:p-8 mb-6 flex gap-5 items-start">
@@ -27,7 +40,8 @@ export const MecanismeSection = () => {
               Amortissement fiscal du bien immobilier
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-              Le statut du bailleur privé permet d'amortir jusqu'à 80 % de la valeur du bien, ce qui réduit la base imposable et diminue la fiscalité sur les revenus locatifs pendant plusieurs années.
+              Le statut du bailleur privé permet d'amortir jusqu'à 80 % de la valeur du bien, ce qui réduit la base
+              imposable et diminue la fiscalité sur les revenus locatifs pendant plusieurs années.
             </p>
           </div>
         </div>
