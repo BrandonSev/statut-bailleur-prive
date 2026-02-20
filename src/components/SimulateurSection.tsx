@@ -357,7 +357,7 @@ export const SimulateurSection = () => {
                         onClick={() => setNiveauLoyer(n)}
                         className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium border transition-all ${
                           niveauLoyer === n
-                            ? "bg-primary text-white border-blue-600 shadow-sm"
+                            ? "bg-primary text-white shadow-sm"
                             : "bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                         }`}
                       >
