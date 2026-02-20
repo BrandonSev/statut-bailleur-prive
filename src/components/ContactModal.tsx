@@ -15,17 +15,42 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
   const [form, setForm] = useState({ prenom: "", email: "", telephone: "", ville: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) return;
-    setSubmitted(true);
+
+    setIsLoading(true);
+    setApiError(null);
+
+    try {
+      const response = await fetch("https://www.polyvalence-immobilier.fr/api/jeanbrun/documentation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer 9mryHcd5j8vLBfMo4H3Ab9kPLX6l85Eu2dkXviesymGY9wMLURpOWvv3PLTMlG3T",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) throw new Error(`Erreur ${response.status}`);
+
+      setSubmitted(true);
+    } catch (err) {
+      setApiError("Une erreur est survenue, veuillez réessayer.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClose = (v: boolean) => {
     if (!v) {
       setSubmitted(false);
       setConsent(false);
+      setApiError(null);
+      setIsLoading(false);
       setForm({ prenom: "", email: "", telephone: "", ville: "" });
     }
     onOpenChange(v);
@@ -113,12 +138,13 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                   J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
                 </label>
               </div>
+              {apiError && <p className="text-xs text-destructive text-center">{apiError}</p>}
               <button
                 type="submit"
-                disabled={!consent}
+                disabled={!consent || isLoading}
                 className="w-full py-3 rounded-xl text-primary-foreground font-semibold text-sm transition-opacity disabled:opacity-40 bg-primary hover:bg-primary/85"
               >
-                Envoyer ma demande
+                {isLoading ? "Envoi en cours…" : "Envoyer ma demande"}
               </button>
             </form>
           </>
