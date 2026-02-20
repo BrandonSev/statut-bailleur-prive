@@ -207,10 +207,6 @@ export const SimulateurSection = () => {
               La loi de finances 2026 introduit un mécanisme d’amortissement en location nue permettant de réduire
               durablement la pression fiscale sur les revenus locatifs.
             </p>
-            <p className="text-sm text-white/75 leading-relaxed">
-              • Amortissement jusqu’à 80 % du prix (hors foncier) • Taux annuel de 3,5 % à 5,5 % • Engagement minimal de
-              9 ans • Absence de réintégration dans la plus-value
-            </p>
             <ul className="space-y-2 text-sm">
               {[
                 "Amortissement jusqu’à 80 % du prix (hors foncier)",
