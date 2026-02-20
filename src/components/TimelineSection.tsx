@@ -86,7 +86,7 @@ export const TimelineSection = () => {
                   step.done
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground border border-border"
-                } ${i === 3 && "bg-green-200"}`}
+                } ${i === 3 && "!bg-green-500"}`}
               >
                 {step.icon}
               </div>
