@@ -197,11 +197,11 @@ export const SimulateurSection = () => {
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
-              Simulateur du statut
+              Simulateur du
               <br />
-              du bailleur privé
+              DISPOSITIF JEANBRUN
             </h2>
-            <p className="text-base sm:text-lg text-white/90">Calculez votre avantage fiscal en 2 minutes.</p>
+            <p className="text-base sm:text-lg text-white/90">S'informer et comprendre le statut du bailleur privé.</p>
             <ul className="space-y-2 text-sm">
               {["Simulation gratuite", "Résultat immédiat", "Sans engagement"].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
