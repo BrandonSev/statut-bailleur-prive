@@ -1,4 +1,4 @@
-import { FileText, Gavel, Check, Clock } from "lucide-react";
+import { FileText, Gavel, Check, Clock, Scale } from "lucide-react";
 
 const steps = [
   {
@@ -20,7 +20,7 @@ const steps = [
     done: true,
   },
   {
-    icon: <Clock className="w-5 h-5" />,
+    icon: <Scale className="w-5 h-5" />,
     title: "Promulgation & entrée en vigueur",
     text: "Le dispositif est entré en vigueur le 21 février 2026, au lendemain de la publication de la loi de finances 2026 au Journal Officiel.",
     done: true,
