@@ -196,10 +196,10 @@ export const SimulateurSection = () => {
                 PLF 2026 — Projet de Loi de Finances
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-[#D4AF37]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
               Simulateur du
               <br />
-              DISPOSITIF JEANBRUN
+              <span className="text-[#D4AF37]">DISPOSITIF JEANBRUN</span>
             </h2>
             <p className="text-base sm:text-lg text-white/90">S'informer et comprendre le statut du bailleur privé.</p>
             <p className="text-sm text-white/75 leading-relaxed">
