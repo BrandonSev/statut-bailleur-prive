@@ -1,7 +1,11 @@
 import { Building2, CalendarCheck, ShieldCheck, Landmark, BarChart3 } from "lucide-react";
 
 const secondaryCards = [
-  { icon: Building2, title: "Logements éligibles", text: "Appartements neufs ou rénovés destinés à la location nue." },
+  {
+    icon: Building2,
+    title: "Logements éligibles",
+    text: "Le dispositif concerne exclusivement les logements situés dans des bâtiments d’habitation collectifs, sur l’ensemble du territoire français, avec une priorité et une facilité d'application aux logements neufs. Les opérations dans l’ancien sont possibles sous conditions exigeantes de réhabilitation lourde et de conformité technique.",
+  },
   {
     icon: CalendarCheck,
     title: "Engagement de location",
