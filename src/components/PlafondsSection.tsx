@@ -27,7 +27,21 @@ export const PlafondsSection = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-10 relative">
           {/* Plafonds de loyers */}
           <div className="mb-12 lg:mb-0">
-            <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds de loyers par zone (€/m²)</h3>
+            <h3 className="text-base font-semibold mb-4 text-primary-dark">
+              Plafonds de loyers par zone (€/m²)
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="inline w-3.5 h-3.5 text-muted-foreground cursor-help align-text-bottom" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs max-w-[220px]">
+                      Le loyer final intègre un coefficient multiplicateur selon la surface légale à louer du logement.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </h3>
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -78,19 +92,6 @@ export const PlafondsSection = () => {
                 plafonds, dans un contexte réglementaire en évolution.
               </p>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              Le loyer final intègre un coefficient multiplicateur selon la surface.{" "}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="inline w-3.5 h-3.5 text-muted-foreground cursor-help align-text-bottom" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-xs max-w-[220px]">Barèmes indicatifs alignés sur les plafonds existants.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </p>
           </div>
 
           {/* Plafonds d'amortissement */}
@@ -118,7 +119,7 @@ export const PlafondsSection = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground text-center pt-2">
-              Barèmes indicatifs – susceptibles d'évolution selon publication des textes officiels.
+              Barèmes en vigueur depuis la publication des textes officiels le 20/02/2026
             </p>
           </div>
         </div>
