@@ -19,9 +19,7 @@ const secondaryCards = [
   {
     icon: Landmark,
     title: "Une stratégie de détention optimisée",
-    text: "Le mécanisme articule optimisation fiscale et constitution d’un actif immobilier durable, inscrit dans une logique patrimoniale long terme. Pour les contribuables fortement fiscalisés (TMI 30 % et plus), l’amortissement permet de réduire la pression sur les revenus fonciers et les prélèvements sociaux.
-Le cas échéant, un déficit foncier peut être imputé sur le revenu global dans la limite prévue par la loi (10 700 € par an).
-Une analyse personnalisée reste indispensable pour mesurer l’effet réel du dispositif.",
+    text: "Le mécanisme articule optimisation fiscale et constitution d’un actif immobilier durable, inscrit dans une logique patrimoniale long terme. Pour les contribuables fortement fiscalisés (TMI 30 % et plus), l’amortissement permet de réduire la pression sur les revenus fonciers et les prélèvements sociaux. Le cas échéant, un déficit foncier peut être imputé sur le revenu global dans la limite prévue par la loi (10 700 € par an). Une analyse personnalisée reste indispensable pour mesurer l’effet réel du dispositif.",
   },
 ];
 
