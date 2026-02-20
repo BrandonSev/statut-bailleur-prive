@@ -94,7 +94,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               <div className="space-y-1.5">
                 <Label className="text-foreground">Ville du projet</Label>
                 <CityAutocomplete
-                  value={ville}
+                  value={form.ville}
                   onChange={(city, _cp, insee) => {
                     setForm({ ...form, ville: city + " " + _cp });
                   }}
