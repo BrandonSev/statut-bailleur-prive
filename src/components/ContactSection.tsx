@@ -86,7 +86,7 @@ export const ContactSection = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+            <form onSubmit={handleSubmit} className="max-w-[500px] mx-auto space-y-4">
               <div className="space-y-1.5">
                 <Label className="text-foreground">Civilité</Label>
                 <div className="flex gap-3">
