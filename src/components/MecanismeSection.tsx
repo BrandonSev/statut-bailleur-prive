@@ -40,8 +40,9 @@ export const MecanismeSection = () => {
               Amortissement fiscal du bien immobilier
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-              Le statut du bailleur privé permet d'amortir jusqu'à 80 % de la valeur du bien, ce qui réduit la base
-              imposable et diminue la fiscalité sur les revenus locatifs pendant plusieurs années.
+              Le dispositif permet de réduire la base imposable de vos revenus locatifs pendant plusieurs années grâce à
+              un mécanisme d’amortissement encadré par la loi de finances 2026. Concrètement, jusqu’à 80 % de la valeur
+              du bien (hors foncier) peut être amortie progressivement.
             </p>
           </div>
         </div>
