@@ -51,15 +51,15 @@ export const PlafondsSection = () => {
                 </tbody>
               </table>
             </div>
-            <div class="mt-3 text-xs text-gray-600 leading-relaxed">
-              <p class="font-medium text-gray-800 mb-1.5">Fondement juridique des plafonds de loyers</p>
+            <div className="mt-3 text-xs text-gray-600 leading-relaxed">
+              <p className="font-medium text-gray-800 mb-1.5">Fondement juridique des plafonds de loyers</p>
 
-              <p class="mb-2">
+              <p className="mb-2">
                 Conformément aux dispositions issues de la loi de finances 2026 publiées au Journal Officiel le 20
                 février, le dispositif Jeanbrun renvoie :
               </p>
 
-              <ul class="list-disc pl-5 mb-2 space-y-1">
+              <ul className="list-disc pl-5 mb-2 space-y-1">
                 <li>
                   pour le logement locatif intermédiaire, aux plafonds prévus à l’article 199 novovicies III du Code
                   général des impôts, fixés à l’article 2 terdecies D de l’annexe III du CGI ;
@@ -71,9 +71,9 @@ export const PlafondsSection = () => {
                 </li>
               </ul>
 
-              <p class="mb-1.5">Ces plafonds sont exprimés hors charges et actualisés annuellement.</p>
+              <p className="mb-1.5">Ces plafonds sont exprimés hors charges et actualisés annuellement.</p>
 
-              <p class="italic">
+              <p className="italic">
                 Cette approche permet de sécuriser l’analyse et d’éviter toute approximation dans l’application des
                 plafonds, dans un contexte réglementaire en évolution.
               </p>
