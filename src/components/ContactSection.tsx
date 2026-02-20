@@ -51,14 +51,45 @@ export const ContactSection = () => {
 
             <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
               <div className="space-y-1.5">
-                <Label className="text-foreground">Prénom</Label>
-                <Input
-                  required
-                  value={form.prenom}
-                  onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                  className="border-border focus-visible:ring-ring"
-                  placeholder="Votre prénom"
-                />
+                <Label className="text-foreground">Civilité</Label>
+                <div className="flex gap-3">
+                  {["M.", "Mme"].map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setForm({ ...form, civilite: c })}
+                      className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                        form.civilite === c
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "border-border text-foreground hover:bg-accent/20"
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-foreground">Nom</Label>
+                  <Input
+                    required
+                    value={form.nom}
+                    onChange={(e) => setForm({ ...form, nom: e.target.value })}
+                    className="border-border focus-visible:ring-ring"
+                    placeholder="Votre nom"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-foreground">Prénom</Label>
+                  <Input
+                    required
+                    value={form.prenom}
+                    onChange={(e) => setForm({ ...form, prenom: e.target.value })}
+                    className="border-border focus-visible:ring-ring"
+                    placeholder="Votre prénom"
+                  />
+                </div>
               </div>
               <div className="space-y-1.5">
                 <Label className="text-foreground">Email</Label>
@@ -82,31 +113,47 @@ export const ContactSection = () => {
                   placeholder="06 12 34 56 78"
                 />
               </div>
-
+              <div className="space-y-1.5">
+                <Label className="text-foreground">Ville du projet</Label>
+                <CityAutocomplete
+                  value={form.ville}
+                  onChange={(city, _cp, insee) => {
+                    setForm({ ...form, ville: city + " " + _cp });
+                  }}
+                  placeholder="Rechercher une ville…"
+                  className={`h-9 text-sm`}
+                />
+              </div>
               <div className="flex items-start gap-2 pt-1">
                 <Checkbox
-                  id="consent-footer"
+                  id="consent"
                   checked={consent}
                   onCheckedChange={(v) => setConsent(v === true)}
                   className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
-                <label htmlFor="consent-footer" className="text-xs text-muted-foreground leading-tight cursor-pointer">
+                <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
                   J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
                 </label>
               </div>
-
+              {apiError && <p className="text-xs text-destructive text-center">{apiError}</p>}
               <button
                 type="submit"
-                disabled={!consent}
-                className="w-full py-3.5 rounded-xl text-primary-foreground font-semibold text-sm transition-all disabled:opacity-40 bg-primary hover:bg-primary/90"
+                disabled={!consent || isLoading}
+                className="w-full py-3 rounded-xl text-primary-foreground font-semibold text-sm transition-opacity disabled:opacity-40 bg-primary hover:bg-primary/85"
               >
-                Recevoir mon étude
+                {isLoading ? "Envoi en cours…" : "Envoyer ma demande"}
               </button>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> Données strictement confidentielles</span>
-                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> Aucune revente de données</span>
-                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> Réponse sous 24h ouvrées</span>
+                <span className="flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5" /> Données strictement confidentielles
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Shield className="w-3.5 h-3.5" /> Aucune revente de données
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" /> Réponse sous 24h ouvrées
+                </span>
               </div>
             </form>
           </>
