@@ -24,7 +24,7 @@ export const PlafondsSection = () => {
           Les avantages fiscaux sont encadrés par des plafonds de loyers et des limites annuelles d'amortissement.
         </p>
 
-        <div className="lg:grid lg:grid-cols-2 lg:gap-10">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-10 relative">
           {/* Plafonds de loyers */}
           <div className="mb-12 lg:mb-0">
             <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds de loyers par zone (€/m²)</h3>
@@ -94,7 +94,7 @@ export const PlafondsSection = () => {
           </div>
 
           {/* Plafonds d'amortissement */}
-          <div className="mb-8 lg:mb-0">
+          <div className="mb-8 lg:mb-0 sticky top-0">
             <h3 className="text-base font-semibold mb-4 text-primary-dark">Plafonds annuels d'amortissement</h3>
             <div className="flex flex-col gap-4">
               {AMORTISSEMENTS.map((item) => (
