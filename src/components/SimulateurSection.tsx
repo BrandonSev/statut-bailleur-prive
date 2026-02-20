@@ -196,7 +196,7 @@ export const SimulateurSection = () => {
                 PLF 2026 — Projet de Loi de Finances
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight" style={{ fontFamily: "'Bebas Neue', cursive" }}>
               Simulateur du
               <br />
               <span className="text-[#D4AF37]">DISPOSITIF JEANBRUN</span>
