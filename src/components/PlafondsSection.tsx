@@ -51,7 +51,7 @@ export const PlafondsSection = () => {
                 </tbody>
               </table>
             </div>
-            <div class="mt-3 text-xs text-gray-600 leading-relaxed border-t border-gray-200">
+            <div class="mt-3 text-xs text-gray-600 leading-relaxed">
               <p class="font-medium text-gray-800 mb-1.5">Fondement juridique des plafonds de loyers</p>
 
               <p class="mb-2">
