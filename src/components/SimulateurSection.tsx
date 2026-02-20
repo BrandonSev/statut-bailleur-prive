@@ -400,7 +400,7 @@ export const SimulateurSection = () => {
                     style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                   >
                     <Calculator className="w-4 h-4" />
-                    Voir la simulation simplifiée
+                    Estimer mon économie fiscale
                   </button>
                 )}
 
@@ -503,10 +503,12 @@ export const SimulateurSection = () => {
                       className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      Accéder gratuitement une simulation personnalisée et détaillée
+                      Recevoir gratuitement ma simulation personnalisée
                       <ArrowRight className="w-4 h-4" />
                     </button>
-
+                    <p className="text-[10px] text-gray-400 leading-relaxed">
+                      Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
+                    </p>
                     <p className="text-[10px] text-gray-400 leading-relaxed">
                       Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux annoncés dans le
                       PLF 2026. Les modalités définitives seront précisées par décrets très prochainement.
