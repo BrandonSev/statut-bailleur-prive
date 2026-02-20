@@ -51,7 +51,7 @@ export const TimelineSection = () => {
     <section id="timeline" className="py-12 md:py-16 bg-secondary">
       <div className="container mx-auto px-6">
         <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center mb-10">
-          Avancement législatif du dispositif Jeanbrun
+          Chronologie du dispositif Jeanbrun
         </h2>
         {/* Desktop horizontal */}
         <div className="hidden md:grid grid-cols-5 gap-0 relative mb-8">
