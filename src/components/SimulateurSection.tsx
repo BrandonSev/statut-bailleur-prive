@@ -203,10 +203,10 @@ export const SimulateurSection = () => {
             </h2>
             <p className="text-base sm:text-lg text-white/90">S'informer et comprendre le statut du bailleur privé.</p>
             <p className="text-sm text-white/75 leading-relaxed">
-              Le dispositif Jeanbrun, successeur du Pinel, permet aux propriétaires bailleurs de déduire un amortissement
-              sur le prix d'acquisition de leur bien en contrepartie d'un engagement locatif à loyer plafonné. Trois
-              niveaux de loyer — intermédiaire, social et très social — offrent des taux d'amortissement croissants,
-              jusqu'à 5,5 % par an.
+              Le dispositif Jeanbrun, successeur du Pinel, permet aux propriétaires bailleurs de déduire un
+              amortissement sur le prix d'acquisition de leur bien en contrepartie d'un engagement locatif à loyer
+              plafonné. Trois niveaux de loyer — intermédiaire, social et très social — offrent des taux d'amortissement
+              croissants, jusqu'à 5,5 % par an.
             </p>
             <p className="text-sm text-white/75 leading-relaxed">
               Estimez en quelques clics l'impact fiscal sur vos revenus fonciers : loyer plafonné, amortissement annuel,
@@ -400,7 +400,7 @@ export const SimulateurSection = () => {
                     <div className="border-t border-gray-100 pt-3 space-y-2">
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-2 gap-2 text-xs place-items-center">
-                        <div className="flex items-center justify-between gap-2 flex-wrap bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
+                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
                           <p className="text-blue-500 mb-0.5">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
