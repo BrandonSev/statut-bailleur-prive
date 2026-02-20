@@ -122,8 +122,10 @@ export const TimelineSection = () => {
         {/* Disclaimer */}
         <div className="border border-border rounded-lg px-5 py-4 bg-background">
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            Les informations présentées sont fournies à titre indicatif. L'application définitive du dispositif dépendra
-            des textes officiels publiés au Journal Officiel.
+            Le dispositif Jeanbrun est entré en vigueur le 21 février 2026, suite à la publication de la loi de finances
+            2026 au Journal officiel. <br />
+            Il n'est pas conditionné à la publication de décrets d’application pour être applicable, mais la doctrine
+            administrative (BOFiP) apportera des précisions pratiques.
           </p>
         </div>
       </div>
