@@ -193,7 +193,7 @@ export const SimulateurSection = () => {
                 className="text-xs font-medium px-3 py-1 rounded-full"
                 style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)" }}
               >
-                PLF 2026
+                PLF 2026 — Projet de Loi de Finances
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
@@ -202,6 +202,16 @@ export const SimulateurSection = () => {
               DISPOSITIF JEANBRUN
             </h2>
             <p className="text-base sm:text-lg text-white/90">S'informer et comprendre le statut du bailleur privé.</p>
+            <p className="text-sm text-white/75 leading-relaxed">
+              Le dispositif Jeanbrun, successeur du Pinel, permet aux propriétaires bailleurs de déduire un amortissement
+              sur le prix d'acquisition de leur bien en contrepartie d'un engagement locatif à loyer plafonné. Trois
+              niveaux de loyer — intermédiaire, social et très social — offrent des taux d'amortissement croissants,
+              jusqu'à 5,5 % par an.
+            </p>
+            <p className="text-sm text-white/75 leading-relaxed">
+              Estimez en quelques clics l'impact fiscal sur vos revenus fonciers : loyer plafonné, amortissement annuel,
+              économie d'impôt et prélèvements sociaux.
+            </p>
             <ul className="space-y-2 text-sm">
               {["Simulation gratuite", "Résultat immédiat", "Sans engagement"].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
