@@ -42,7 +42,10 @@ export const TimelineSection = () => {
   const lineWidth = lineEnd - lineStart;
   // Position de chaque étape sur la ligne (en % de la ligne totale)
   const stepPositions = steps.map((_, i) => (i / (steps.length - 1)) * lineWidth);
-  const beamEndPercent = stepPositions[lastDoneIndex]; // % depuis le début de la ligne
+  const beamEndPercent =
+    lastDoneIndex < steps.length - 1
+      ? (stepPositions[lastDoneIndex] + stepPositions[lastDoneIndex + 1]) / 2
+      : stepPositions[lastDoneIndex];
 
   return (
     <section id="timeline" className="py-12 md:py-16 bg-secondary">
