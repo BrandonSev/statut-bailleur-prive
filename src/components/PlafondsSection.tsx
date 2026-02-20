@@ -51,7 +51,7 @@ export const PlafondsSection = () => {
                 </tbody>
               </table>
             </div>
-            <div class="mt-2 bg-gray-50 border-t border-gray-200 px-4 py-3 text-xs text-gray-700 leading-relaxed">
+            <div class="mt-2 border-t border-gray-200 text-xs text-gray-700 leading-relaxed">
               <p class="font-medium text-gray-800 mb-1">Fondement juridique des plafonds de loyers</p>
               <p class="mb-1.5">
                 Conformément aux dispositions de la loi de finances 2026 (publiée au JO le 20 février), le dispositif
