@@ -99,7 +99,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                     setForm({ ...form, ville: city + " " + _cp });
                   }}
                   placeholder="Rechercher une ville…"
-                  className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
+                  className={`h-9 text-sm`}
                 />
               </div>
               <div className="flex items-start gap-2 pt-1">
