@@ -16,7 +16,7 @@ const steps = [
   {
     icon: <Check className="w-5 h-5" />,
     title: "Vote",
-    text: "Le dispositif a fait l'objet d'un vote dans le cadre de l'adoption du texte.",
+    text: "Le dispositif a fait l'objet d'un vote dans le cadre de l'adoption du texte dans le PLF 2026",
     done: true,
   },
   {
