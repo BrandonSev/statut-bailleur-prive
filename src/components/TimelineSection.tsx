@@ -51,7 +51,7 @@ export const TimelineSection = () => {
           Avancement législatif du dispositif Jeanbrun
         </h2>
         {/* Desktop horizontal */}
-        <div className="hidden md:grid grid-cols-4 gap-0 relative mb-8">
+        <div className="hidden md:grid grid-cols-5 gap-0 relative mb-8">
           {/* Connecting line */}
           <div className="absolute top-5 left-[12.5%] right-[12.5%] h-px bg-border" />
 
