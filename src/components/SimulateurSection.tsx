@@ -500,11 +500,13 @@ export const SimulateurSection = () => {
                     {/* CTA */}
                     <button
                       onClick={() => setModalOpen(true)}
-                      className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+                      className="w-full h-10 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      Recevoir gratuitement ma simulation personnalisée
-                      <ArrowRight className="w-4 h-4" />
+                      <div className="flex items-center justify-center gap-2">
+                        Recevoir gratuitement ma simulation personnalisée
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
                       <p className="text-[10px] text-white leading-relaxed">
                         Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
                       </p>
