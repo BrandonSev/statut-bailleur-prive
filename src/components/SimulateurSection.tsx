@@ -509,11 +509,13 @@ export const SimulateurSection = () => {
                     >
                       <div className="flex items-center justify-center gap-2 text-xl">
                         <Calculator className="w-4 h-4" />
-                        Recevoir gratuitement ma simulation personnalisée
+                        <div>
+                          Recevoir gratuitement ma simulation personnalisée
+                          <p className="text-[10px] text-muted leading-relaxed">
+                            Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-muted leading-relaxed">
-                        Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
-                      </p>
                     </button>
                   </>
                 )}
