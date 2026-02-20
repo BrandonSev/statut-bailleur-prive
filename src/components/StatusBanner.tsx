@@ -21,9 +21,8 @@ export const StatusBanner = () => {
       >
         <div className="container mx-auto">
           <p className="text-center text-xs font-medium text-muted-foreground">
-            [15:50] Paul Baudinet - Polyvalence Immobilier Statut du bailleur privé – Plan de relance logement 2026 •
-            Publication officielle au JO de l'article 47, le 20/02/2026 • Décrets d'application en attente • Dernière
-            mise à jour : 20 Février 2026
+            Statut du bailleur privé – Plan de relance logement 2026 • Publication officielle au JO de l'article 47, le
+            20/02/2026 • Décrets d'application en attente • Dernière mise à jour : 20 Février 2026
           </p>
         </div>
       </div>
