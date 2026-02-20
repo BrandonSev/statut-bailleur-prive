@@ -1,22 +1,27 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 const comparatif = [
   { critere: "Statut", bailleur: "Actif – PLF 2026", pinel: "Inactif depuis fin 2024" },
-  { critere: "Nature de l'avantage fiscal", bailleur: "Charge déductible du revenu (amortissement)", pinel: "Réduction d'impôt directe" },
+  {
+    critere: "Nature de l'avantage fiscal",
+    bailleur: "Charge déductible du revenu (amortissement)",
+    pinel: "Réduction d'impôt directe",
+  },
   { critere: "Durée d'engagement", bailleur: "9 ans (fixe)", pinel: "6, 9 ou 12 ans (modulable)" },
   { critere: "Plafonds de loyers", bailleur: "Oui, par zone et niveau de loyer", pinel: "Oui, par zone" },
   { critere: "Plafonds de ressources", bailleur: "Oui, selon le niveau de loyer choisi", pinel: "Oui" },
   { critere: "Zonage", bailleur: "Tout le territoire", pinel: "Zones tendues uniquement" },
-  { critere: "Impact sur revenus fonciers", bailleur: "Réduit la base imposable des revenus locatifs", pinel: "Aucun impact sur les revenus fonciers" },
-  { critere: "Logements éligibles", bailleur: "Collectif neuf ou réhabilité (rénovation ≥ 30 %)", pinel: "Neuf en zone éligible uniquement" },
+  {
+    critere: "Impact sur revenus fonciers",
+    bailleur: "Réduit la base imposable des revenus locatifs",
+    pinel: "Aucun impact sur les revenus fonciers",
+  },
+  {
+    critere: "Logements éligibles",
+    bailleur: "Collectif neuf ou réhabilité (rénovation ≥ 30 %)",
+    pinel: "Neuf en zone éligible uniquement",
+  },
 ];
 
 export const ComparatifSection = () => {
@@ -34,7 +39,9 @@ export const ComparatifSection = () => {
           <Table>
             <TableHeader>
               <TableRow className="border-b-2 border-border">
-                <TableHead className="w-[220px] py-3.5 text-foreground/70 font-semibold text-xs uppercase tracking-wide">Critère</TableHead>
+                <TableHead className="w-[220px] py-3.5 text-foreground/70 font-semibold text-xs uppercase tracking-wide">
+                  Critère
+                </TableHead>
                 <TableHead className="py-3.5 text-center font-semibold text-xs uppercase tracking-wide bg-success-light text-primary">
                   <div className="flex items-center justify-center gap-2">
                     Statut du bailleur privé
@@ -44,7 +51,9 @@ export const ComparatifSection = () => {
                 <TableHead className="py-3.5 text-center font-semibold text-xs uppercase tracking-wide text-foreground/40 bg-muted/50">
                   <div className="flex items-center justify-center gap-2">
                     Pinel
-                    <Badge variant="outline" className="text-destructive border-destructive/30 text-[10px]">Inactif</Badge>
+                    <Badge variant="outline" className="text-destructive border-destructive/30 text-[10px]">
+                      Inactif
+                    </Badge>
                   </div>
                 </TableHead>
               </TableRow>
@@ -53,8 +62,12 @@ export const ComparatifSection = () => {
               {comparatif.map((row, i) => (
                 <TableRow key={i} className={i % 2 === 0 ? "bg-card" : "bg-secondary/40"}>
                   <TableCell className="font-medium text-sm text-foreground py-3">{row.critere}</TableCell>
-                  <TableCell className="text-center text-sm font-medium py-3 bg-success-light/50 text-foreground">{row.bailleur}</TableCell>
-                  <TableCell className="text-center text-sm text-muted-foreground/70 py-3 bg-muted/30 line-through decoration-muted-foreground/30">{row.pinel}</TableCell>
+                  <TableCell className="text-center text-sm font-medium py-3 bg-success text-foreground">
+                    {row.bailleur}
+                  </TableCell>
+                  <TableCell className="text-center text-sm text-muted-foreground/70 py-3 bg-muted/30 line-through decoration-muted-foreground/30">
+                    {row.pinel}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -64,8 +77,8 @@ export const ComparatifSection = () => {
         <div className="rounded-2xl border border-primary/15 bg-trust-light p-5 md:p-6 mb-6">
           <h3 className="text-sm font-bold mb-2 text-primary-dark">En résumé</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Le dispositif Pinel a pris fin le 31 décembre 2024.
-            Le statut du bailleur privé (dispositif Jeanbrun) le remplace avec un mécanisme d'amortissement venant réduire la base imposable des revenus locatifs.
+            Le dispositif Pinel a pris fin le 31 décembre 2024. Le statut du bailleur privé (dispositif Jeanbrun) le
+            remplace avec un mécanisme d'amortissement venant réduire la base imposable des revenus locatifs.
           </p>
         </div>
 
