@@ -3,22 +3,59 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CheckCircle, Shield, Clock, Lock } from "lucide-react";
+import { CityAutocomplete } from "./CityAutocomplete";
 
 export const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [form, setForm] = useState({ prenom: "", email: "", telephone: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    civilite: "",
+    nom: "",
+    prenom: "",
+    email: "",
+    telephone: "",
+    ville: "",
+    code_postal: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) return;
-    setSubmitted(true);
+
+    setIsLoading(true);
+    setApiError(null);
+
+    try {
+      const response = await fetch("https://www.polyvalence-immobilier.fr/api/jeanbrun/documentation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer 9mryHcd5j8vLBfMo4H3Ab9kPLX6l85Eu2dkXviesymGY9wMLURpOWvv3PLTMlG3T",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error ?? `Erreur ${response.status}`);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : "Une erreur est survenue.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleReset = () => {
     setSubmitted(false);
     setConsent(false);
-    setForm({ prenom: "", email: "", telephone: "" });
+    setApiError(null);
+    setForm({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "", code_postal: "" });
   };
 
   return (
@@ -69,6 +106,7 @@ export const ContactSection = () => {
                   ))}
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label className="text-foreground">Nom</Label>
@@ -91,6 +129,7 @@ export const ContactSection = () => {
                   />
                 </div>
               </div>
+
               <div className="space-y-1.5">
                 <Label className="text-foreground">Email</Label>
                 <Input
@@ -102,6 +141,7 @@ export const ContactSection = () => {
                   placeholder="votre@email.com"
                 />
               </div>
+
               <div className="space-y-1.5">
                 <Label className="text-foreground">Téléphone</Label>
                 <Input
@@ -113,17 +153,17 @@ export const ContactSection = () => {
                   placeholder="06 12 34 56 78"
                 />
               </div>
+
               <div className="space-y-1.5">
                 <Label className="text-foreground">Ville du projet</Label>
                 <CityAutocomplete
                   value={form.ville}
-                  onChange={(city, _cp, insee) => {
-                    setForm({ ...form, ville: city + " " + _cp });
-                  }}
+                  onChange={(city, cp) => setForm({ ...form, ville: city, code_postal: cp })}
                   placeholder="Rechercher une ville…"
-                  className={`h-9 text-sm`}
+                  className="h-9 text-sm"
                 />
               </div>
+
               <div className="flex items-start gap-2 pt-1">
                 <Checkbox
                   id="consent"
@@ -135,7 +175,9 @@ export const ContactSection = () => {
                   J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
                 </label>
               </div>
+
               {apiError && <p className="text-xs text-destructive text-center">{apiError}</p>}
+
               <button
                 type="submit"
                 disabled={!consent || isLoading}
