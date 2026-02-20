@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CheckCircle } from "lucide-react";
-import { CityAutocomplete } from "./CityAutocomplete";
+
 interface ContactModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -91,12 +91,13 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-foreground">Ville du projet</Label>
-                <Input
-                  value={form.ville}
-                  onChange={(e) => setForm({ ...form, ville: e.target.value })}
-                  className="border-border focus-visible:ring-ring"
-                  placeholder="Ex : Lyon, Paris, Bordeaux…"
+                <CityAutocomplete
+                  value={ville}
+                  onChange={(city, _cp, insee) => {
+                    setForm({ ...form, ville: city + " " + _cp });
+                  }}
+                  placeholder="Rechercher une ville…"
+                  className={`h-9 text-sm ${villeError ? "border-red-400 ring-1 ring-red-300" : "border-gray-200 focus:border-blue-500 focus:ring-blue-500"}`}
                 />
               </div>
               <div className="flex items-start gap-2 pt-1">
