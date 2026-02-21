@@ -77,10 +77,11 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
           <>
             <DialogHeader>
               <DialogTitle className="text-lg font-bold text-primary-dark">
-                Recevoir une étude personnalisée
+                Recevez votre analyse fiscale personnalisée
               </DialogTitle>
               <DialogDescription className="text-sm text-muted-foreground">
-                Renseignez vos coordonnées, un conseiller vous contactera rapidement.
+                Complétez vos coordonnées pour recevoir une analyse personnalisée intégrant votre fiscalité, votre
+                situation et les projections détaillées.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
@@ -148,7 +149,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-foreground">Ville du projet</Label>
+                <Label className="text-foreground">Votre ville</Label>
                 <CityAutocomplete
                   value={form.ville}
                   onChange={(city, _cp, insee) => {
@@ -166,17 +167,24 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                   className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
                 <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
-                  J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
+                  J’accepte d’être recontacté(e) pour une étude personnalisée de mon projet.
                 </label>
               </div>
+              <ul>
+                <li>✔ Simulation complète</li>
+                <li>✔ Projection 9 ans</li>
+                <li>✔ Impact fiscal détaillé</li>
+                <li>✔ Adaptée à votre TMI</li>
+              </ul>
               {apiError && <p className="text-xs text-destructive text-center">{apiError}</p>}
               <button
                 type="submit"
                 disabled={!consent || isLoading}
                 className="w-full py-3 rounded-xl text-primary-foreground font-semibold text-sm transition-opacity disabled:opacity-40 bg-primary hover:bg-primary/85"
               >
-                {isLoading ? "Envoi en cours…" : "Envoyer ma demande"}
+                {isLoading ? "Envoi en cours…" : "Obtenir mon étude personnalisée"}
               </button>
+              Sans engagement – réponse sous 24h
             </form>
           </>
         )}
