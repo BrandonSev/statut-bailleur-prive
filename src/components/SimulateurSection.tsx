@@ -52,9 +52,12 @@ const TAUX_PS = 0.172;
 
 const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
-  const coefficient = Math.min(0.7 + 19 / surface, 1.2);
+  // Arrondi à 2 décimales conformément à la méthode officielle BOFiP
+  const coefficient = Math.round(Math.min(0.7 + 19 / surface, 1.2) * 100) / 100;
   const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer];
-  return Math.round(surface * coefficient * plafondM2);
+  // Loyer mensuel arrondi à 2 décimales, puis converti en entier
+  const loyerMensuel = Math.round(surface * coefficient * plafondM2 * 100) / 100;
+  return Math.floor(loyerMensuel); // plancher centimes → affichage entier
 };
 
 interface Resultats {
@@ -179,7 +182,7 @@ export const SimulateurSection = () => {
       className="w-full"
       style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}
     >
-      <div className="container mx-auto px-4 sm:px-6 pt-[calc(136px+4rem)] sm:pt-[calc(104px+4rem)] pb-16 lg:pt-[calc(90px+4rem)]">
+      <div className="container mx-auto px-4 sm:px-6 py-12 md:py-16 lg:pt-32">
         <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
           {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
@@ -368,8 +371,7 @@ export const SimulateurSection = () => {
                         <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
-                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an
-                          <br />
+                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an{" "}
                           {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
                         </span>
                       </button>
@@ -394,7 +396,7 @@ export const SimulateurSection = () => {
                   <>
                     <div className="border-t border-gray-100 pt-3 space-y-2">
                       {/* Ligne 1 — Loyer annuel + Amortissement : FIX stack sur mobile */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-center">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div className="flex items-center justify-between sm:justify-center sm:flex-col sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
@@ -412,7 +414,7 @@ export const SimulateurSection = () => {
                       </div>
 
                       {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun : FIX stack sur mobile */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-center">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div className="flex items-center justify-between sm:flex-col sm:items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
                           <div>
                             <p className="text-gray-500 flex items-center gap-1">
