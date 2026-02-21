@@ -184,7 +184,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               >
                 {isLoading ? "Envoi en cours…" : "Obtenir mon étude personnalisée"}
               </button>
-              Sans engagement – réponse sous 24h
+              <p className="text-xs text-gray-600 leading-relaxed">Sans engagement – réponse sous 24h</p>
             </form>
           </>
         )}
