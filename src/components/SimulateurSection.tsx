@@ -401,13 +401,11 @@ export const SimulateurSection = () => {
                     <div className="border-t border-gray-100 pt-3 space-y-2">
                       {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                        <div className="flex items-center justify-between sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
-                          <p className="text-blue-500">Loyer annuel brut</p>
-                          <p className="font-bold text-blue-800 text-sm">
-                            {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
-                          </p>
-                          <div className="flex-grow shrink" />
-                          <p>Loyer plafonné selon la zone {codeInsee ? zone : "N/A"}</p>
+                        <div className="flex items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 text-sm w-full">
+                          <span className="text-blue-600">Loyer annuel brut :</span>
+                          <span className="font-bold text-blue-900 ml-2">{fmt(r.loyerAnnuel)} €/an</span>
+                          <div className="flex-grow" /> {/* ← c'est ça qui force toute la largeur */}
+                          <span className="text-blue-700 ml-4">Loyer plafonné zone {codeInsee ? zone : "N/A"}</span>
                         </div>
                         <div className="flex items-center justify-between sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500">
