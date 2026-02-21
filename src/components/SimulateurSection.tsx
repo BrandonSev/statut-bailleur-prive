@@ -470,7 +470,7 @@ export const SimulateurSection = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                               </svg>
                             </div>
-                            <p className="text-[14px] font-semibold text-green-700 uppercase tracking-wide">
+                            <p className="text-[14px] font-semibold text-green-700 uppercase tracking-wide font-italic">
                               Économie fiscale estimée
                             </p>
                           </div>
