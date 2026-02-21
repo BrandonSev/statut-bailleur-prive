@@ -407,7 +407,7 @@ export const SimulateurSection = () => {
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                           <div className="flex-grow shrink" />
-                          <p className="text-blue-300">Loyer plafonné selon la zone {codeInsee ? zone : "N/A"}</p>
+                          <p className="text-blue-500">Loyer plafonné selon la zone {codeInsee ? zone : "N/A"}</p>
                         </div>
                         <div className="flex items-center justify-between sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500">
@@ -416,6 +416,7 @@ export const SimulateurSection = () => {
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
+                          <p className="text-blue-500">Montant venant réduire votre revenu foncier imposable</p>
                         </div>
                       </div>
 
