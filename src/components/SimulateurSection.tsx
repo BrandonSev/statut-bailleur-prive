@@ -406,6 +406,7 @@ export const SimulateurSection = () => {
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
+                          <div class="shrink-1"></div>
                           <p>Loyer plafonné selon la zone {codeInsee ? zone : "N/A"}</p>
                         </div>
                         <div className="flex items-center justify-between sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
