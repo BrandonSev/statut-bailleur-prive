@@ -490,7 +490,7 @@ export const SimulateurSection = () => {
                       </div>
                     </div>
 
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-lg text-gray-600 leading-relaxed text-center font-bold">
                       Souhaitez-vous affiner cette estimation selon votre situation réelle ?
                     </p>
 
