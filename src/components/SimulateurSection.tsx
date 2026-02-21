@@ -484,7 +484,7 @@ export const SimulateurSection = () => {
                           </p>
                           <p className="text-[10px] text-green-400 leading-relaxed">
                             Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
-                            vigueur. Ne tenant pas compte d’une éventuelle optimisation complémentaire.
+                            vigueur. <br /> Ne tenant pas compte d’une éventuelle optimisation complémentaire.
                           </p>
                         </div>
                       </div>
