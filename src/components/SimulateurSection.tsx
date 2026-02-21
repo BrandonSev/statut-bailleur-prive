@@ -482,7 +482,7 @@ export const SimulateurSection = () => {
                             <span className="font-semibold text-green-700">{fmt(r.economieSur9ans)} € </span>
                             <span>sur la période minimale de 9 ans</span>
                           </p>
-                          <p className="text-[10px] text-green-400 leading-1 mt-2">
+                          <p className="text-[10px] text-green-600 leading-1 mt-2">
                             Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
                             vigueur. <br /> Ne tenant pas compte d’une éventuelle optimisation complémentaire.
                           </p>
