@@ -52,12 +52,15 @@ const TAUX_PS = 0.172;
 
 const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
-  // Arrondi à 2 décimales conformément à la méthode officielle BOFiP
+  // Étape 1 : coefficient arrondi à 2 décimales (méthode BOFiP)
   const coefficient = Math.round(Math.min(0.7 + 19 / surface, 1.2) * 100) / 100;
   const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer];
-  // Loyer mensuel arrondi à 2 décimales, puis converti en entier
-  const loyerMensuel = Math.round(surface * coefficient * plafondM2 * 100) / 100;
-  return Math.floor(loyerMensuel); // plancher centimes → affichage entier
+  // Étape 2 : (plafond × coefficient) arrondi à 2 décimales AVANT multiplication par la surface
+  // ex: 11.68 × 1.12 = 13.0816 → 13.08
+  const plafondAjuste = Math.round(plafondM2 * coefficient * 100) / 100;
+  // Étape 3 : loyer mensuel avec centimes, sans arrondi ici
+  // ex: 13.08 × 45 = 588.60
+  return plafondAjuste * surface;
 };
 
 interface Resultats {
@@ -80,8 +83,10 @@ interface Resultats {
 }
 
 const calculer = (prixAchat: number, surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer, tmi: TMI): Resultats => {
-  const loyerMensuel = calculLoyerMensuel(surface, zone, niveauLoyer);
-  const loyerAnnuel = loyerMensuel * 12;
+  const loyerMensuelBrut = calculLoyerMensuel(surface, zone, niveauLoyer);
+  // Arrondi sur l'annuel : 588.60 × 12 = 7063.20 → Math.round → 7063 ✅
+  const loyerAnnuel = Math.round(loyerMensuelBrut * 12);
+  const loyerMensuel = Math.round(loyerMensuelBrut); // pour affichage uniquement
   const chargesAnnuelles = Math.round(loyerAnnuel * 0.2);
 
   const baseAmortissable = prixAchat * 0.8;
@@ -186,7 +191,6 @@ export const SimulateurSection = () => {
         <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
           {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
-            {/* FIX: badge avec flex-wrap pour ne pas tronquer sur mobile */}
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50/85 text-emerald-700 ring-1 ring-inset ring-emerald-600/20 flex-wrap">
               <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -244,7 +248,7 @@ export const SimulateurSection = () => {
           <TooltipProvider delayDuration={200}>
             <div className="rounded-xl shadow-xl overflow-hidden bg-white">
               <div className="p-4 sm:p-5 space-y-3">
-                {/* 1 — Prix + Ville : FIX stack sur mobile */}
+                {/* 1 — Prix + Ville */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="prix" className="text-xs font-medium text-gray-700 font-bold">
@@ -288,7 +292,7 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* 2 — Surface + TMI : FIX stack sur mobile */}
+                {/* 2 — Surface + TMI */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
@@ -330,7 +334,6 @@ export const SimulateurSection = () => {
                         </TooltipContent>
                       </Tooltip>
                     </div>
-                    {/* FIX: boutons TMI qui débordaient — flex-wrap + taille fixe */}
                     <div className="flex flex-wrap gap-1.5">
                       {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
                         <button
@@ -350,12 +353,11 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* 3 — Niveau de loyer : FIX stack sur mobile */}
+                {/* 3 — Niveau de loyer */}
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-gray-700 font-bold">
                     Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
-                  {/* FIX: grid-cols-1 sur mobile, 3 cols sur sm+ */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
@@ -397,7 +399,7 @@ export const SimulateurSection = () => {
                 {showResults && (
                   <>
                     <div className="border-t border-gray-100 pt-3 space-y-2">
-                      {/* Ligne 1 — Loyer annuel + Amortissement : FIX stack sur mobile */}
+                      {/* Ligne 1 — Loyer annuel + Amortissement */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div className="flex items-center justify-between sm:justify-center sm:flex-col sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500">Loyer annuel brut</p>
@@ -415,7 +417,7 @@ export const SimulateurSection = () => {
                         </div>
                       </div>
 
-                      {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun : FIX stack sur mobile */}
+                      {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div className="flex items-center justify-between sm:flex-col sm:items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
                           <div>
