@@ -196,7 +196,7 @@ export const SimulateurSection = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
               </span>
-              PLF 2026 — Projet de Loi de Finances
+              PLF2026 : Dispositif en vigueur
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
               Simulateur du
