@@ -465,18 +465,23 @@ export const SimulateurSection = () => {
                               </svg>
                             </div>
                             <p className="text-[10px] font-semibold text-green-700 uppercase tracking-wide">
-                              Économie d'impôt estimée
+                              Économie fiscale estimée
                             </p>
                           </div>
                           <p className="text-3xl font-extrabold text-green-600 leading-none mb-0.5">
-                            {fmt(r.economieAnnuelle)} €
+                            {fmt(r.economieAnnuelle)} € par an
                           </p>
-                          <p className="text-xs text-green-600 font-medium mb-1">par an (IR + PS)</p>
+                          {/* <p className="text-xs text-green-600 font-medium mb-1">par an (IR + PS)</p> */}
                           <p className="text-sm font-normal text-green-600">
                             <span>soit </span>
                             <span className="font-semibold text-green-700">{fmt(r.economieSur9ans)} € </span>
-                            <span>sur 9 ans</span>
+                            <span>sur la période minimale de 9 ans</span>
                           </p>
+                          <p className="text-xs text-gray-600 leading-relaxed">
+                            Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
+                            vigueur. Ne tenant pas compte d’une éventuelle optimisation complémentaire.{" "}
+                          </p>
+
                           {/* 
                           {hasDeficit && (
                             <p className="text-[10px] text-green-600 mt-1 opacity-80">
