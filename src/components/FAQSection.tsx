@@ -1,14 +1,9 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const faqs = [
   {
     q: "Le dispositif Jeanbrun est-il officiellement en vigueur ?",
-    a: "Le dispositif est intégré à la loi de finances 2026. Certaines modalités restent susceptibles d'être précisées par les décrets d'application.",
+    a: "Le dispositif Jeanbrun est entré en vigueur le 21 février 2026, suite à la publication de la loi de finances 2026 au Journal officiel. Il n'est pas conditionné à la publication de décrets d’application pour être applicable, mais la doctrine administrative (BOFiP) apportera des précisions pratiques. Vous pouvez d'ores et déjà investir en Jeanbrun et profitez du dispositif.",
   },
   {
     q: "Quelle est la durée d'engagement ?",
@@ -36,9 +31,7 @@ export const FAQSection = () => {
   return (
     <section id="faq" className="w-full bg-background py-16 md:py-20">
       <div className="max-w-[900px] mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">
-          Questions fréquentes
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-primary-dark">Questions fréquentes</h2>
         <p className="text-center text-muted-foreground text-sm md:text-base mb-10">
           Les réponses essentielles avant d'investir.
         </p>
@@ -61,7 +54,11 @@ export const FAQSection = () => {
         </Accordion>
 
         <p className="text-xs text-muted-foreground text-center mt-8">
-          Une question spécifique ? <a href="#contact" className="text-primary underline underline-offset-2">Contactez-nous</a> pour une étude personnalisée.
+          Une question spécifique ?{" "}
+          <a href="#contact" className="text-primary underline underline-offset-2">
+            Contactez-nous
+          </a>{" "}
+          pour une étude personnalisée.
         </p>
       </div>
     </section>
