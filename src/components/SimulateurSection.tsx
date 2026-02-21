@@ -436,7 +436,7 @@ export const SimulateurSection = () => {
                           <div>
                             <p className="text-blue-700 flex items-center gap-1 font-medium">
                               <span className="w-2 h-2 rounded-full bg-blue-500 inline-block flex-shrink-0" />
-                              Avec Jeanbrun
+                              Avec amortissement Jeanbrun
                             </p>
                             <p className="text-blue-500 text-[10px]">Impôt annuel</p>
                           </div>
