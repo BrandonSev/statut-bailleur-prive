@@ -403,7 +403,7 @@ export const SimulateurSection = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <div className="flex items-center justify-between sm:gap-x-1">
-                            <p className="text-blue-500">Loyer annuel brut</p>
+                            <p className="text-blue-500 font-bold">Loyer annuel brut</p>
                             <p className="font-bold text-blue-800 text-sm">
                               {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                             </p>
@@ -412,8 +412,9 @@ export const SimulateurSection = () => {
                         </div>
                         <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <div className="flex items-center justify-between sm:gap-x-1">
-                            <p className="text-blue-500">
-                              Amortissement ({(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}%/an)
+                            <p className="text-blue-500 ">
+                              <span className="font-bold">Amortissement</span> (
+                              {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}%/an)
                             </p>
                             <p className="font-bold text-blue-800 text-sm">
                               {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
