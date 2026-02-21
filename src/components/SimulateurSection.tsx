@@ -26,7 +26,6 @@ const PLAFONDS_AMORTISSEMENT: Record<NiveauLoyer, number> = {
   tres_social: 12_000,
 };
 
-// Barèmes Pinel 2026 (BOFiP) — référence Jeanbrun pour le loyer intermédiaire
 const PLAFONDS_LOYER_M2: Record<ZoneABC, Record<NiveauLoyer, number>> = {
   "A bis": { intermediaire: 19.51, social: 13.64, tres_social: 10.63 },
   A: { intermediaire: 14.49, social: 10.49, tres_social: 8.18 },
@@ -35,11 +34,10 @@ const PLAFONDS_LOYER_M2: Record<ZoneABC, Record<NiveauLoyer, number>> = {
   C: { intermediaire: 10.15, social: 8.05, tres_social: 6.25 },
 };
 
-// Décotes loyer social / très social (en attente décrets ANAH/Loc'Avantages)
 const DECOTE_NIVEAU: Record<NiveauLoyer, number> = {
   intermediaire: 1.0,
-  social: 0.85, // –15%
-  tres_social: 0.7, // –30%
+  social: 0.85,
+  tres_social: 0.7,
 };
 
 const LABELS_LOYER: Record<NiveauLoyer, string> = {
@@ -55,7 +53,7 @@ const TAUX_PS = 0.172;
 const calculLoyerMensuel = (surface: number, zone: ZoneABC, niveauLoyer: NiveauLoyer): number => {
   if (!surface || surface <= 0) return 0;
   const coefficient = Math.min(0.7 + 19 / surface, 1.2);
-  const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer]; // ← lecture directe zone + niveau
+  const plafondM2 = PLAFONDS_LOYER_M2[zone][niveauLoyer];
   return Math.round(surface * coefficient * plafondM2);
 };
 
@@ -106,7 +104,6 @@ const calculer = (prixAchat: number, surface: number, zone: ZoneABC, niveauLoyer
     impotIRAvec = Math.round(revenuNetAvec * tauxIR);
     impotPSAvec = Math.round(revenuNetAvec * TAUX_PS);
   } else {
-    // Déficit → économie IR uniquement (PS non imputables sur revenu global)
     impotIRAvec = -Math.round(deficitImputable * tauxIR);
     impotPSAvec = 0;
   }
@@ -146,8 +143,6 @@ export const SimulateurSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [ville, setVille] = useState("");
-
-  // CityAutocomplete doit passer le code INSEE (5 chiffres) en 3e argument du onChange
   const [codeInsee, setCodeInsee] = useState<string | undefined>();
 
   const zone: ZoneABC = codeInsee ? getZoneByInsee(codeInsee) : "C";
@@ -184,12 +179,13 @@ export const SimulateurSection = () => {
       className="w-full"
       style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}
     >
-      <div className="container mx-auto px-4 sm:px-6 py-32 md:py-16 lg:pt-32">
+      <div className="container mx-auto px-4 sm:px-6 py-12 md:py-16 lg:pt-32">
         <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
           {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50/85 text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-              <span className="relative flex h-2 w-2">
+            {/* FIX: badge avec flex-wrap pour ne pas tronquer sur mobile */}
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50/85 text-emerald-700 ring-1 ring-inset ring-emerald-600/20 flex-wrap">
+              <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
               </span>
@@ -204,23 +200,24 @@ export const SimulateurSection = () => {
               Le Statut du Bailleur Privé : Un nouveau levier fiscal pour les investisseurs immobiliers.
             </p>
             <p className="text-sm text-white/75 leading-relaxed">
-              La loi de finances 2026 introduit un mécanisme d’amortissement en location nue permettant de réduire
+              La loi de finances 2026 introduit un mécanisme d'amortissement en location nue permettant de réduire
               durablement la pression fiscale sur les revenus locatifs.
             </p>
             <ul className="space-y-2 text-sm">
               {[
-                "Amortissement jusqu’à 80 % du prix (hors foncier)",
-                "Taux annuel de 3,5 % à 5,5",
+                "Amortissement jusqu'à 80 % du prix (hors foncier)",
+                "Taux annuel de 3,5 % à 5,5 %",
                 "Engagement minimal de 9 ans",
                 "Absence de réintégration dans la plus-value",
               ].map((text, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  •<span>{text}</span>
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-0.5">•</span>
+                  <span>{text}</span>
                 </li>
               ))}
             </ul>
             <p className="text-sm text-white/75 leading-relaxed">
-              Mesurez immédiatement l’impact sur votre situation fiscale.
+              Mesurez immédiatement l'impact sur votre situation fiscale.
             </p>
             <ul className="space-y-2 text-sm">
               {["Simulation gratuite", "Analyse simplifiée", "Sans engagement"].map((text, i) => (
@@ -243,9 +240,9 @@ export const SimulateurSection = () => {
           {/* ── COLONNE DROITE — Formulaire ── */}
           <TooltipProvider delayDuration={200}>
             <div className="rounded-xl shadow-xl overflow-hidden bg-white">
-              <div className="p-5 space-y-3">
-                {/* 1 — Prix + Ville */}
-                <div className="grid grid-cols-2 gap-3">
+              <div className="p-4 sm:p-5 space-y-3">
+                {/* 1 — Prix + Ville : FIX stack sur mobile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="prix" className="text-xs font-medium text-gray-700 font-bold">
                       Prix d'achat envisagé
@@ -267,11 +264,6 @@ export const SimulateurSection = () => {
                     <Label className="text-xs font-medium text-gray-700 font-bold">
                       Ville d'investissement souhaitée
                     </Label>
-                    {/*
-                      ⚠️  CityAutocomplete doit appeler :
-                          onChange(nomVille: string, codePostal: string, codeInsee: string)
-                      Le code INSEE à 5 chiffres est requis pour le zonage officiel ABC.
-                    */}
                     <CityAutocomplete
                       value={ville}
                       onChange={(city, _cp, insee) => {
@@ -293,8 +285,8 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* 2 — Surface + TMI */}
-                <div className="grid grid-cols-2 gap-3">
+                {/* 2 — Surface + TMI : FIX stack sur mobile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
                       <Label htmlFor="surface" className="text-xs font-medium text-gray-700 font-bold">
@@ -335,13 +327,14 @@ export const SimulateurSection = () => {
                         </TooltipContent>
                       </Tooltip>
                     </div>
+                    {/* FIX: boutons TMI qui débordaient — flex-wrap + taille fixe */}
                     <div className="flex flex-wrap gap-1.5">
                       {([0, 11, 30, 41, 45] as TMI[]).map((rate) => (
                         <button
                           key={rate}
                           type="button"
                           onClick={() => setTmi(rate)}
-                          className={`px-2.5 py-1 rounded-md text-xs font-medium border transition-all ${
+                          className={`min-w-[44px] px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all ${
                             tmi === rate
                               ? "bg-primary text-white shadow-sm"
                               : "bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
@@ -354,12 +347,13 @@ export const SimulateurSection = () => {
                   </div>
                 </div>
 
-                {/* 3 — Niveau de loyer */}
+                {/* 3 — Niveau de loyer : FIX stack sur mobile */}
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-gray-700 font-bold">
                     Choix du plafond de loyer et de l'avantage d'amortissement annuel
                   </Label>
-                  <div className="flex gap-1.5">
+                  {/* FIX: grid-cols-1 sur mobile, 3 cols sur sm+ */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
                     {(["intermediaire", "social", "tres_social"] as NiveauLoyer[]).map((n) => (
                       <button
                         key={n}
@@ -374,23 +368,13 @@ export const SimulateurSection = () => {
                         <span className="font-semibold">{LABELS_LOYER[n]}</span>
                         <br />
                         <span className={`text-[10px] ${niveauLoyer === n ? "text-blue-100" : "text-gray-400"}`}>
-                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an <br />
+                          Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an{" "}
                           {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
                         </span>
                       </button>
                     ))}
                   </div>
                 </div>
-
-                {/* Loyer estimé — visible dès surface + ville renseignés 
-                {r.loyerMensuel > 0 && codeInsee && (
-                  <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
-                    <span className="text-xs text-blue-700">Loyer plafonné estimé</span>
-                    <span className="text-sm font-bold text-blue-800">
-                      {fmt(r.loyerMensuel)} €<span className="font-normal text-blue-600">/mois</span>
-                    </span>
-                  </div>
-                )}*/}
 
                 {/* Bouton Simuler */}
                 {!showResults && (
@@ -408,43 +392,51 @@ export const SimulateurSection = () => {
                 {showResults && (
                   <>
                     <div className="border-t border-gray-100 pt-3 space-y-2">
-                      {/* Ligne 1 — Loyer annuel + Amortissement */}
-                      <div className="grid grid-cols-2 gap-2 text-xs place-items-center">
-                        <div className="flex items-center justify-center gap-4 flex-wrap bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
+                      {/* Ligne 1 — Loyer annuel + Amortissement : FIX stack sur mobile */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div className="flex items-center justify-between sm:justify-center sm:flex-col sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                           <p className="text-blue-500">Loyer annuel brut</p>
                           <p className="font-bold text-blue-800 text-sm">
                             {fmt(r.loyerAnnuel)} €<span className="font-normal text-blue-500">/an</span>
                           </p>
                         </div>
-                        <div className="flex items-center justify-center gap-4 flex-wrap bg-blue-50 rounded-lg px-3 py-2 border border-blue-100 w-full">
-                          <div className="flex items-center justify-center gap-4 flex-wrap text-blue-500">
-                            Amortissement annuel ({(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% / an)
-                            <p className="font-bold text-blue-800 text-sm">
-                              {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
-                            </p>
-                          </div>
+                        <div className="flex items-center justify-between sm:justify-center sm:flex-col sm:gap-1 bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                          <p className="text-blue-500">
+                            Amortissement ({(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}%/an)
+                          </p>
+                          <p className="font-bold text-blue-800 text-sm">
+                            {fmt(r.amortissementAnnuel)} €<span className="font-normal text-blue-500">/an</span>
+                          </p>
                         </div>
                       </div>
 
-                      {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
-                      <div className="grid grid-cols-2 gap-2 text-xs place-items-center">
-                        <div className="flex flex-col items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100 w-full">
-                          <p className="text-gray-500 mb-1 flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-gray-300 inline-block" />
-                            Investissement locatif classique
-                          </p>
-                          <p className="text-gray-400 text-[10px] mb-0.5">Impôt annuel</p>
-                          <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
-                          <p className="text-[10px] text-gray-400">d'impôts sur revenus fonciers</p>
+                      {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun : FIX stack sur mobile */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div className="flex items-center justify-between sm:flex-col sm:items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                          <div>
+                            <p className="text-gray-500 flex items-center gap-1">
+                              <span className="w-2 h-2 rounded-full bg-gray-300 inline-block flex-shrink-0" />
+                              Investissement classique
+                            </p>
+                            <p className="text-gray-400 text-[10px]">Impôt annuel</p>
+                          </div>
+                          <div className="text-right sm:text-center">
+                            <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
+                            <p className="text-[10px] text-gray-400">sur revenus fonciers</p>
+                          </div>
                         </div>
-                        <div className="flex flex-col items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-200 w-full">
-                          <p className="text-blue-700 mb-1 flex items-center gap-1 font-medium">
-                            <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-                            Avec amortissement Jeanbrun
-                          </p>
-                          <p className="text-blue-500 text-[10px] mb-0.5">Impôt annuel</p>
-                          <p className="font-bold text-blue-700 text-base">{fmt(Math.max(r.impotTotalAvec, 0))} €</p>
-                          <p className="text-[10px] text-blue-500">d'impôts sur revenus fonciers</p>
+                        <div className="flex items-center justify-between sm:flex-col sm:items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-200">
+                          <div>
+                            <p className="text-blue-700 flex items-center gap-1 font-medium">
+                              <span className="w-2 h-2 rounded-full bg-blue-500 inline-block flex-shrink-0" />
+                              Avec Jeanbrun
+                            </p>
+                            <p className="text-blue-500 text-[10px]">Impôt annuel</p>
+                          </div>
+                          <div className="text-right sm:text-center">
+                            <p className="font-bold text-blue-700 text-base">{fmt(Math.max(r.impotTotalAvec, 0))} €</p>
+                            <p className="text-[10px] text-blue-500">sur revenus fonciers</p>
+                          </div>
                         </div>
                       </div>
 
@@ -453,7 +445,7 @@ export const SimulateurSection = () => {
                         <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full blur-3xl opacity-20" />
                         <div className="relative z-10 text-center">
                           <div className="flex items-center justify-center gap-1.5 mb-1">
-                            <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
                               <svg
                                 className="w-2.5 h-2.5 text-white"
                                 fill="none"
@@ -471,32 +463,15 @@ export const SimulateurSection = () => {
                           <p className="text-3xl font-extrabold text-green-600 leading-none mb-0.5">
                             {fmt(r.economieAnnuelle)} €/an
                           </p>
-                          {/* <p className="text-xs text-green-600 font-medium mb-1">par an (IR + PS)</p> */}
                           <p className="text-sm font-normal text-green-600">
                             <span>soit </span>
                             <span className="font-semibold text-green-700">{fmt(r.economieSur9ans)} € </span>
                             <span>sur la période minimale de 9 ans</span>
                           </p>
-                          {/* <p className="text-xs text-gray-600 leading-relaxed">
-                            Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
-                            vigueur. Ne tenant pas compte d’une éventuelle optimisation complémentaire.{" "}
-                          </p> */}
-                          {/* 
-                          {hasDeficit && (
-                            <p className="text-[10px] text-green-600 mt-1 opacity-80">
-                              Dont déficit foncier imputable : {fmt(r.deficitImputable)} €/an
-                            </p>
-                          )}
-                          <p className="text-[10px] text-green-500 mt-1">
-                            Détail : Amortissement {fmt(r.amortissementAnnuel)} € (
-                            {(TAUX_AMORTISSEMENT[niveauLoyer] * 100).toFixed(1)}% sur{" "}
-                            {(parseFloat(prixAchat) * 0.8).toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €,
-                            plafonné à {PLAFONDS_AMORTISSEMENT[niveauLoyer].toLocaleString("fr-FR")} €)
-                          </p>
-                          */}
                         </div>
                       </div>
                     </div>
+
                     <p className="text-[10px] text-gray-400 leading-relaxed">
                       Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux en vigueur dans
                       l'article 47 du PLF 2026 publié au Journal Officiel.
@@ -508,11 +483,11 @@ export const SimulateurSection = () => {
                       className="w-full p-4 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      <div className="flex items-center justify-center gap-2 flex-wrap text-xl">
-                        <Calculator className="w-[50px] h-[40px] hidden md:block" />
+                      <div className="flex items-center justify-center gap-2 flex-wrap text-base sm:text-xl">
+                        <Calculator className="w-8 h-8 hidden sm:block" />
                         <div>
                           Recevoir gratuitement ma simulation personnalisée
-                          <p className="text-[10px] text-muted leading-relaxed">
+                          <p className="text-[10px] text-white/80 leading-relaxed font-normal mt-0.5">
                             Analyse détaillée incluant : cash-flow, fiscalité, projection long terme.
                           </p>
                         </div>
@@ -532,7 +507,7 @@ export const SimulateurSection = () => {
           <div className="container mx-auto px-4 sm:px-6 py-10 md:py-12">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-8">Votre étude personnalisée inclut</h3>
-              <div className="grid sm:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
                 {[
                   {
                     icon: "💰",
