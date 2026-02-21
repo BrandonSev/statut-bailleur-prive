@@ -374,7 +374,7 @@ export const SimulateurSection = () => {
                           Amortissement : {(TAUX_AMORTISSEMENT[n] * 100).toFixed(1)}%/an
                         </span>
                         <br /><br/>
-                        {PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max
+                        <p>{PLAFONDS_AMORTISSEMENT[n].toLocaleString("fr-FR")} €/an max</p>
                         </span>
                       </button>
                     ))}
