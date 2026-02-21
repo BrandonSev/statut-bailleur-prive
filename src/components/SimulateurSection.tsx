@@ -509,7 +509,7 @@ export const SimulateurSection = () => {
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
                       <div className="flex items-center justify-center gap-2 flex-wrap text-xl">
-                        <Calculator className="w-[50px] h-[40px]" />
+                        <Calculator className="w-[50px] h-[40px] hidden md:block" />
                         <div>
                           Recevoir gratuitement ma simulation personnalisée
                           <p className="text-[10px] text-muted leading-relaxed">
