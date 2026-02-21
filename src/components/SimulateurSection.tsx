@@ -483,8 +483,17 @@ export const SimulateurSection = () => {
                             <span>sur la période minimale de 9 ans</span>
                           </p>
                           <p className="text-[10px] text-green-600 leading-1 mt-2 italic">
-                            Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
-                            vigueur. <br /> Ne tenant pas compte d’une éventuelle optimisation complémentaire.
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="underline decoration-dotted cursor-help">
+                                  Estimation réalisée à partir des données que vous avez saisies et des textes du PLF
+                                  2026 en vigueur.
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="top" className="max-w-[240px] text-xs">
+                                Ne tenant pas compte d'une éventuelle optimisation complémentaire.
+                              </TooltipContent>
+                            </Tooltip>
                           </p>
                         </div>
                       </div>
