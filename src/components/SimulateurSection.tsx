@@ -508,7 +508,7 @@ export const SimulateurSection = () => {
                       className="w-full py-4 rounded-lg font-semibold text-white text-sm shadow-md transition-all hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
-                      <div className="flex items-center justify-center gap-2 text-xl">
+                      <div className="flex items-center justify-center gap-2 flex-wrap text-xl">
                         <Calculator className="w-[50px] h-[40px]" />
                         <div>
                           Recevoir gratuitement ma simulation personnalisée
