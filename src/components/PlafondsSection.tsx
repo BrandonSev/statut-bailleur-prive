@@ -10,7 +10,7 @@ const ZONES = [
 ];
 
 const AMORTISSEMENTS = [
-  { niveau: "Intermédiaire", montant: "8 000", taux: "3,5 %", texte: "Plafond annuel d'amortissement." },
+  { niveau: "Intermédiaire", montant: "8 000", taux: "3,5 %", texte: "Plafond annuel minimal d'amortissement." },
   { niveau: "Social", montant: "10 000", taux: "4,5 %", texte: "Avantage fiscal renforcé." },
   { niveau: "Très social", montant: "12 000", taux: "5,5 %", texte: "Niveau maximal d'incitation fiscale." },
 ];
