@@ -179,7 +179,7 @@ export const SimulateurSection = () => {
       className="w-full"
       style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}
     >
-      <div className="container mx-auto px-4 sm:px-6 pt-[136px] md:py-24 lg:pt-32">
+      <div className="container mx-auto px-4 sm:px-6 pt-[calc(136px+4rem)] md:py-24 lg:pt-32">
         <div className="mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-center">
           {/* ── COLONNE GAUCHE ── */}
           <div className="text-white space-y-4">
