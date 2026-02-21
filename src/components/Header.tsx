@@ -78,7 +78,7 @@ export const Header = () => {
           </span>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6">
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
@@ -101,7 +101,7 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-3 border-t border-border">
+          <div className="lg:hidden py-3 border-t border-border">
             <nav className="flex flex-col gap-3">
               {NAV_ITEMS.map((item) => (
                 <button
