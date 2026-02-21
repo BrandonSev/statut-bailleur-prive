@@ -418,7 +418,7 @@ export const SimulateurSection = () => {
                       </div>
 
                       {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-center">
                         <div className="flex items-center justify-between sm:flex-col sm:items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
                           <div>
                             <p className="text-gray-500 flex items-center gap-1">
@@ -480,8 +480,8 @@ export const SimulateurSection = () => {
                     </div>
 
                     <p className="text-[10px] text-gray-400 leading-relaxed">
-                      Simulation indicative : Ce calcul est basé sur les conditions, avantages et taux en vigueur dans
-                      l'article 47 du PLF 2026 publié au Journal Officiel.
+                      Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
+                      vigueur. Ne tenant pas compte d’une éventuelle optimisation complémentaire.
                     </p>
 
                     {/* CTA */}
