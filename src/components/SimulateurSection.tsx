@@ -431,7 +431,7 @@ export const SimulateurSection = () => {
                         <div className="flex flex-col items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100 w-full">
                           <p className="text-gray-500 mb-1 flex items-center gap-1">
                             <span className="w-2 h-2 rounded-full bg-gray-300 inline-block" />
-                            Achat sans dispositif
+                            Investissement locatif classique
                           </p>
                           <p className="text-gray-400 text-[10px] mb-0.5">Impôt annuel</p>
                           <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
@@ -440,7 +440,7 @@ export const SimulateurSection = () => {
                         <div className="flex flex-col items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-200 w-full">
                           <p className="text-blue-700 mb-1 flex items-center gap-1 font-medium">
                             <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-                            Achat avec Jeanbrun
+                            Avec amortissement Jeanbrun
                           </p>
                           <p className="text-blue-500 text-[10px] mb-0.5">Impôt annuel</p>
                           <p className="font-bold text-blue-700 text-base">{fmt(Math.max(r.impotTotalAvec, 0))} €</p>
@@ -505,7 +505,7 @@ export const SimulateurSection = () => {
                       style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
                     >
                       <div className="flex items-center justify-center gap-2 text-xl">
-                        <Calculator className="w-30 h-30" />
+                        <Calculator className="w-[50px] h-[40px]" />
                         <div>
                           Recevoir gratuitement ma simulation personnalisée
                           <p className="text-[10px] text-muted leading-relaxed">
