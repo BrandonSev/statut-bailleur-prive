@@ -181,6 +181,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 type="submit"
                 disabled={!consent || isLoading}
                 className="w-full py-3 rounded-xl text-primary-foreground font-semibold text-sm transition-opacity disabled:opacity-40 bg-primary hover:bg-primary/85"
+                style={{ background: "linear-gradient(135deg, #1a6bb5 0%, #0ea5b0 100%)" }}
               >
                 {isLoading ? "Envoi en cours…" : "Obtenir mon étude personnalisée"}
               </button>
