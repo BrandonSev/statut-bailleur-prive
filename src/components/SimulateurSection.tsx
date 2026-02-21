@@ -470,7 +470,7 @@ export const SimulateurSection = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                               </svg>
                             </div>
-                            <p className="text-[14px] font-semibold text-green-700 uppercase tracking-wide italic">
+                            <p className="text-[14px] font-semibold text-green-700 uppercase tracking-wide">
                               Économie fiscale estimée
                             </p>
                           </div>
@@ -482,7 +482,7 @@ export const SimulateurSection = () => {
                             <span className="font-semibold text-green-700">{fmt(r.economieSur9ans)} € </span>
                             <span>sur la période minimale de 9 ans</span>
                           </p>
-                          <p className="text-[10px] text-green-600 leading-1 mt-2">
+                          <p className="text-[10px] text-green-600 leading-1 mt-2 italic">
                             Estimation réalisée à partir des données que vous avez saisies et des textes du PLF 2026 en
                             vigueur. <br /> Ne tenant pas compte d’une éventuelle optimisation complémentaire.
                           </p>
