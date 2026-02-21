@@ -428,7 +428,7 @@ export const SimulateurSection = () => {
 
                       {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
                       <div className="grid grid-cols-2 gap-2 text-xs place-items-center">
-                        <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-100 w-full">
+                        <div className="flex flex-col items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100 w-full">
                           <p className="text-gray-500 mb-1 flex items-center gap-1">
                             <span className="w-2 h-2 rounded-full bg-gray-300 inline-block" />
                             Achat sans dispositif
@@ -437,7 +437,7 @@ export const SimulateurSection = () => {
                           <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
                           <p className="text-[10px] text-gray-400">d'impôts sur revenus fonciers</p>
                         </div>
-                        <div className="bg-blue-50 rounded-lg px-3 py-2 border border-blue-200 w-full">
+                        <div className="flex flex-col items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-200 w-full">
                           <p className="text-blue-700 mb-1 flex items-center gap-1 font-medium">
                             <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
                             Achat avec Jeanbrun
