@@ -155,7 +155,7 @@ export const ContactSection = () => {
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-foreground">Ville du projet</Label>
+                <Label className="text-foreground">Votre ville</Label>
                 <CityAutocomplete
                   value={form.ville}
                   onChange={(city, cp) => setForm({ ...form, ville: city, code_postal: cp })}
@@ -172,7 +172,7 @@ export const ContactSection = () => {
                   className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
                 <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
-                  J'accepte d'être recontacté(e) par un conseiller dans le cadre de cette demande.
+                  J’accepte d’être recontacté(e) pour une étude personnalisée de mon projet.
                 </label>
               </div>
 
