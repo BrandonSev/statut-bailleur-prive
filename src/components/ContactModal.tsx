@@ -177,6 +177,9 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 <li>✔ Adaptée à votre TMI</li>
               </ul>
               {apiError && <p className="text-xs text-destructive text-center">{apiError}</p>}
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Souhaitez-vous affiner cette estimation selon votre situation réelle ?
+              </p>
               <button
                 type="submit"
                 disabled={!consent || isLoading}
