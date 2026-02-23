@@ -426,6 +426,7 @@ export const SimulateurSection = () => {
 
                       {/* Ligne 2 — Sans dispositif vs Avec Jeanbrun */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-center">
+                        {/* Bloc classique */}
                         <div className="flex items-center justify-between sm:flex-col sm:items-center bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
                           <div>
                             <p className="text-gray-500 flex items-center gap-1">
@@ -435,10 +436,23 @@ export const SimulateurSection = () => {
                             <p className="text-gray-400 text-[10px]">Impôt annuel</p>
                           </div>
                           <div className="text-right sm:text-center">
-                            <p className="font-bold text-gray-700 text-base">{fmt(r.impotTotalSans)} €</p>
+                            <p className="font-bold text-gray-700 text-base flex items-center gap-1 sm:justify-center">
+                              {fmt(r.impotTotalSans)} €
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Info className="w-3 h-3 text-gray-400 cursor-help flex-shrink-0" />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-[260px] text-xs">
+                                  Calcul simplifié : Revenu foncier = Loyer annuel – 20 % de charges estimées. Impôt
+                                  estimé = Revenu foncier × (TMI sélectionnée + 17,2 %)
+                                </TooltipContent>
+                              </Tooltip>
+                            </p>
                             <p className="text-[10px] text-gray-400">sur revenus fonciers</p>
                           </div>
                         </div>
+
+                        {/* Bloc Jeanbrun */}
                         <div className="flex items-center justify-between sm:flex-col sm:items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-200">
                           <div>
                             <p className="text-blue-700 flex items-center gap-1 font-medium">
@@ -448,7 +462,19 @@ export const SimulateurSection = () => {
                             <p className="text-blue-500 text-[10px]">Impôt annuel</p>
                           </div>
                           <div className="text-right sm:text-center">
-                            <p className="font-bold text-blue-700 text-base">{fmt(Math.max(r.impotTotalAvec, 0))} €</p>
+                            <p className="font-bold text-blue-700 text-base flex items-center gap-1 sm:justify-center">
+                              {fmt(Math.max(r.impotTotalAvec, 0))} €
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Info className="w-3 h-3 text-blue-400 cursor-help flex-shrink-0" />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-[260px] text-xs">
+                                  {r.impotTotalAvec <= 0
+                                    ? "En cas de revenu foncier négatif, un déficit est constaté. Il s'impute d'abord sur les autres revenus fonciers du foyer fiscal. À défaut, une partie (hors intérêts d'emprunt) peut être imputable sur le revenu global dans la limite annuelle de 10 700 €, le surplus étant reportable sur les revenus fonciers futurs."
+                                    : "Calcul simplifié : Revenu foncier = Loyer annuel – 20 % de charges estimées – amortissement annuel Jeanbrun. Impôt estimé = Revenu foncier × (TMI sélectionnée + 17,2 %)"}
+                                </TooltipContent>
+                              </Tooltip>
+                            </p>
                             <p className="text-[10px] text-blue-500">sur revenus fonciers</p>
                           </div>
                         </div>
