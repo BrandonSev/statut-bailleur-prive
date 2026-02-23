@@ -13,7 +13,10 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="text-white/90" style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}>
+    <footer
+      className="text-white/90"
+      style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}
+    >
       <div className="container mx-auto px-6 py-12 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm md:justify-items-center">
           {/* Col 1 — À propos */}
@@ -74,7 +77,7 @@ export const Footer = () => {
                 </a>
               ))}
             </div>
-            <p className="text-white/50 text-xs space-y-1.5 mb-4 leading-relaxed">
+            <p className="text-white/50 text-xs space-y-1.5 mt-4 leading-relaxed">
               Les informations présentées ne constituent ni un conseil fiscal ni un conseil juridique personnalisé.
             </p>
           </div>
