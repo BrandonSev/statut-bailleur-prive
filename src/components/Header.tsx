@@ -3,9 +3,10 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { label: "Simulateur", id: "simulateur" },
-  { label: "Plafonds & taux", id: "plafonds" },
-  { label: "Comparatif Pinel", id: "comparatif" },
+  { label: "Simulateur fiscal", id: "simulateur" },
+  { label: "Plafonds de loyers & amortissement", id: "plafonds" },
+  { label: "Jeanbrun vs Pinel", id: "comparatif" },
+  { label: "Etude personnalisée", id: "comparatif" },
   { label: "FAQ", id: "faq" },
 ];
 
