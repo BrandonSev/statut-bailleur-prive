@@ -64,9 +64,13 @@ export const Footer = () => {
               <li>• Simulations fournies à titre indicatif et non contractuel</li>
             </ul>
             <div className="flex flex-col gap-1.5">
-              {["Mentions légales", "Politique de confidentialité", "CGU"].map((t) => (
-                <a key={t} href="#" className="text-white/40 text-xs hover:text-white/70 transition-colors">
-                  {t}
+              {[
+                { label: "Mentions légales", href: "/mentions-legales" },
+                { label: "Politique de confidentialité", href: "#" },
+                { label: "CGU", href: "#" },
+              ].map((t) => (
+                <a key={t.label} href={t.href} className="text-white/40 text-xs hover:text-white/70 transition-colors">
+                  {t.label}
                 </a>
               ))}
             </div>
