@@ -47,7 +47,7 @@ const faqs = [
   },
      {
     q: "Quelle est la différence entre le dispositif Jeanbrun et le Pinel, et pourquoi est-il présenté comme une alternative ?",
-    a: "Contrairement au Pinel qui reposait sur une réduction d’impôt, le dispositif Jeanbrun fonctionne par amortissement fiscal. Il s’inscrit dans une logique patrimoniale de détention longue et peut s’avérer plus performant pour les contribuables fortement imposés (TMI 30 % et plus). Il ne s’agit pas d’une réduction d’impôt Il s’agit d’un amortissement fiscal. Le dispositif n’est pas limité à certaines zones tendues. Il peut s’appliquer sur une durée plus longue que 9 ans",
+    a: "Contrairement au Pinel qui reposait sur une réduction d’impôt, le dispositif Jeanbrun fonctionne par amortissement fiscal. Il s’inscrit dans une logique patrimoniale de détention longue et peut s’avérer plus performant pour les contribuables fortement imposés (TMI 30 % et plus). Il ne s’agit pas d’une réduction d’impôt. Il s’agit d’un amortissement fiscal. Le dispositif n’est pas limité à certaines zones tendues. Il peut s’appliquer sur une durée plus longue que 9 ans",
   },
 ];
 
