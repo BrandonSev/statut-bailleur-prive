@@ -14,7 +14,7 @@ interface ContactModalProps {
 export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [form, setForm] = useState({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "" });
+  const [form, setForm] = useState({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "", cp: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
