@@ -66,7 +66,7 @@ export const Footer = () => {
             <div className="flex flex-col gap-1.5">
               {[
                 { label: "Mentions légales", href: "/mentions-legales" },
-                { label: "Politique de confidentialité", href: "#" },
+                { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
                 { label: "CGU", href: "#" },
               ].map((t) => (
                 <a key={t.label} href={t.href} className="text-white/40 text-xs hover:text-white/70 transition-colors">
