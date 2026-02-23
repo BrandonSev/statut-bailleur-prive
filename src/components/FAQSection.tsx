@@ -31,33 +31,23 @@ const faqs = [
   },
   {
     q: "Que se passe-t-il en cas de revente après 9 ans ?",
-    a: "Si l’engagement minimal de 9 ans est respecté, les amortissements pratiqués ne sont pas remis en cause.
-En revanche, en cas de rupture anticipée, les amortissements peuvent être réintégrés fiscalement.",
+    a: "Si l’engagement minimal de 9 ans est respecté, les amortissements pratiqués ne sont pas remis en cause. En revanche, en cas de rupture anticipée, les amortissements peuvent être réintégrés fiscalement.",
   },
   {
     q: "L’amortissement peut-il créer un déficit foncier ?",
-    a: "Oui.
-Si le montant de l’amortissement dépasse les revenus fonciers perçus, un déficit peut être constaté.
-Sous certaines conditions, ce déficit peut être imputé sur le revenu global dans la limite légale (10 700 € par an), le surplus étant reportable sur les revenus fonciers futurs.",
+    a: "Oui. Si le montant de l’amortissement dépasse les revenus fonciers perçus, un déficit peut être constaté. Sous certaines conditions, ce déficit peut être imputé sur le revenu global dans la limite légale (10 700 € par an), le surplus étant reportable sur les revenus fonciers futurs.",
   },
   {
     q: "Peut-on investir via une SCI à l’IR ?",
-    a: "Oui.
-Le dispositif est applicable aux sociétés non soumises à l’impôt sur les sociétés (SCI à l’IR notamment), sous réserve que les associés conservent leurs parts pendant la durée d’engagement locatif.",
+    a: "Oui. Le dispositif est applicable aux sociétés non soumises à l’impôt sur les sociétés (SCI à l’IR notamment), sous réserve que les associés conservent leurs parts pendant la durée d’engagement locatif.",
   },
    {
     q: "Peut-on louer à un membre de sa famille ? ",
-    a: "Non.
-Le logement ne peut pas être loué à un membre du foyer fiscal, ni à un ascendant ou descendant jusqu’au deuxième degré.,
+    a: "Non. Le logement ne peut pas être loué à un membre du foyer fiscal, ni à un ascendant ou descendant jusqu’au deuxième degré.,
   },
      {
     q: "Quelle est la différence entre le dispositif Jeanbrun et le Pinel, et pourquoi est-il présenté comme une alternative ?",
-    a: "Contrairement au Pinel qui reposait sur une réduction d’impôt, le dispositif Jeanbrun fonctionne par amortissement fiscal.
-Il s’inscrit dans une logique patrimoniale de détention longue et peut s’avérer plus performant pour les contribuables fortement imposés (TMI 30 % et plus).
-Il ne s’agit pas d’une réduction d’impôt
-Il s’agit d’un amortissement fiscal
-Le dispositif n’est pas limité à certaines zones tendues
-Il peut s’appliquer sur une durée plus longue que 9 ans",
+    a: "Contrairement au Pinel qui reposait sur une réduction d’impôt, le dispositif Jeanbrun fonctionne par amortissement fiscal. Il s’inscrit dans une logique patrimoniale de détention longue et peut s’avérer plus performant pour les contribuables fortement imposés (TMI 30 % et plus). Il ne s’agit pas d’une réduction d’impôt Il s’agit d’un amortissement fiscal. Le dispositif n’est pas limité à certaines zones tendues. Il peut s’appliquer sur une durée plus longue que 9 ans",
   },
 ];
 
