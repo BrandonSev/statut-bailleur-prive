@@ -172,7 +172,7 @@ export const ContactSection = () => {
                   className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
                 <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
-                  J’accepte d’être recontacté(e) pour une étude personnalisée de mon projet.
+                  J’accepte que mes données soient utilisées afin d’être recontacté(e) dans le cadre de ma demande.
                 </label>
               </div>
 
