@@ -153,7 +153,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 <CityAutocomplete
                   value={form.ville}
                   onChange={(city, _cp, insee) => {
-                    setForm({ ...form, ville: city + " " + _cp });
+                    setForm({ ...form, ville: city });
                   }}
                   placeholder="Rechercher une ville…"
                   className={`h-9 text-sm`}
@@ -168,7 +168,14 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 />
                 <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
                   J'accepte que mes données soient utilisées afin d'être recontacté(e) dans le cadre de ma demande.{" "}
-                  <a href="/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">Politique de confidentialité</a>
+                  <a
+                    href="/politique-de-confidentialite"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-primary"
+                  >
+                    Politique de confidentialité
+                  </a>
                 </label>
               </div>
               <ul>
