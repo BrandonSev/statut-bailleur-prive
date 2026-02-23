@@ -167,7 +167,8 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                   className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
                 <label htmlFor="consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
-                  J’accepte que mes données soient utilisées afin d’être recontacté(e) dans le cadre de ma demande.
+                  J'accepte que mes données soient utilisées afin d'être recontacté(e) dans le cadre de ma demande.{" "}
+                  <a href="/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">Politique de confidentialité</a>
                 </label>
               </div>
               <ul>
