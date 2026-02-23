@@ -67,7 +67,7 @@ export const Footer = () => {
               {[
                 { label: "Mentions légales", href: "/mentions-legales" },
                 { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
-                { label: "CGU", href: "#" },
+                { label: "CGU", href: "/cgu" },
               ].map((t) => (
                 <a key={t.label} href={t.href} className="text-white/40 text-xs hover:text-white/70 transition-colors">
                   {t.label}
