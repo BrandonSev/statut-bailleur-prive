@@ -153,7 +153,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
                 <CityAutocomplete
                   value={form.ville}
                   onChange={(city, _cp, insee) => {
-                    setForm({ ...form, ville: city });
+                    setForm({ ...form, ville: city, code_postal: _cp });
                   }}
                   placeholder="Rechercher une ville…"
                   className={`h-9 text-sm`}
