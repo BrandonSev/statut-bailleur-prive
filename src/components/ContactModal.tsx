@@ -59,7 +59,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
       setConsent(false);
       setApiError(null);
       setIsLoading(false);
-      setForm({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "" });
+      setForm({ civilite: "", nom: "", prenom: "", email: "", telephone: "", ville: "", code_postal: "" });
     }
     onOpenChange(v);
   };
