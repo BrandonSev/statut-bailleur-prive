@@ -13,7 +13,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[hsl(196,100%,10%)] text-white/80">
+    <footer className="text-white/90" style={{ background: "linear-gradient(135deg, #1346a8 0%, #1a6bb5 50%, #0ea5b0 100%)" }}>
       <div className="container mx-auto px-6 py-12 md:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-sm md:justify-items-center">
           {/* Col 1 — À propos */}
