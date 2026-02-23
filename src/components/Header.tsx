@@ -6,7 +6,7 @@ const NAV_ITEMS = [
   { label: "Simulateur fiscal", id: "simulateur" },
   { label: "Plafonds de loyers & amortissement", id: "plafonds" },
   { label: "Jeanbrun vs Pinel", id: "comparatif" },
-  { label: "Etude personnalisée", id: "comparatif" },
+  { label: "Etude personnalisée", id: "contact" },
   { label: "FAQ", id: "faq" },
 ];
 
