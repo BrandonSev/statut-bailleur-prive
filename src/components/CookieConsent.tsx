@@ -123,13 +123,13 @@ export const CookieConsent = () => {
             </>
           ) : (
             <>
-              <Button onClick={saveCustom} size="sm" className="flex-1">
+              <Button onClick={saveCustom} size="sm" className="flex-1 py-2">
                 Enregistrer mes choix
               </Button>
               <Button onClick={refuseAll} variant="outline" size="sm" className="flex-1">
                 Tout refuser
               </Button>
-              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1 py-2">
+              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1">
                 Tout accepter
               </Button>
             </>
