@@ -246,7 +246,7 @@ export const SimulateurSection = () => {
 
           {/* ── COLONNE DROITE — Formulaire ── */}
           <TooltipProvider delayDuration={200}>
-            <div className="rounded-xl shadow-xl overflow-hidden bg-white">
+            <div className="rounded-xl shadow-xl overflow-hidden bg-white max-w-[701px]">
               <div className="p-4 sm:p-5 space-y-3">
                 {/* 1 — Prix + Ville */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
