@@ -473,9 +473,10 @@ export const SimulateurSection = () => {
                                     "En cas de revenu foncier négatif, un déficit est constaté. Il s'impute d'abord sur les autres revenus fonciers du foyer fiscal. À défaut, une partie (hors intérêts d'emprunt) peut être imputable sur le revenu global dans la limite annuelle de 10 700 €, le surplus étant reportable sur les revenus fonciers futurs."
                                   ) : (
                                     <div className="text-left">
-                                      Calcul simplifié :<br /> Revenu foncier = Loyer annuel – 20 % de charges estimées – amortissement annuel
-                                      Jeanbrun. <br /> Impôt estimé = Revenu foncier × (TMI sélectionnée + 17,2 %)
-                                    </>
+                                      Calcul simplifié :<br /> Revenu foncier = Loyer annuel – 20 % de charges estimées
+                                      – amortissement annuel Jeanbrun. <br /> Impôt estimé = Revenu foncier × (TMI
+                                      sélectionnée + 17,2 %)
+                                    </div>
                                   )}
                                 </TooltipContent>
                               </Tooltip>
