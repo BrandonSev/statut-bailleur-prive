@@ -65,8 +65,8 @@ export const CookieConsent = () => {
       <div className="mx-auto max-w-2xl rounded-xl border border-border bg-card shadow-2xl p-5 md:p-6">
         <h3 className="text-base font-semibold text-foreground mb-2">🍪 Gestion des cookies</h3>
         <p className="text-sm text-muted-foreground mb-4">
-          Ce site utilise des cookies pour améliorer votre expérience, mesurer l'audience et personnaliser les contenus publicitaires.
-          Vous pouvez accepter, refuser ou paramétrer vos préférences.{" "}
+          Ce site utilise des cookies pour améliorer votre expérience, mesurer l'audience et personnaliser les contenus
+          publicitaires. Vous pouvez accepter, refuser ou paramétrer vos préférences.{" "}
           <Link to="/politique-de-confidentialite" className="text-primary underline hover:text-primary/80">
             En savoir plus
           </Link>
@@ -111,7 +111,7 @@ export const CookieConsent = () => {
         <div className="flex flex-col sm:flex-row gap-2">
           {!showDetails ? (
             <>
-              <Button onClick={acceptAll} size="sm" className="flex-1">
+              <Button onClick={acceptAll} size="sm" className="flex-1 py-3">
                 Tout accepter
               </Button>
               <Button onClick={refuseAll} variant="outline" size="sm" className="flex-1">
@@ -129,7 +129,7 @@ export const CookieConsent = () => {
               <Button onClick={refuseAll} variant="outline" size="sm" className="flex-1">
                 Tout refuser
               </Button>
-              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1">
+              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1 py-3">
                 Tout accepter
               </Button>
             </>
