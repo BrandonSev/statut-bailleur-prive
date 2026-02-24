@@ -111,7 +111,7 @@ export const CookieConsent = () => {
         <div className="flex flex-col sm:flex-row gap-2">
           {!showDetails ? (
             <>
-              <Button onClick={acceptAll} size="sm" className="flex-1 py-3">
+              <Button onClick={acceptAll} size="sm" className="flex-1 py-2">
                 Tout accepter
               </Button>
               <Button onClick={refuseAll} variant="outline" size="sm" className="flex-1">
@@ -129,7 +129,7 @@ export const CookieConsent = () => {
               <Button onClick={refuseAll} variant="outline" size="sm" className="flex-1">
                 Tout refuser
               </Button>
-              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1 py-3">
+              <Button onClick={acceptAll} variant="ghost" size="sm" className="flex-1 py-2">
                 Tout accepter
               </Button>
             </>
