@@ -204,18 +204,22 @@ export const SimulateurSection = () => {
               <span className="text-[#D4AF37]">DISPOSITIF JEANBRUN</span>
             </h2>
             <p className="text-base sm:text-lg text-white/90">
-              Le Statut du Bailleur Privé : Un nouveau levier fiscal pour les investisseurs immobiliers.
+              Statut du bailleur privé 2026 : anticipez l’effet Jeanbrun sur votre stratégie patrimoniale.
             </p>
             <p className="text-sm text-white/75 leading-relaxed">
-              La loi de finances 2026 introduit un mécanisme d'amortissement en location nue permettant de réduire
-              durablement la pression fiscale sur les revenus locatifs.
+              Le dispositif Jeanbrun permet d’amortir une partie significative de la valeur d’un bien neuf. <br />
+              Son efficacité dépend de votre situation fiscale, de votre horizon de détention et de votre stratégie
+              globale.
+              <br />
+              <br />
+              Simulez son impact avant toute décision.
             </p>
             <ul className="space-y-2 text-sm">
               {[
-                "Amortissement jusqu'à 80 % du prix (hors foncier)",
-                "Taux annuel de 3,5 % à 5,5 %",
-                "Engagement minimal de 9 ans",
-                "Absence de réintégration dans la plus-value",
+                "Réduction de vos revenus fonciers imposables",
+                "Amortissement fiscal jusqu’à 5,5 % par an",
+                "Optimisation selon votre TMI",
+                "Projection patrimoniale personnalisée",
               ].map((text, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="mt-0.5">•</span>
@@ -224,10 +228,15 @@ export const SimulateurSection = () => {
               ))}
             </ul>
             <p className="text-sm text-white/75 leading-relaxed">
-              Mesurez immédiatement l'impact sur votre situation fiscale.
+              Transformez la fiscalité en levier stratégique plutôt qu’en contrainte.
             </p>
             <ul className="space-y-2 text-sm">
-              {["Simulation gratuite", "Analyse simplifiée", "Sans engagement"].map((text, i) => (
+              {[
+                "Simulateur clair et rapide",
+                "Données strictement confidentielles",
+                "Analyse personnalisée sous 24h ouvrées",
+                "Sans engagement",
+              ].map((text, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <svg
                     className="w-4 h-4 flex-shrink-0"
