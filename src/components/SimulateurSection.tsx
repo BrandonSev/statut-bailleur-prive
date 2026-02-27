@@ -198,11 +198,11 @@ export const SimulateurSection = () => {
               </span>
               PLF2026 : Dispositif en vigueur
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
               Simulateur du
               <br />
               <span className="text-[#D4AF37]">DISPOSITIF JEANBRUN</span>
-            </h2>
+            </h1>
             <p className="text-base sm:text-lg text-white/90">
               Statut du bailleur privé 2026 : anticipez l’effet Jeanbrun sur votre stratégie patrimoniale.
             </p>
