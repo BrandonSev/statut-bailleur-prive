@@ -541,8 +541,37 @@ export const SimulateurSection = () => {
                               </TooltipContent>
                             </Tooltip>
                           </p>
-                        </div>
                       </div>
+                    </div>
+
+                      {/* Ligne 4 — Économie totale amortissement complet */}
+                      {(() => {
+                        const dureeMap: Record<NiveauLoyer, number> = {
+                          intermediaire: 28.5,
+                          social: 22.2,
+                          tres_social: 18.2,
+                        };
+                        const duree = dureeMap[niveauLoyer];
+                        const economieTotale = Math.round((parseFloat(prixAchat) || 0) * 0.8 * (tmi / 100 + TAUX_PS));
+                        return (
+                          <div className="rounded-lg bg-green-50 border border-green-200 px-3 py-2 text-center">
+                            <p className="text-xs font-medium text-green-700 flex items-center justify-center gap-1">
+                              <span>
+                                Soit <span className="font-bold text-green-800">{fmt(economieTotale)} €</span> d'économie d'impôts sur{" "}
+                                <span className="font-bold text-green-800">{duree.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} années</span> en amortissant la totalité du droit Jeanbrun
+                              </span>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Info className="w-3.5 h-3.5 text-green-500 cursor-help flex-shrink-0" />
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-[280px] text-xs">
+                                  Liberté d'amortir sur plus de 9 ans, voire jusqu'à l'amortissement total (80 % du prix d'acquisition TTC).
+                                </TooltipContent>
+                              </Tooltip>
+                            </p>
+                          </div>
+                        );
+                      })()}
                     </div>
 
                     <p className="text-lg text-gray-600 leading-relaxed text-center font-bold">
